@@ -1,14 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react';
+import Image from 'next/image';
 
 const NavBar = ({}) => {
-  const { user, loginWithRedirect, logout } = useAuth0();
+  const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <div>
-      {user && (
+      {isAuthenticated && (
         <div>
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
+          {user!.picture && (
+            <Image src={user!.picture} alt="" width="50" height="50"></Image>
+          )}
+
+          <h2>{user!.name}</h2>
+          <p>{user!.email}</p>
           <button
             onClick={() =>
               logout({

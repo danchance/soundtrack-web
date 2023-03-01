@@ -9,7 +9,8 @@ const App = ({ Component, pageProps }: AppProps) => {
       domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
       authorizationParams={{
-        redirect_uri: process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL
+        redirect_uri: process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL,
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
       }}
     >
       <Layout>
