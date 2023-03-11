@@ -4,6 +4,12 @@ import Image from 'next/image';
 const NavBar = ({}) => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
+  const getTrack = async () => {
+    const data = await fetch('http://localhost:8000/api/tracks/123');
+
+    console.log(await data.json());
+  };
+
   return (
     <div>
       {isAuthenticated && (
@@ -25,6 +31,7 @@ const NavBar = ({}) => {
           >
             Log Out
           </button>
+          <button onClick={getTrack}>Get Track</button>
         </div>
       )}
       {!user && (

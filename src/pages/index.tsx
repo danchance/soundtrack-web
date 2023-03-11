@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useState } from 'react';
+import SpotifyAuth from '@/components/spotify_auth';
 
 const Home = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -14,14 +15,14 @@ const Home = () => {
             audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
           }
         });
-        const testDataUrl = '';
+        const testDataUrl = 'http://localhost:8000/api/users/123';
         const response = await fetch(testDataUrl, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
         });
-        const { data } = await response.json();
-        setTestData(data);
+        const { user } = await response.json();
+        setTestData(user.email);
       } catch (error) {
         console.error(error);
       }
@@ -39,6 +40,7 @@ const Home = () => {
       </Head>
       <main>
         <div>{testData}</div>
+        {isAuthenticated && <SpotifyAuth />}
       </main>
     </>
   );
