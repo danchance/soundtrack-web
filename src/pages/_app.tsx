@@ -3,10 +3,22 @@ import '@/styles/globals.sass';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 import { Roboto_Flex } from '@next/font/google';
+import { ReactElement, ReactNode } from 'react';
+import { NextPage } from 'next';
 
 const roboto = Roboto_Flex({ subsets: ['latin'] });
 
-const App = ({ Component, pageProps }: AppProps) => {
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+};
+
+const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const getLayout = Component.getLayout ?? ((page) => page);
+
   return (
     <>
       <style jsx global>{`
@@ -22,9 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
       </Auth0Provider>
     </>
   );

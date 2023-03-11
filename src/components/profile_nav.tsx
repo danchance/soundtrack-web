@@ -5,7 +5,7 @@ import { useState } from 'react';
 /**
  * Used to define all items in the navigation list.
  */
-enum NavItem {
+export enum UserPage {
   PROFILE = 'Profile',
   RECAP = 'Recap',
   TRACKS = 'Tracks',
@@ -16,9 +16,9 @@ enum NavItem {
 /**
  * User Profile Navigation Component.
  */
-const ProfileNav = ({ user }: { user: string }) => {
+const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
   // Track the current active navigation item.
-  const [active, setActive] = useState<NavItem>(NavItem.PROFILE);
+  const [active, setActive] = useState<UserPage>(page);
   // Build the current path as all nav links are relative to this.
   const path = `/user/${user}`;
 
@@ -28,45 +28,45 @@ const ProfileNav = ({ user }: { user: string }) => {
         <li
           className={[
             styles['list'],
-            active === NavItem.PROFILE && styles['active']
+            active === UserPage.PROFILE && styles['active']
           ].join(' ')}
-          onClick={() => setActive(NavItem.PROFILE)}
+          onClick={() => setActive(UserPage.PROFILE)}
         >
           <Link href={`${path}`}>Profile</Link>
         </li>
         <li
           className={[
             styles['list'],
-            active === NavItem.RECAP && styles['active']
+            active === UserPage.RECAP && styles['active']
           ].join(' ')}
-          onClick={() => setActive(NavItem.RECAP)}
+          onClick={() => setActive(UserPage.RECAP)}
         >
           <Link href={`${path}/recap`}>Recap</Link>
         </li>
         <li
           className={[
             styles['list'],
-            active === NavItem.TRACKS && styles['active']
+            active === UserPage.TRACKS && styles['active']
           ].join(' ')}
-          onClick={() => setActive(NavItem.TRACKS)}
+          onClick={() => setActive(UserPage.TRACKS)}
         >
           <Link href={`${path}/tracks`}>Tracks</Link>
         </li>
         <li
           className={[
             styles['list'],
-            active === NavItem.ARTISTS && styles['active']
+            active === UserPage.ARTISTS && styles['active']
           ].join(' ')}
-          onClick={() => setActive(NavItem.ARTISTS)}
+          onClick={() => setActive(UserPage.ARTISTS)}
         >
           <Link href={`${path}/artists`}>Artists</Link>
         </li>
         <li
           className={[
             styles['list'],
-            active === NavItem.ALBUMS && styles['active']
+            active === UserPage.ALBUMS && styles['active']
           ].join(' ')}
-          onClick={() => setActive(NavItem.ALBUMS)}
+          onClick={() => setActive(UserPage.ALBUMS)}
         >
           <Link href={`${path}/albums`}>Albums</Link>
         </li>
