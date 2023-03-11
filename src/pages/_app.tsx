@@ -1,5 +1,5 @@
 import Layout from '@/components/layout';
-import '@/styles/globals.scss';
+import '@/styles/globals.sass';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 
