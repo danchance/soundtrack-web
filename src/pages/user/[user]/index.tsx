@@ -1,5 +1,5 @@
 import UserLayout from '@/components/user_layout';
-import styles from '@/styles/pages/profile.module.sass';
+import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement } from 'react';
 import { UserPage } from '@/components/profile_nav';

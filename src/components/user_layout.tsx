@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ProfileNav, { UserPage } from './profile_nav';
-import styles from '@/styles/pages/profile.module.sass';
+import styles from '@/styles/pages/user/profile.module.sass';
 
 type UserLayoutProps = {
   children: React.ReactNode;
