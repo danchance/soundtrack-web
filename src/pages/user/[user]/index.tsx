@@ -1,4 +1,4 @@
-import UserLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/user_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement } from 'react';
@@ -13,7 +13,7 @@ const Profile: NextPageWithLayout = () => {
   const user = router.query.user as string;
 
   return (
-    <div className={styles['profile']}>
+    <div className={styles['overview']}>
       <h2>Tracks</h2>
       <h2>Albums</h2>
       <h2>Artists</h2>
@@ -22,7 +22,7 @@ const Profile: NextPageWithLayout = () => {
 };
 
 Profile.getLayout = function getLayout(page: ReactElement) {
-  return <UserLayout page={UserPage.PROFILE}>{page}</UserLayout>;
+  return <ProfileLayout page={UserPage.PROFILE}>{page}</ProfileLayout>;
 };
 
 export default Profile;

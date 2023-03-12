@@ -1,5 +1,5 @@
 import { UserPage } from '@/components/profile_nav';
-import UserLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/user_layout';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { ReactElement } from 'react';
 
@@ -15,7 +15,7 @@ const Artists = () => {
 };
 
 Artists.getLayout = function getLayout(page: ReactElement) {
-  return <UserLayout page={UserPage.ARTISTS}>{page}</UserLayout>;
+  return <ProfileLayout page={UserPage.ARTISTS}>{page}</ProfileLayout>;
 };
 
 export default Artists;

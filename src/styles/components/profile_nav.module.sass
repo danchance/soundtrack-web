@@ -1,6 +1,7 @@
-@use "../variables"
+@use '../variables'
+@use 'sass:color'
   
-.navigation
+.navigation 
   position: relative
   width: 100%
 
@@ -10,46 +11,24 @@
     li
       position: relative
       min-width: variables.$profile-nav-item-width
-      padding-bottom: 0.75rem
       
       a
         position: relative
         display: flex
         justify-content: center
+        padding-bottom: 0.75rem
         text-decoration: none
 
       &.active 
         font-weight: 700
 
-      &:nth-child(1).active ~ .indicator 
-        transform: translateX(calc(variables.$profile-nav-item-width * 0))
-
-      &:nth-child(2).active ~ .indicator 
-        transform: translateX(calc(variables.$profile-nav-item-width * 1))
-
-      &:nth-child(3).active ~ .indicator 
-        transform: translateX(calc(variables.$profile-nav-item-width * 2))
-
-      &:nth-child(4).active ~ .indicator 
-        transform: translateX(calc(variables.$profile-nav-item-width * 3))
-
-      &:nth-child(5).active ~ .indicator 
-        transform: translateX(calc(variables.$profile-nav-item-width * 4))
-
-      &:nth-child(1).active ~ .indicator::before 
-        background-color: #33B6FF
-
-      &:nth-child(2).active ~ .indicator::before 
-        background-color: #3396ff
-
-      &:nth-child(3).active ~ .indicator::before 
-        background-color: #3376ff
-
-      &:nth-child(4).active ~ .indicator::before 
-        background-color: #3356ff
-
-      &:nth-child(5).active ~ .indicator::before 
-        background-color: #3336ff
+      @for $i from 1 through 6 
+        &:nth-child(#{$i}).active ~ .indicator 
+          transform: translateX(calc(($i - 1) * variables.$profile-nav-item-width))
+        
+      @for $i from 1 through 6
+        &:nth-child(#{$i}).active ~ .indicator::before
+          background-color: color.adjust(rgb(51, 182, 255), $green: -32 * ($i - 1))
 
     .indicator 
       position: absolute

@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import React from 'react';
 import ProfileNav, { UserPage } from './profile_nav';
-import styles from '@/styles/pages/user/profile.module.sass';
+import styles from '@/styles/components/profile_layout.module.sass';
 
-type UserLayoutProps = {
+type ProfileLayoutProps = {
   children: React.ReactNode;
   page: UserPage;
 };
@@ -11,7 +11,7 @@ type UserLayoutProps = {
 /**
  * Layout for all user pages.
  */
-const UserLayout = ({ children, page }: UserLayoutProps) => {
+const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   const router = useRouter();
   const user = router.query.user as string;
 
@@ -32,4 +32,4 @@ const UserLayout = ({ children, page }: UserLayoutProps) => {
   );
 };
 
-export default UserLayout;
+export default ProfileLayout;
