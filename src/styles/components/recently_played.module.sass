@@ -1,0 +1,74 @@
+.header
+  display: flex
+  justify-content: space-between
+  margin-bottom: 1rem
+
+  .options
+    display: flex
+    // align-items: center
+    padding: 0.4rem 0
+
+    button
+      background: none
+      border: none
+      border-right: 1px solid #eeeeee
+      margin-left: 0.5rem
+      padding-right: 0.5rem
+      cursor: pointer
+
+      &:last-child
+        border: none
+        padding-right: 0
+
+.track-table
+  border-collapse: collapse
+  width: 100%
+  table-layout: fixed
+
+  tr
+    border-bottom: 1px solid #eeeeee
+
+    &:hover
+      background-color: #373737
+
+      &:nth-child(2n)
+        background-color: #838383    
+
+    &:nth-child(2n)
+      background-color: #6e6e6e  
+
+    td
+      padding: 0.4rem 1rem
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+      a
+        text-decoration: none
+
+    .artwork-col
+      padding: 0.4rem 0
+      width: 50px
+
+      .artwork
+        display: block
+
+    .track-col
+      min-width: 30rem
+
+    .artist-col
+      min-width: 15rem
+
+    .time-col
+      width: 8rem
+      text-align: right  
+
+.footer
+  display: flex
+  justify-content: end
+  margin-top: 1rem
+
+  button
+    background: none
+    border: none
+    cursor: pointer

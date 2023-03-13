@@ -12,6 +12,12 @@ const nextConfig = {
         protocol: 'https',
         hostname: 's.gravatar.com',
         pathname: '/**'
+      },
+      // Spotify images
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        pathname: '/**'
       }
     ]
   }

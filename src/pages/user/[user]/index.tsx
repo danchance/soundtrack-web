@@ -1,9 +1,10 @@
 import ProfileLayout from '@/components/user_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { UserPage } from '@/components/profile_nav';
 import { useRouter } from 'next/router';
+import RecentlyPlayed from '@/components/recently_played';
 
 /**
  * User Profile page.
@@ -14,9 +15,19 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div className={styles['overview']}>
-      <h2>Tracks</h2>
-      <h2>Albums</h2>
-      <h2>Artists</h2>
+      <RecentlyPlayed />
+      <div className={styles['section']}>
+        <h2>Top Tracks</h2>
+      </div>
+      <div className={styles['section']}>
+        <h2>Top Albums</h2>
+      </div>
+      <div className={styles['section']}>
+        <h2>Top Artists</h2>
+      </div>
+      <div className={styles['section']}>
+        <h2>Top Genres</h2>
+      </div>
     </div>
   );
 };
