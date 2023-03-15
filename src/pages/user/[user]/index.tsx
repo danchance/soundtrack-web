@@ -15,7 +15,7 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div className={styles['overview']}>
-      <RecentlyPlayed />
+      <RecentlyPlayed user={user} />
       <div className={styles['section']}>
         <h2>Top Tracks</h2>
       </div>
