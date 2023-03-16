@@ -67,7 +67,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {
         track: {
           id: '4',
-          name: 'Track Four',
+          name: 'Track Four Four Four Four Four',
           duration: 191,
           artwork:
             'https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228',
@@ -112,7 +112,9 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                 ></Image>
               </Link>
               <div className={styles['info']}>
-                <Link href="#">{recent.track.name}</Link>
+                <Link href="#" className={styles['track-name']}>
+                  {recent.track.name}
+                </Link>
                 <Link href="#">{recent.track.artist}</Link>
                 <p>{recent.playedAt.toDateString()}</p>
               </div>
