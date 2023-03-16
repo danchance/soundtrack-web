@@ -60,7 +60,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
           duration: 191,
           artwork:
             'https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228',
-          artist: 'Artist One'
+          artist: 'Artist One One One One One One'
         },
         playedAt: new Date()
       },
