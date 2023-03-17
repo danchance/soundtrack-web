@@ -3,6 +3,7 @@ import styles from '@/styles/components/recently_played.module.sass';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import LoadingSpinner from './loading_spinner';
 
 type Track = {
   id: string;
@@ -46,7 +47,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
     return (
       <>
         {header}
-        <div className={styles['container']}>
+        <div className={styles['error']}>
           Looks like something went wrong! :(
         </div>
       </>
@@ -57,9 +58,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
     return (
       <>
         {header}
-        <div className={styles['container']}>
-          <div className={styles['loader']}></div>
-        </div>
+        <LoadingSpinner height={5} />
       </>
     );
   }

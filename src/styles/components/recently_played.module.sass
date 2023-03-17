@@ -23,6 +23,12 @@
         border: none
         padding-right: 0
 
+.error
+  display: flex
+  align-items: center
+  justify-content: center
+  min-height: 5rem
+
 .grid
   display: flex
   gap: 1.5rem
@@ -105,25 +111,4 @@
     background: none
     border: none
     cursor: pointer
-
-.container
-  display: flex
-  align-items: center
-  justify-content: center
-  min-height: 5rem
-
-  .loader 
-    width: 48px
-    height: 48px
-    border: 5px solid #FFF
-    border-bottom-color: transparent
-    border-radius: 50%
-    animation: rotation 1s linear infinite
-
-@keyframes rotation 
-  0% 
-    transform: rotate(0deg)
-  
-  100% 
-    transform: rotate(360deg)
-  
+ 
