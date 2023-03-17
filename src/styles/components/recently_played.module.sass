@@ -3,7 +3,9 @@
 .header
   display: flex
   justify-content: space-between
-  margin-bottom: 1rem
+  margin-bottom: 0.5rem
+  padding-bottom: 0.5rem
+  border-bottom: 1px solid #eeeeee
 
   .options
     display: flex
@@ -103,3 +105,25 @@
     background: none
     border: none
     cursor: pointer
+
+.container
+  display: flex
+  align-items: center
+  justify-content: center
+  min-height: 5rem
+
+  .loader 
+    width: 48px
+    height: 48px
+    border: 5px solid #FFF
+    border-bottom-color: transparent
+    border-radius: 50%
+    animation: rotation 1s linear infinite
+
+@keyframes rotation 
+  0% 
+    transform: rotate(0deg)
+  
+  100% 
+    transform: rotate(360deg)
+  

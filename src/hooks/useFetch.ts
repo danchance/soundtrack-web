@@ -24,9 +24,9 @@ type Action =
  */
 const useFetch = (url: string): State => {
   const initialState: State = {
-    isLoading: false,
+    isLoading: true,
     error: null,
-    data: []
+    data: null
   };
 
   const [state, dispatch] = useReducer(
@@ -50,6 +50,7 @@ const useFetch = (url: string): State => {
   );
 
   useEffect(() => {
+    console.log('hello');
     let cancelRequest = false;
     if (!url) return;
     (async () => {
@@ -59,6 +60,7 @@ const useFetch = (url: string): State => {
         const data = await response.json();
         if (cancelRequest) return;
         dispatch({ type: Status.FETCHED, results: data });
+        console.log(data);
       } catch (error) {
         if (cancelRequest) return;
         if (error instanceof Error) {

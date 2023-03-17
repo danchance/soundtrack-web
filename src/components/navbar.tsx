@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Image from 'next/image';
+import styles from '@/styles/components/navbar.module.sass';
 
 const NavBar = ({}) => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -11,7 +12,7 @@ const NavBar = ({}) => {
   };
 
   return (
-    <div>
+    <div className={styles['container']}>
       {isAuthenticated && (
         <div>
           {user!.picture && (
