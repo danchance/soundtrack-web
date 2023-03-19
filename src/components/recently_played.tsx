@@ -1,5 +1,6 @@
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/components/recently_played.module.sass';
+import formatDate from '@/utils/format_date';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -89,7 +90,6 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                   {stream.track.name}
                 </Link>
                 <Link href="#">{stream.track.artists[0].name}</Link>
-                {/* <p>{stream.playedAt.toDateString()}</p> */}
                 <p>{stream.played_at}</p>
               </div>
             </div>
@@ -119,8 +119,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                   <Link href="#">{stream.track.artists[0].name}</Link>
                 </td>
                 <td className={styles['time-col']}>
-                  {/* <p>{stream.playedAt.toDateString()}</p> */}
-                  <p>{stream.played_at}</p>
+                  <p>{formatDate(stream.played_at)}</p>
                 </td>
               </tr>
             ))}
