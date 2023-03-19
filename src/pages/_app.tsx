@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { Roboto_Flex } from 'next/font/google';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
 const roboto = Roboto_Flex({ subsets: ['latin'] });
 
@@ -17,6 +18,7 @@ type AppPropsWithLayout = AppProps & {
 };
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+  const router = useRouter();
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
@@ -33,6 +35,8 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           redirect_uri: process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL,
           audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
         }}
+        // Need Auth0 to ignore code and state params when authenticating with Spotify
+        skipRedirectCallback={router.pathname === '/settings'}
       >
         <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
       </Auth0Provider>

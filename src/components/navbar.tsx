@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Image from 'next/image';
 import styles from '@/styles/components/navbar.module.sass';
+import { useEffect } from 'react';
 
 const NavBar = ({}) => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -11,6 +12,10 @@ const NavBar = ({}) => {
     console.log(await data.json());
   };
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   return (
     <div className={styles['container']}>
       {isAuthenticated && (
@@ -19,7 +24,7 @@ const NavBar = ({}) => {
             <Image src={user!.picture} alt="" width="50" height="50"></Image>
           )}
 
-          <h2>{user!.name}</h2>
+          <h2>{user!.username}</h2>
           <p>{user!.email}</p>
           <button
             onClick={() =>

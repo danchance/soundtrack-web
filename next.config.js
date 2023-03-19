@@ -6,11 +6,7 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        pathname: '/**'
-      },
+      // Auth0 default profile images
       {
         protocol: 'https',
         hostname: 's.gravatar.com',

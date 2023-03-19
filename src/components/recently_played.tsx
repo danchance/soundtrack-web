@@ -48,7 +48,8 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       <>
         {header}
         <div className={styles['error']}>
-          Looks like something went wrong! :(
+          <p>Looks like something went wrong! :(</p>
+          <button>Try again</button>
         </div>
       </>
     );

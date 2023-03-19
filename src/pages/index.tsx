@@ -7,28 +7,28 @@ const Home = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [testData, setTestData] = useState<string>('');
 
-  useEffect(() => {
-    const getTestData = async () => {
-      try {
-        const accessToken = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
-          }
-        });
-        const testDataUrl = 'http://localhost:8000/api/users/123';
-        const response = await fetch(testDataUrl, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        });
-        const { user } = await response.json();
-        setTestData(user.email);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getTestData();
-  });
+  // useEffect(() => {
+  //   const getTestData = async () => {
+  //     try {
+  //       const accessToken = await getAccessTokenSilently({
+  //         authorizationParams: {
+  //           audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
+  //         }
+  //       });
+  //       const testDataUrl = 'http://localhost:8000/api/users/123';
+  //       const response = await fetch(testDataUrl, {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`
+  //         }
+  //       });
+  //       const { user } = await response.json();
+  //       setTestData(user.email);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getTestData();
+  // });
 
   return (
     <>
@@ -40,7 +40,6 @@ const Home = () => {
       </Head>
       <main>
         <div>{testData}</div>
-        {isAuthenticated && <SpotifyAuth />}
       </main>
     </>
   );
