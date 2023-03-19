@@ -2,7 +2,7 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/components/recently_played.module.sass';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoadingSpinner from './loading_spinner';
 
 type Track = {
@@ -32,6 +32,10 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
     `http://localhost:8000/api/users/${user}/history`
   );
   const [view, setView] = useState<View>(View.LIST);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   const header = (
     <div className={styles['header']}>
@@ -69,12 +73,12 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {header}
       {view === View.GRID && (
         <div className={styles['grid']}>
-          {data.tracks.map((stream: StreamedTrack, index: number) => (
+          {data.tracks.map((stream: any, index: number) => (
             <div key={index} className={styles['track']}>
               <Link href="#">
                 <Image
                   className={styles['artwork']}
-                  src={stream.track.artwork}
+                  src={stream.track.album.images[0].url}
                   alt={stream.track.name}
                   width={150}
                   height={150}
@@ -84,9 +88,9 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                 <Link href="#" className={styles['track-name']}>
                   {stream.track.name}
                 </Link>
-                <Link href="#">{stream.track.artist}</Link>
+                <Link href="#">{stream.track.artists[0].name}</Link>
                 {/* <p>{stream.playedAt.toDateString()}</p> */}
-                <p>{stream.playedAt}</p>
+                <p>{stream.played_at}</p>
               </div>
             </div>
           ))}
@@ -101,10 +105,10 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                   <Link href="#">
                     <Image
                       className={styles['artwork']}
-                      src={stream.track.artwork}
+                      src={stream.track.album.images[0].url}
                       alt={stream.track.name}
-                      width={50}
-                      height={50}
+                      width={40}
+                      height={40}
                     ></Image>
                   </Link>
                 </td>
@@ -112,11 +116,11 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
                   <Link href="#">{stream.track.name}</Link>
                 </td>
                 <td className={styles['artist-col']}>
-                  <Link href="#">{stream.track.artist}</Link>
+                  <Link href="#">{stream.track.artists[0].name}</Link>
                 </td>
                 <td className={styles['time-col']}>
                   {/* <p>{stream.playedAt.toDateString()}</p> */}
-                  <p>{stream.playedAt}</p>
+                  <p>{stream.played_at}</p>
                 </td>
               </tr>
             ))}
