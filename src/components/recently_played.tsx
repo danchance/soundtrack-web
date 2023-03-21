@@ -6,16 +6,32 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import LoadingSpinner from './loading_spinner';
 
+type Artist = {
+  id: string;
+  name: string;
+  image: string;
+};
+
+type Album = {
+  id: string;
+  name: string;
+  artwork: string;
+  releaseYear: number;
+  trackNum: number;
+  type: string;
+  Artist: Artist;
+};
+
 type Track = {
   id: string;
   name: string;
   duration: number;
-  artwork: string;
-  artist: string;
+  Album: Album;
 };
 
 type StreamedTrack = {
-  track: Track;
+  id: number;
+  Track: Track;
   playedAt: string;
 };
 
@@ -74,23 +90,23 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {header}
       {view === View.GRID && (
         <div className={styles['grid']}>
-          {data.tracks.map((stream: any, index: number) => (
-            <div key={index} className={styles['track']}>
+          {data.tracks.map((stream: StreamedTrack) => (
+            <div key={stream.id} className={styles['track']}>
               <Link href="#">
                 <Image
                   className={styles['artwork']}
-                  src={stream.track.album.images[0].url}
-                  alt={stream.track.name}
+                  src={stream.Track.Album.artwork}
+                  alt={stream.Track.name}
                   width={150}
                   height={150}
                 ></Image>
               </Link>
               <div className={styles['info']}>
                 <Link href="#" className={styles['track-name']}>
-                  {stream.track.name}
+                  {stream.Track.name}
                 </Link>
-                <Link href="#">{stream.track.artists[0].name}</Link>
-                <p>{stream.played_at}</p>
+                <Link href="#">{stream.Track.Album.Artist.name}</Link>
+                <p className={styles['time']}>{formatDate(stream.playedAt)}</p>
               </div>
             </div>
           ))}
@@ -99,27 +115,27 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {view === View.LIST && (
         <table className={styles['list']}>
           <tbody>
-            {data.tracks.map((stream: any, index: number) => (
-              <tr key={index}>
+            {data.tracks.map((stream: StreamedTrack) => (
+              <tr key={stream.id}>
                 <td className={styles['artwork-col']}>
                   <Link href="#">
                     <Image
                       className={styles['artwork']}
-                      src={stream.track.album.images[0].url}
-                      alt={stream.track.name}
+                      src={stream.Track.Album.artwork}
+                      alt={stream.Track.name}
                       width={40}
                       height={40}
                     ></Image>
                   </Link>
                 </td>
                 <td className={styles['track-col']}>
-                  <Link href="#">{stream.track.name}</Link>
+                  <Link href="#">{stream.Track.name}</Link>
                 </td>
                 <td className={styles['artist-col']}>
-                  <Link href="#">{stream.track.artists[0].name}</Link>
+                  <Link href="#">{stream.Track.Album.Artist.name}</Link>
                 </td>
                 <td className={styles['time-col']}>
-                  <p>{formatDate(stream.played_at)}</p>
+                  <p>{formatDate(stream.playedAt)}</p>
                 </td>
               </tr>
             ))}

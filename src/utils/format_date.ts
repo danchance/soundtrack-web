@@ -20,9 +20,9 @@ const formatDate = (dateString: string): string => {
     formattedDate = `${date.toLocaleString('default', {
       month: 'short'
     })} ${date.getDate()}`;
-  }
-  if (date.getFullYear() !== today.getFullYear()) {
-    formattedDate = `${formattedDate} ${date.getFullYear()}`;
+    if (date.getFullYear() !== today.getFullYear()) {
+      formattedDate = `${formattedDate} ${date.getFullYear()}`;
+    }
   }
   formattedDate = `${formattedDate} ${date.toLocaleTimeString([], {
     hour: '2-digit',
