@@ -6,10 +6,10 @@ enum Status {
   ERROR
 }
 
-type State = {
+type State<T> = {
   isLoading: Boolean;
   error: null | string;
-  data: any;
+  data: null | T;
 };
 
 type Action =
@@ -22,15 +22,15 @@ type Action =
  * @param url The url for the request.
  * @returns isLoading, error and data.
  */
-const useFetch = (url: string): State => {
-  const initialState: State = {
+const useFetch = <T>(url: string): State<T> => {
+  const initialState: State<T> = {
     isLoading: true,
     error: null,
     data: null
   };
 
   const [state, dispatch] = useReducer(
-    (state: State, action: Action): State => {
+    (state: State<T>, action: Action): State<T> => {
       switch (action.type) {
         case Status.LOADING:
           return { isLoading: true, error: null, data: null };
@@ -74,7 +74,6 @@ const useFetch = (url: string): State => {
       cancelRequest = true;
     };
 
-    const fetchData = async () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
