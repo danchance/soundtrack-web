@@ -55,9 +55,9 @@ const Profile: NextPageWithLayout = () => {
 
   if (isLoading) {
     return (
-      <>
+      <div className={styles['spinner']}>
         <LoadingSpinner height={5} />
-      </>
+      </div>
     );
   }
 

@@ -44,7 +44,7 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
   const heading = `Top ${itemType}s`;
 
   return (
-    <>
+    <div className={styles['top-items']}>
       <div className={styles['header']}>
         <h2>{heading}</h2>
         <div className={styles['options']}>
@@ -110,9 +110,9 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
         </div>
       )}
       <div className={styles['footer']}>
-        <button>View All</button>
+        <Link href="#">View All</Link>
       </div>
-    </>
+    </div>
   );
 };
 

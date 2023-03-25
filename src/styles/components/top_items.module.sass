@@ -1,78 +1,81 @@
-.header
-  display: flex
-  justify-content: space-between
-  margin-bottom: 0.5rem
-  padding-bottom: 0.5rem
-  border-bottom: 1px solid #eeeeee
-
-  .options
+.top-items
+  .header
     display: flex
-    padding: 0.4rem 0
+    justify-content: space-between
+    margin-bottom: 0.5rem
+    padding-bottom: 0.5rem
+    border-bottom: 1px solid #eeeeee
 
-    button
-      background: none
-      border: none
-      border-right: 1px solid #eeeeee
-      margin-left: 0.5rem
-      padding-right: 0.5rem
-      cursor: pointer
+    .options
+      display: flex
+      padding: 0.4rem 0
 
-      &:last-child
+      button
+        background: none
         border: none
-        padding-right: 0
-  
-.grid
-  display: grid
-  grid-template-columns: repeat(5, 1fr)
+        border-right: 1px solid #eeeeee
+        margin-left: 0.5rem
+        padding-right: 0.5rem
+        cursor: pointer
 
-  .item
-    position: relative
-    aspect-ratio: 1/1
-    overflow: hidden
+        &:last-child
+          border: none
+          padding-right: 0
+    
+  .grid
+    display: grid
+    grid-template-columns: repeat(5, 1fr)
 
-    .info
-      position: absolute
-      width: 100%
-      height: 4.5rem
-      bottom: 2rem
-      padding: 0.5rem
-      background-color: rgba(0, 0, 0, 0.65)
-      transform: translateY(100%)
-      transition: transform 0.5s, opacity 0.5s
-      transition: transform 0.5s, bottom 0.5s
+    .item
+      position: relative
+      aspect-ratio: 1/1
+      overflow: hidden
 
-      h3, h4
-        width: fit-content
-        max-width: 100%
-        font-size: 1rem
-        font-weight: 600
-        margin-bottom: 0.3rem
+      .info
+        position: absolute
+        width: 100%
+        height: 4.5rem
+        bottom: 2rem
+        padding: 0.5rem
+        background-color: rgba(0, 0, 0, 0.65)
+        transform: translateY(100%)
+        transition: transform 0.5s, opacity 0.5s
+        transition: transform 0.5s, bottom 0.5s
 
-      h4
-        font-size: 0.8rem
-        font-weight: 300
+        h3, h4
+          width: fit-content
+          max-width: 100%
+          font-size: 1rem
+          font-weight: 600
+          margin-bottom: 0.3rem
 
-      a 
-        display: block
-        white-space: nowrap
-        overflow: hidden
-        text-overflow: ellipsis
-        text-decoration: none
+        h4
+          font-size: 0.8rem
+          font-weight: 300
 
-        &:hover
-          text-decoration: underline
+        a 
+          display: block
+          white-space: nowrap
+          overflow: hidden
+          text-overflow: ellipsis
+          text-decoration: none
 
-    &:hover .info
-      bottom: 0
-      transform: translateY(0)
+          &:hover
+            text-decoration: underline
 
-.footer
-  display: flex
-  justify-content: flex-end
-  margin-top: 1rem
-  margin-bottom: 4rem
+      &:hover .info
+        bottom: 0
+        transform: translateY(0)
 
-  button
-    background: none
-    border: none
-    cursor: pointer
+  .footer
+    display: flex
+    justify-content: flex-end
+    margin-top: 1rem
+    margin-bottom: 4rem
+
+  a
+    font-size: 0.9rem
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline

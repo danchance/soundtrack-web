@@ -38,7 +38,7 @@ const RecentlyPlayed = ({ trackList }: RecentlyPlayedProps) => {
   );
 
   return (
-    <>
+    <div className={styles['recent-tracks']}>
       {header}
       {view === View.GRID && (
         <div className={styles['grid']}>
@@ -95,9 +95,9 @@ const RecentlyPlayed = ({ trackList }: RecentlyPlayedProps) => {
         </table>
       )}
       <div className={styles['footer']}>
-        <button>View All</button>
+        <Link href="#">View All</Link>
       </div>
-    </>
+    </div>
   );
 };
 
