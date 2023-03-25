@@ -33,15 +33,15 @@ const useFetch = (url: string): State => {
     (state: State, action: Action): State => {
       switch (action.type) {
         case Status.LOADING:
-          return { ...initialState, isLoading: true };
+          return { isLoading: true, error: null, data: null };
         case Status.FETCHED:
           return {
-            ...initialState,
             isLoading: false,
-            data: action.results
+            data: action.results,
+            error: null
           };
         case Status.ERROR:
-          return { ...initialState, error: action.error };
+          return { isLoading: false, error: action.error, data: null };
         default:
           return state;
       }
@@ -50,7 +50,6 @@ const useFetch = (url: string): State => {
   );
 
   useEffect(() => {
-    console.log('hello');
     let cancelRequest = false;
     if (!url) return;
     (async () => {
@@ -60,7 +59,6 @@ const useFetch = (url: string): State => {
         const data = await response.json();
         if (cancelRequest) return;
         dispatch({ type: Status.FETCHED, results: data });
-        console.log(data);
       } catch (error) {
         if (cancelRequest) return;
         if (error instanceof Error) {
@@ -75,6 +73,9 @@ const useFetch = (url: string): State => {
     return () => {
       cancelRequest = true;
     };
+
+    const fetchData = async () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   return { ...state };

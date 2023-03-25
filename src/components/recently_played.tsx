@@ -48,10 +48,12 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
   const { isLoading, error, data } = useFetch(
     `http://localhost:8000/api/users/${user}/history`
   );
+  const [tracks, setTracks] = useState<StreamedTrack[]>([]);
   const [view, setView] = useState<View>(View.LIST);
 
   useEffect(() => {
-    console.log(data);
+    if (!data || !data.tracks) return;
+    setTracks(data.tracks);
   }, [data]);
 
   const header = (
@@ -90,7 +92,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {header}
       {view === View.GRID && (
         <div className={styles['grid']}>
-          {data.tracks.map((stream: StreamedTrack) => (
+          {tracks.map((stream: StreamedTrack) => (
             <div key={stream.id} className={styles['track']}>
               <Link href="#">
                 <Image
@@ -115,7 +117,7 @@ const RecentlyPlayed = ({ user }: { user: string }) => {
       {view === View.LIST && (
         <table className={styles['list']}>
           <tbody>
-            {data.tracks.map((stream: StreamedTrack) => (
+            {tracks.map((stream: StreamedTrack) => (
               <tr key={stream.id}>
                 <td className={styles['artwork-col']}>
                   <Link href="#">

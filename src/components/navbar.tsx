@@ -9,11 +9,11 @@ const NavBar = ({}) => {
   const getTrack = async () => {
     const data = await fetch('http://localhost:8000/api/tracks/123');
 
-    console.log(await data.json());
+    // console.log(await data.json());
   };
 
   useEffect(() => {
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   return (
