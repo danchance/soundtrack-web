@@ -1,31 +1,68 @@
+import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/profile_nav';
 import RecentlyPlayed from '@/components/recently_played';
+import TopItems, { TopItemTypes } from '@/components/top_items';
 import ProfileLayout from '@/components/user_layout';
+import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
-import { ReactElement, useEffect } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
+
+type TopTracks = {
+  tracks: Array<TopTrack>;
+};
+
+type TopTrack = {
+  id: string;
+  artistName: string;
+  trackName: string;
+  artwork: string;
+  count: number;
+};
 
 /**
  * User Tracks page.
  */
 const Tracks = () => {
+  const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const user = router.query.user as string;
+  const { isLoading, error, data } = useFetch<TopTracks>(url);
 
   useEffect(() => {
-    (async () => {
-      if (user !== undefined) {
-        const data = await fetch(
-          `http://localhost:8000/api/users/${user}/tracks`
-        );
-        console.log(await data.json());
-      }
-    })();
-  }, [user]);
+    if (router.query.user !== undefined) {
+      setUrl(
+        `http://localhost:8000/api/users/${router.query.user as string}/tracks`
+      );
+    }
+  }, [router.query.user]);
+
+  if (error) {
+    return (
+      <>
+        <div className={styles['error']}>
+          <p>Looks like something went wrong! :(</p>
+          <button>Try again</button>
+        </div>
+      </>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <LoadingSpinner height={5} />
+      </>
+    );
+  }
 
   return (
     <div className={styles['tracks']}>
-      {/* <RecentlyPlayed user={user} /> */}
+      {data && (
+        <TopItems
+          itemList={data.tracks}
+          itemType={TopItemTypes.ALBUM}
+        ></TopItems>
+      )}
     </div>
   );
 };

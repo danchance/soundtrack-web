@@ -29,6 +29,10 @@ type Track = {
   Album: Album;
 };
 
+type RecentlyPlayed = {
+  tracks: Array<StreamedTrack>;
+};
+
 type StreamedTrack = {
   id: number;
   Track: Track;
@@ -42,10 +46,10 @@ enum View {
 
 /**
  * Component for displaying a users recently played tracks.
- * @param user id of the user.
+ * @param user The username of the user to display.
  */
 const RecentlyPlayed = ({ user }: { user: string }) => {
-  const { isLoading, error, data } = useFetch(
+  const { isLoading, error, data } = useFetch<RecentlyPlayed>(
     `http://localhost:8000/api/users/${user}/history`
   );
   const [tracks, setTracks] = useState<StreamedTrack[]>([]);
