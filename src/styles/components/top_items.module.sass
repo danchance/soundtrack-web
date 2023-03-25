@@ -1,3 +1,26 @@
+.header
+  display: flex
+  justify-content: space-between
+  margin-bottom: 0.5rem
+  padding-bottom: 0.5rem
+  border-bottom: 1px solid #eeeeee
+
+  .options
+    display: flex
+    padding: 0.4rem 0
+
+    button
+      background: none
+      border: none
+      border-right: 1px solid #eeeeee
+      margin-left: 0.5rem
+      padding-right: 0.5rem
+      cursor: pointer
+
+      &:last-child
+        border: none
+        padding-right: 0
+  
 .grid
   display: grid
   grid-template-columns: repeat(5, 1fr)
@@ -10,16 +33,46 @@
     .info
       position: absolute
       width: 100%
-      height: 40%
-      bottom: 1.8rem
+      height: 4.5rem
+      bottom: 2rem
       padding: 0.5rem
-      pointer-events: none
-      background-color: rgba(0, 0, 0, 0.6)
+      background-color: rgba(0, 0, 0, 0.65)
       transform: translateY(100%)
       transition: transform 0.5s, opacity 0.5s
       transition: transform 0.5s, bottom 0.5s
-      
+
+      h3, h4
+        width: fit-content
+        max-width: 100%
+        font-size: 1rem
+        font-weight: 600
+        margin-bottom: 0.3rem
+
+      h4
+        font-size: 0.8rem
+        font-weight: 300
+
+      a 
+        display: block
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        text-decoration: none
+
+        &:hover
+          text-decoration: underline
 
     &:hover .info
       bottom: 0
       transform: translateY(0)
+
+.footer
+  display: flex
+  justify-content: flex-end
+  margin-top: 1rem
+  margin-bottom: 4rem
+
+  button
+    background: none
+    border: none
+    cursor: pointer

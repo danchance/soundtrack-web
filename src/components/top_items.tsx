@@ -2,6 +2,9 @@ import { useState } from 'react';
 import styles from '@/styles/components/top_items.module.sass';
 import Image from 'next/image';
 import Link from 'next/link';
+import GridSVG from '@/assets/icons/grid.svg';
+import ListSVG from '@/assets/icons/list.svg';
+import GraphSVG from '@/assets/icons/graph.svg';
 
 type TopItemsProps = {
   itemList: Array<Item>;
@@ -31,67 +34,83 @@ enum View {
 
 /**
  * Component used to display either a users top tracks, albums or artists.
- * @param user The username of the user to display.
- * @param item The type of item to display.
+ * @param itemList The list of items to display.
+ * @param itemType The type of item we are displaying.
  * @returns
  */
 const TopItems = ({ itemList, itemType }: TopItemsProps) => {
-  const [view, setView] = useState<View>(View.LIST);
+  const [view, setView] = useState<View>(View.GRID);
   // Set correct heading based on item type we are displaying.
   const heading = `Top ${itemType}s`;
 
-  console.log(itemList);
-
-  const header = (
-    <div className={styles['header']}>
-      <h2>{heading}</h2>
-      <div className={styles['options']}>
-        <button onClick={() => setView(View.GRID)}>Grid</button>
-        <button onClick={() => setView(View.LIST)}>List</button>
-        <button onClick={() => setView(View.GRAPH)}>Graph</button>
-      </div>
-    </div>
-  );
   return (
     <>
       <div className={styles['header']}>
         <h2>{heading}</h2>
         <div className={styles['options']}>
-          <button onClick={() => setView(View.GRID)}>Grid</button>
-          <button onClick={() => setView(View.LIST)}>List</button>
-          <button onClick={() => setView(View.GRAPH)}>Graph</button>
+          <button onClick={() => setView(View.GRID)}>
+            <Image src={GridSVG} alt="Grid Icon" width={16} height={16}></Image>
+          </button>
+          <button onClick={() => setView(View.LIST)}>
+            <Image src={ListSVG} alt="List Icon" width={16} height={16}></Image>
+          </button>
+          <button onClick={() => setView(View.GRAPH)}>
+            <Image
+              src={GraphSVG}
+              alt="Graph Icon"
+              width={16}
+              height={16}
+            ></Image>
+          </button>
         </div>
       </div>
-      <div className={styles['grid']}>
-        {itemList.map((item) => (
-          <div className={styles['item']} key={item.id}>
-            <Link href="#" className={styles['artwork']}>
-              <Image
-                src={item.artwork}
-                alt={`${itemType} artwork`}
-                fill
-              ></Image>
-            </Link>
-            <div className={styles['info']}>
-              {itemType === TopItemTypes.ALBUM && (
-                <h3>
-                  <Link href="#">{item.albumName}</Link>
-                </h3>
-              )}
-              {itemType === TopItemTypes.TRACK && (
-                <h3>
-                  <Link href="#">{item.trackName}</Link>
-                </h3>
-              )}
-              <h4>
-                <Link href="#">{item.artistName}</Link>
-              </h4>
-              <h4>
-                <Link href="#">{item.count} streams</Link>
-              </h4>
+      {view === View.GRID && (
+        <div className={styles['grid']}>
+          {itemList.map((item) => (
+            <div className={styles['item']} key={item.id}>
+              <Link href="#" className={styles['artwork']}>
+                <Image
+                  src={item.artwork}
+                  alt={`${itemType} artwork`}
+                  fill
+                ></Image>
+              </Link>
+              <div className={styles['info']}>
+                {itemType === TopItemTypes.ALBUM && (
+                  <>
+                    <h3 className={styles['album-name']}>
+                      <Link href="#">{item.albumName}</Link>
+                    </h3>
+                    <h4 className={styles['artist-name']}>
+                      <Link href="#">{item.artistName}</Link>
+                    </h4>
+                  </>
+                )}
+                {itemType === TopItemTypes.TRACK && (
+                  <>
+                    <h3 className={styles['track-name']}>
+                      <Link href="#">{item.trackName}</Link>
+                    </h3>
+                    <h4 className={styles['artist-name']}>
+                      <Link href="#">{item.artistName}</Link>
+                    </h4>
+                  </>
+                )}
+                {itemType === TopItemTypes.ARTIST && (
+                  <h3 className={styles['artist-name']}>
+                    <Link href="#">{item.artistName}</Link>
+                  </h3>
+                )}
+                <h4 className={styles['count']}>
+                  <Link href="#">{item.count} streams</Link>
+                </h4>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+      )}
+      <div className={styles['footer']}>
+        <button>View All</button>
       </div>
     </>
   );

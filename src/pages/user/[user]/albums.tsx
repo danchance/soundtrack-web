@@ -6,14 +6,7 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopAlbum = {
-  id: string;
-  artistName: string;
-  albumName: string;
-  artwork: string;
-  count: number;
-};
+import { TopAlbum } from '@/utils/types';
 
 /**
  * User Albums page.

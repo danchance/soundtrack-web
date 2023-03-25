@@ -6,14 +6,7 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopTrack = {
-  id: string;
-  artistName: string;
-  trackName: string;
-  artwork: string;
-  count: number;
-};
+import { TopTrack } from '@/utils/types';
 
 /**
  * User Tracks page.
@@ -55,7 +48,7 @@ const Tracks = () => {
       {data && (
         <TopItems
           itemList={data.tracks}
-          itemType={TopItemTypes.ALBUM}
+          itemType={TopItemTypes.TRACK}
         ></TopItems>
       )}
     </div>

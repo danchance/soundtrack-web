@@ -5,29 +5,73 @@ import { ReactElement, useEffect, useState } from 'react';
 import { UserPage } from '@/components/profile_nav';
 import { useRouter } from 'next/router';
 import RecentlyPlayed from '@/components/recently_played';
+import useFetch from '@/hooks/useFetch';
+import LoadingSpinner from '@/components/loading_spinner';
+import {
+  TopAlbum,
+  TopArtist,
+  TopTrack,
+  RecentlyPlayedTrack
+} from '@/utils/types';
+import TopItems, { TopItemTypes } from '@/components/top_items';
+
+type ProfileResponse = {
+  recentTracks: RecentlyPlayedTrack[];
+  tracks: TopTrack[];
+  albums: TopAlbum[];
+  artists: TopArtist[];
+};
 
 /**
  * User Profile page.
  */
 const Profile: NextPageWithLayout = () => {
+  const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const user = router.query.user as string;
+  const { isLoading, error, data } = useFetch<ProfileResponse>(url);
+
+  useEffect(() => {
+    if (router.query.user !== undefined) {
+      setUrl(
+        `http://localhost:8000/api/users/${router.query.user as string}/profile`
+      );
+    }
+  }, [router.query.user]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  if (error) {
+    return (
+      <>
+        <div className={styles['error']}>
+          <p>Looks like something went wrong! :(</p>
+          <button>Try again</button>
+        </div>
+      </>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <LoadingSpinner height={5} />
+      </>
+    );
+  }
 
   return (
     <div className={styles['overview']}>
-      {user !== undefined && <RecentlyPlayed user={user} />}
-      <div className={styles['section']}>
-        <h2>Top Tracks</h2>
-      </div>
-      <div className={styles['section']}>
-        <h2>Top Albums</h2>
-      </div>
-      <div className={styles['section']}>
-        <h2>Top Artists</h2>
-      </div>
-      <div className={styles['section']}>
-        <h2>Top Genres</h2>
-      </div>
+      {data && (
+        <>
+          <RecentlyPlayed trackList={data.recentTracks} />
+          <TopItems itemList={data.tracks} itemType={TopItemTypes.TRACK} />
+          <TopItems itemList={data.albums} itemType={TopItemTypes.ALBUM} />
+          <TopItems itemList={data.artists} itemType={TopItemTypes.ARTIST} />
+        </>
+      )}
+      <h2>Top Genres</h2>
     </div>
   );
 };

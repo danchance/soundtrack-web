@@ -6,13 +6,7 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopArtist = {
-  id: string;
-  artistName: string;
-  artwork: string;
-  count: number;
-};
+import { TopArtist } from '@/utils/types';
 
 /**
  * User Artists page.
