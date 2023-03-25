@@ -1,15 +1,11 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/profile_nav';
 import TopItems, { TopItemTypes } from '@/components/top_items';
-import ProfileLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopArtists = {
-  artists: Array<TopArtist>;
-};
 
 type TopArtist = {
   id: string;
@@ -24,7 +20,7 @@ type TopArtist = {
 const Artists = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<TopArtists>(url);
+  const { isLoading, error, data } = useFetch<{ artists: TopArtist[] }>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {

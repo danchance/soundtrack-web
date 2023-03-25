@@ -1,15 +1,11 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/profile_nav';
 import TopItems, { TopItemTypes } from '@/components/top_items';
-import ProfileLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopAlbums = {
-  albums: Array<TopAlbum>;
-};
 
 type TopAlbum = {
   id: string;
@@ -25,7 +21,7 @@ type TopAlbum = {
 const Albums = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<TopAlbums>(url);
+  const { isLoading, error, data } = useFetch<{ albums: TopAlbum[] }>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {

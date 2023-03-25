@@ -1,5 +1,5 @@
 import { UserPage } from '@/components/profile_nav';
-import ProfileLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/profile_layout';
 import styles from '@/styles/pages/user/discover.module.sass';
 import { ReactElement } from 'react';
 

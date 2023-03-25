@@ -1,4 +1,4 @@
-import ProfileLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/profile_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement, useEffect, useState } from 'react';

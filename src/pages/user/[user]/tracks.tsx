@@ -1,16 +1,11 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/profile_nav';
-import RecentlyPlayed from '@/components/recently_played';
 import TopItems, { TopItemTypes } from '@/components/top_items';
-import ProfileLayout from '@/components/user_layout';
+import ProfileLayout from '@/components/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-
-type TopTracks = {
-  tracks: Array<TopTrack>;
-};
 
 type TopTrack = {
   id: string;
@@ -26,7 +21,7 @@ type TopTrack = {
 const Tracks = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<TopTracks>(url);
+  const { isLoading, error, data } = useFetch<{ tracks: TopTrack[] }>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {
