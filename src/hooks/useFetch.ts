@@ -8,14 +8,14 @@ enum Status {
 
 type State<T> = {
   isLoading: Boolean;
-  error: null | string;
+  error: null | { status: number; message: string };
   data: null | T;
 };
 
-type Action =
+type Action<T> =
   | { type: Status.LOADING }
-  | { type: Status.FETCHED; results: any }
-  | { type: Status.ERROR; error: string };
+  | { type: Status.FETCHED; results: null | T }
+  | { type: Status.ERROR; error: null | { status: number; message: string } };
 
 /**
  * Custom hook for fetching data.
@@ -30,7 +30,7 @@ const useFetch = <T>(url: string): State<T> => {
   };
 
   const [state, dispatch] = useReducer(
-    (state: State<T>, action: Action): State<T> => {
+    (state: State<T>, action: Action<T>): State<T> => {
       switch (action.type) {
         case Status.LOADING:
           return { isLoading: true, error: null, data: null };
@@ -57,15 +57,18 @@ const useFetch = <T>(url: string): State<T> => {
         dispatch({ type: Status.LOADING });
         const response = await fetch(url);
         const data = await response.json();
+        if (!response.ok) {
+          dispatch({ type: Status.ERROR, error: data.error });
+          return;
+        }
         if (cancelRequest) return;
         dispatch({ type: Status.FETCHED, results: data });
       } catch (error) {
         if (cancelRequest) return;
-        if (error instanceof Error) {
-          dispatch({ type: Status.ERROR, error: error.message });
-          return;
-        }
-        dispatch({ type: Status.ERROR, error: 'Unexpected Error' });
+        dispatch({
+          type: Status.ERROR,
+          error: { status: 500, message: 'Internal Server Error' }
+        });
       }
     })();
 
