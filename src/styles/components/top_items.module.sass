@@ -1,3 +1,5 @@
+@use '../variables'
+
 .top-items
   .header
     display: flex
@@ -53,28 +55,78 @@
           font-size: 0.8rem
           font-weight: 300
 
-        a 
-          display: block
-          white-space: nowrap
-          overflow: hidden
-          text-overflow: ellipsis
-          text-decoration: none
+        // a 
+        //   display: block
+        //   white-space: nowrap
+        //   overflow: hidden
+        //   text-overflow: ellipsis
+        //   text-decoration: none
 
-          &:hover
-            text-decoration: underline
+        //   &:hover
+        //     text-decoration: underline
 
       &:hover .info
         bottom: 0
         transform: translateY(0)
+
+  .list
+    border-collapse: collapse
+    width: 100%
+    table-layout: fixed
+
+    tr
+      font-size: 0.9rem
+
+      &:nth-child(2n)
+        background-color: variables.$tint2
+
+      td
+        padding: 0.8rem 1rem
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+      .rank-col
+        width: 4rem
+        text-align: center
+
+      .artwork-col
+        padding: 0.4rem 0.4rem
+        width: 50px
+
+        .artwork
+          display: block
+
+      .info-col
+        min-width: 30rem
+
+        a:last-child
+          font-size: 0.75rem
+          font-weight: 300
+          margin-top: 0.2rem
+        
+        a:first-child
+          font-size: 0.9rem
+          font-weight: 700
+          margin-top: 0rem
+
+      .count-col
+        width: 8rem
+        font-size: 0.77rem
+        text-align: right  
 
   .footer
     display: flex
     justify-content: flex-end
     margin-top: 1rem
     margin-bottom: 4rem
-
-  a
     font-size: 0.9rem
+
+  a 
+    display: block
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
     text-decoration: none
 
     &:hover

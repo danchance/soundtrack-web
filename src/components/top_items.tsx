@@ -40,8 +40,7 @@ enum View {
  * @returns
  */
 const TopItems = ({ itemList, itemType }: TopItemsProps) => {
-  const [view, setView] = useState<View>(View.GRAPH);
-  // Set correct heading based on item type we are displaying.
+  const [view, setView] = useState<View>(View.LIST);
   const heading = `Top ${itemType}s`;
 
   // Get the images, labels and data for the bar chart view.
@@ -122,6 +121,40 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
             </div>
           ))}
         </div>
+      )}
+      {view === View.LIST && (
+        <table className={styles['list']}>
+          <tbody>
+            {itemList.map((item, index) => (
+              <tr key={item.id}>
+                <td className={styles['rank-col']}>{index + 1}</td>
+                <td className={styles['artwork-col']}>
+                  <Link href="#">
+                    <Image
+                      className={styles['artwork']}
+                      src={item.artwork}
+                      alt={`${itemType} artwork`}
+                      width={40}
+                      height={40}
+                    ></Image>
+                  </Link>
+                </td>
+                <td className={styles['info-col']}>
+                  {itemType === TopItemTypes.TRACK && (
+                    <Link href="#">{item.trackName}</Link>
+                  )}
+                  {itemType === TopItemTypes.ALBUM && (
+                    <Link href="#">{item.albumName}</Link>
+                  )}
+                  <Link href="#">{item.artistName}</Link>
+                </td>
+                <td className={styles['count-col']}>
+                  <Link href="#">{`${item.count} streams`}</Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       )}
       {view === View.GRAPH && (
         <ImageBarChart data={data} labels={labels} images={images} />
