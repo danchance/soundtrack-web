@@ -1,12 +1,13 @@
 import React from 'react';
 import NavBar from './navbar';
+import styles from '@/styles/components/layout.module.sass';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <>
       <NavBar />
-      {children}
-    </div>
+      <div className={styles['container']}>{children}</div>
+    </>
   );
 };
 

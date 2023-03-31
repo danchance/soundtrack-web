@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
  * @returns
  */
 const SpotifyAuth = ({}) => {
+  // const code = useRouter().query.code as string;
   const [code, setCode] = useState<string>(useRouter().query.code as string);
   const { getAccessTokenSilently } = useAuth0();
 
@@ -20,23 +21,29 @@ const SpotifyAuth = ({}) => {
   useEffect(() => {
     if (typeof code === 'undefined') return;
     (async () => {
-      const accessToken = await getAccessTokenSilently({
-        authorizationParams: {
-          audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
-        }
-      });
-      const data = await fetch('http://localhost:8000/api/spotify/authorize', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
-        },
-        body: JSON.stringify({
-          code: code,
-          redirectUri: spotifyConfig.redirectUri
-        })
-      });
-      console.log('spotify_auth: ', await data.json());
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
+          }
+        });
+        const data = await fetch(
+          'http://localhost:8000/api/users/spotify/auth',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+              code: code,
+              redirectUri: spotifyConfig.redirectUri
+            })
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);

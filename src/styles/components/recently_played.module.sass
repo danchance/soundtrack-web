@@ -1,0 +1,122 @@
+@use '../variables'
+
+.recent-tracks
+  .header
+    display: flex
+    justify-content: space-between
+    margin-bottom: 0.5rem
+    padding-bottom: 0.5rem
+    border-bottom: 1px solid #eeeeee
+
+    .options
+      display: flex
+      padding: 0.4rem 0
+
+      button
+        background: none
+        border: none
+        border-right: 1px solid #eeeeee
+        margin-left: 0.5rem
+        padding-right: 0.5rem
+        cursor: pointer
+
+        &:last-child
+          border: none
+          padding-right: 0
+
+  .error
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 1rem
+    min-height: 5rem
+
+  .grid
+    display: flex
+    gap: 1.5rem
+    overflow: hidden
+    font-size: 0.8rem
+
+    .track
+      padding: 0.8rem
+
+      &:nth-child(2n)
+        background-color: variables.$tint2
+
+      .artwork
+        margin-bottom: 0.8rem
+
+      .info
+        display: flex
+        flex-direction: column
+        gap: 0.5rem
+        text-align: center
+        max-width: 150px
+
+        a
+          display: block
+          white-space: nowrap
+          overflow: hidden
+          text-overflow: ellipsis
+          text-decoration: none
+
+          &:hover
+            text-decoration: underline
+
+        .track-name
+          font-weight: 700
+
+        .time
+          font-size: 0.75rem
+
+  .list
+    border-collapse: collapse
+    width: 100%
+    table-layout: fixed
+
+    tr
+      font-size: 0.9rem
+
+      &:nth-child(2n)
+        background-color: variables.$tint2
+
+      td
+        padding: 0.4rem 1rem
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+
+      .artwork-col
+        padding: 0.4rem 0.4rem
+        width: 50px
+
+        .artwork
+          display: block
+
+      .track-col
+        min-width: 30rem
+        font-weight: 700
+
+      .artist-col
+        min-width: 15rem
+
+      .time-col
+        width: 8rem
+        font-size: 0.77rem
+        text-align: right  
+
+  .footer
+    display: flex
+    justify-content: flex-end
+    margin-top: 1rem
+    margin-bottom: 4rem
+
+  a
+    text-decoration: none
+    font-size: 0.9rem
+
+    &:hover
+          text-decoration: underline
+
+ 
