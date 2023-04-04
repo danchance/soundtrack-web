@@ -3,57 +3,56 @@
 .container
   border-bottom: 1px solid #ccc
 
-  .navbar 
-    // display: flex
-    // justify-content: space-between
-    display: grid
-    grid-template-columns: 1fr auto
-    margin: auto
-    padding: 1rem
-    max-width: variables.$site-container-width
+.navbar 
+  display: grid
+  grid-template-columns: auto 1fr auto
+  align-items: center
+  padding: 0.5rem 1rem
 
-    .search-container
-      display: flex
-      align-items: center
+  form
+    display: flex
+    justify-content: center
+    margin: 0 2rem
 
-      h1
-        margin-right: 2rem
-
-      form
-        width: 100%
-        margin-right: 2rem
-
-        .search-input
-          padding: 0.5rem
-          width: 100%
-          max-width: 20rem
-          border: 1px solid #ccc
-          border-radius: 0.5rem
-          outline: none
-    
-    .btn
-      padding: 0.8rem 1.6rem
-      font-family: inherit
-      font-weight: 700
-      border: none
+    .search-input
+      padding: 0.5rem
+      width: 100%
+      max-width: 20rem
+      border: 1px solid #ccc
       border-radius: 0.5rem
-      cursor: pointer
+      outline: none
 
-      &.btn-primary
-        color: #4358cc
-        background: none
-        border: 2px solid #4358cc
+  .user-profile
+    background: none
+    border: none
+    cursor: pointer
+    line-height: 0
 
-        &:hover
-          text-decoration: underline
+    .user-profile-img
+      border-radius: 50%
+  
+  .btn
+    padding: 0.8rem 1.6rem
+    font-family: inherit
+    font-weight: 700
+    border: none
+    border-radius: 0.5rem
+    cursor: pointer
 
-      &.btn-secondary
-        margin-left: 1rem
-        color: #eeeeee
-        background: #4358cc
-        
-        &:hover
-          // background: none
-          text-decoration: underline
+    &.btn-primary
+      color: #4358cc
+      background: none
+      border: 2px solid #4358cc
+
+      &:hover
+        text-decoration: underline
+
+    &.btn-secondary
+      margin-left: 1rem
+      color: #eeeeee
+      background: #4358cc
+      
+      &:hover
+        text-decoration: underline
         
 
