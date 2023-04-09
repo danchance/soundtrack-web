@@ -1,4 +1,4 @@
-import ProfileLayout from '@/components/profile_layout';
+import ProfileLayout from '@/layouts/profile_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement, useEffect, useState } from 'react';
@@ -41,6 +41,10 @@ const Profile: NextPageWithLayout = () => {
   useEffect(() => {
     console.log(data);
   }, [data]);
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   if (error) {
     return (

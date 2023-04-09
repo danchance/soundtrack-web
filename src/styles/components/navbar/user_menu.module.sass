@@ -1,0 +1,67 @@
+@use '../../variables'
+
+.menu-container
+
+  .avatar-btn
+    background: none
+    border: none
+    cursor: pointer
+    line-height: 0
+
+    .avatar-img
+      border-radius: 50%
+
+  .dropdown-container
+    position: absolute
+    top: 3.4rem
+    right: 1rem
+    width: 14rem
+    background: variables.$divider
+    border-radius: 0.5rem
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
+    z-index: 2
+
+    &.hidden
+      display: none
+
+    section
+      display: flex
+      flex-direction: column
+      border-bottom: 1px solid variables.$light-primary
+
+      &:first-child
+        padding: 1rem
+        flex-direction: row
+
+        .avatar-img
+          border-radius: 50%
+
+        h2
+          font-size: 1rem
+          padding: 0.2rem 0.8rem
+
+      &:last-child
+        border-bottom: none
+
+      .dropdown-item
+        display: flex
+        align-items: center
+        padding: 0.5rem 1rem
+        font-size: 0.9rem
+        text-decoration: none
+        background: none
+        border: none
+        outline: none
+        cursor: pointer
+
+        &:first-child
+          margin-top: 0.5rem
+
+        &:last-child
+          margin-bottom: 0.5rem
+
+        &:hover
+          background-color: variables.$light-primary
+
+        img
+          margin-right: 1rem

@@ -1,9 +1,9 @@
-import Layout from '@/components/layout';
+import Layout from '@/layouts/layout';
 import '@/styles/globals.sass';
 import { Auth0Provider } from '@auth0/auth0-react';
 import type { AppProps } from 'next/app';
 import { Roboto_Flex } from 'next/font/google';
-import { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 

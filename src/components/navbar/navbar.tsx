@@ -1,0 +1,55 @@
+import { useAuth0 } from '@auth0/auth0-react';
+import styles from '@/styles/components/navbar/navbar.module.sass';
+import Link from 'next/link';
+import Search from './search';
+import UserMenu from './user_menu';
+import useWindowSize from '@/hooks/useWindowSize';
+
+/**
+ * Main navigation bar component. Contains:
+ *  - Site heading
+ *  - Search bar
+ *  - User login options/profile.
+ */
+const NavBar = ({}) => {
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
+  const windowSize = useWindowSize();
+
+  return (
+    <div className={styles['navbar']}>
+      <Link href="/" className={styles['site-heading']}>
+        <h1>soundTrack</h1>
+      </Link>
+      <Search />
+      {!isLoading && (
+        <>
+          {user && <UserMenu user={user} />}
+          {!user && (
+            <div>
+              <button
+                className={`${styles['btn']} ${styles['btn-primary']}`}
+                onClick={() => loginWithRedirect()}
+              >
+                LOG IN
+              </button>
+              {windowSize.width > 800 && (
+                <button
+                  className={`${styles['btn']} ${styles['btn-secondary']}`}
+                  onClick={() =>
+                    loginWithRedirect({
+                      authorizationParams: { screen_hint: 'signup' }
+                    })
+                  }
+                >
+                  CREATE ACCOUNT
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
+export default NavBar;

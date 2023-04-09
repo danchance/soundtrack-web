@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import ProfileNav, { UserPage } from './profile_nav';
-import styles from '@/styles/components/profile_layout.module.sass';
+import ProfileNav, { UserPage } from '../components/profile_nav';
+import styles from '@/styles/layouts/profile_layout.module.sass';
 import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
 import NotFoundImage from '@/assets/images/404.svg';

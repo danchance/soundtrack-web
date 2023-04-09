@@ -1,3 +1,5 @@
+@use '../variables'
+
 .profile
 
   .header
@@ -26,7 +28,7 @@
     justify-content: center
     padding: 4rem 2rem
     height: fit-content
-    background-color: #67577F
+    background-color: variables.$primary
     border-radius: 0 10rem 10rem 0
 
     h1
@@ -39,7 +41,7 @@
       line-height: 1.5rem
 
     a
-      border: 2px solid #eeeeee
+      border: 2px solid variables.$light-primary
       text-decoration: none
       padding: 1rem 2rem
       width: fit-content

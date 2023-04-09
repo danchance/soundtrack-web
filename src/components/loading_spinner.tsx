@@ -20,7 +20,7 @@ const rotation = keyframes`
 const Spinner = styled.div`
   width: 48px;
   height: 48px;
-  border: 5px solid #fff;
+  border: 5px solid #212121;
   border-bottom-color: transparent;
   border-radius: 50%;
   animation: ${rotation} 1s linear infinite;

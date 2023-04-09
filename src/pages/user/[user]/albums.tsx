@@ -1,7 +1,7 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/profile_nav';
 import TopItems, { TopItemTypes } from '@/components/top_items';
-import ProfileLayout from '@/components/profile_layout';
+import ProfileLayout from '@/layouts/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
