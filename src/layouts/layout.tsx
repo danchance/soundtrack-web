@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from '../components/navbar';
+import NavBar from '../components/navbar/navbar';
 import styles from '@/styles/layouts/layout.module.sass';
 import { useRouter } from 'next/router';
 

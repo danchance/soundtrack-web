@@ -1,9 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import Image from 'next/image';
-import styles from '@/styles/components/navbar.module.sass';
+import styles from '@/styles/components/navbar/navbar.module.sass';
 import Link from 'next/link';
-import Search from './navbar/search';
-import UserMenu from './navbar/user_menu';
+import Search from './search';
+import UserMenu from './user_menu';
+import useWindowSize from '@/hooks/useWindowSize';
 
 /**
  * Main navigation bar component. Contains:
@@ -13,6 +13,7 @@ import UserMenu from './navbar/user_menu';
  */
 const NavBar = ({}) => {
   const { isLoading, user, loginWithRedirect, logout } = useAuth0();
+  const windowSize = useWindowSize();
 
   return (
     <div className={styles['navbar']}>
@@ -31,16 +32,18 @@ const NavBar = ({}) => {
               >
                 LOG IN
               </button>
-              <button
-                className={`${styles['btn']} ${styles['btn-secondary']}`}
-                onClick={() =>
-                  loginWithRedirect({
-                    authorizationParams: { screen_hint: 'signup' }
-                  })
-                }
-              >
-                CREATE ACCOUNT
-              </button>
+              {windowSize.width > 800 && (
+                <button
+                  className={`${styles['btn']} ${styles['btn-secondary']}`}
+                  onClick={() =>
+                    loginWithRedirect({
+                      authorizationParams: { screen_hint: 'signup' }
+                    })
+                  }
+                >
+                  CREATE ACCOUNT
+                </button>
+              )}
             </div>
           )}
         </>
