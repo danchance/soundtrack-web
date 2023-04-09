@@ -5,6 +5,10 @@ type WindowSize = {
   height: number;
 };
 
+/**
+ * Hook to get the window size.
+ * @returns Object containing window width and height.
+ */
 const useWindowSize = (): WindowSize => {
   const [windowSize, setWindowSize] = useState<WindowSize>({
     width: 0,

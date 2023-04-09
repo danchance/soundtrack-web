@@ -1,0 +1,33 @@
+@use '../../variables'
+
+.search-container
+  margin: 0 1rem 0 2rem
+  height: 2rem
+
+  &.btn-only
+    display: flex
+    justify-content: flex-end
+
+    > .search-btn
+      border: none
+      width: fit-content
+
+  form
+    display: flex
+    justify-content: center
+
+    .search-input
+      padding: 0.5rem
+      width: 100%
+      max-width: 20rem
+      color: variables.$light-primary
+      background: none
+      border: none
+      border-bottom: 3px solid variables.$light-primary
+      outline: none
+
+  .search-btn
+    background: none
+    border: none
+    border-bottom: 3px solid variables.$light-primary
+    cursor: pointer        

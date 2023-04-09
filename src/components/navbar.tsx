@@ -2,52 +2,23 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Image from 'next/image';
 import styles from '@/styles/components/navbar.module.sass';
 import Link from 'next/link';
-import SearchIcon from '@/assets/icons/search.png';
-import { useRef } from 'react';
-import useWindowSize from '@/hooks/useWindowSize';
+import Search from './navbar/search';
 
+/**
+ * Main navigation bar component. Contains:
+ *  - Site heading
+ *  - Search bar
+ *  - User login options/profile.
+ */
 const NavBar = ({}) => {
-  const search = useRef<HTMLInputElement>(null);
-  const windowSize = useWindowSize();
-  const { isLoading, user, isAuthenticated, loginWithRedirect, logout } =
-    useAuth0();
-
-  const handleSearch = () => {};
+  const { isLoading, user, loginWithRedirect, logout } = useAuth0();
 
   return (
     <div className={styles['navbar']}>
       <Link href="/" className={styles['site-heading']}>
         <h1>soundTrack</h1>
       </Link>
-      <div
-        className={`${styles['search-container']} ${
-          windowSize.width < 600 ? styles['btn-only'] : ''
-        }`}
-      >
-        {windowSize.width < 600 && (
-          <button className={styles['search-btn']}>
-            <Image src={SearchIcon} alt="search" width="20" height="20"></Image>
-          </button>
-        )}
-        {windowSize.width >= 600 && (
-          <form onSubmit={handleSearch}>
-            <input
-              ref={search}
-              type="text"
-              placeholder="Search..."
-              className={styles['search-input']}
-            />
-            <button className={styles['search-btn']}>
-              <Image
-                src={SearchIcon}
-                alt="search"
-                width="20"
-                height="20"
-              ></Image>
-            </button>
-          </form>
-        )}
-      </div>
+      <Search />
       {!isLoading && (
         <>
           {user && (
