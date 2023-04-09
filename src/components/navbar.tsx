@@ -1,17 +1,17 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Image from 'next/image';
 import styles from '@/styles/components/navbar.module.sass';
-import { useEffect } from 'react';
 import Link from 'next/link';
+import SearchIcon from '@/assets/icons/search.png';
 
 const NavBar = ({}) => {
   const { user, isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSearch = () => {};
 
   return (
     <div className={styles['navbar']}>
-      <Link href="/">
+      <Link href="/" className={styles['site-heading']}>
         <h1>soundTrack</h1>
       </Link>
       <form onSubmit={handleSearch}>
@@ -20,6 +20,9 @@ const NavBar = ({}) => {
           placeholder="Search..."
           className={styles['search-input']}
         />
+        <button>
+          <Image src={SearchIcon} alt="search" width="20" height="20"></Image>
+        </button>
       </form>
       {user && (
         <div>

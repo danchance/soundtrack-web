@@ -40,30 +40,6 @@ const RecentlyPlayed = ({ trackList }: RecentlyPlayedProps) => {
   return (
     <div className={styles['recent-tracks']}>
       {header}
-      {view === View.GRID && (
-        <div className={styles['grid']}>
-          {trackList.map((track) => (
-            <div key={track.id} className={styles['track']}>
-              <Link href="#">
-                <Image
-                  className={styles['artwork']}
-                  src={track.Track.Album.artwork}
-                  alt={track.Track.name}
-                  width={150}
-                  height={150}
-                ></Image>
-              </Link>
-              <div className={styles['info']}>
-                <Link href="#" className={styles['track-name']}>
-                  {track.Track.name}
-                </Link>
-                <Link href="#">{track.Track.Album.Artist.name}</Link>
-                <p className={styles['time']}>{formatDate(track.playedAt)}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
       {view === View.LIST && (
         <table className={styles['list']}>
           <tbody>

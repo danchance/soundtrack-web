@@ -5,16 +5,27 @@
   padding: 0
   margin: 0
   font-family: var(--roboto-font)
-  color: #eeeeee
+  color: variables.$primary-text
 
 html,
 body 
   max-width: 100vw
   overflow-x: hidden
-  background-color: variables.$tint
+  background-color: #f3f4f5
 
 ul 
   list-style-type: none
 
-button
-  color: black
+button, 
+input
+  color: variables.$primary-text
+
+::placeholder 
+  color: variables.$primary-text
+  opacity: 1
+
+::-ms-input-placeholder
+  color: variables.$primary-text
+
+
+

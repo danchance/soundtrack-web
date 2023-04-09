@@ -6,7 +6,7 @@
     justify-content: space-between
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
-    border-bottom: 1px solid #eeeeee
+    border-bottom: 2px solid variables.$secondary
 
     .options
       display: flex
@@ -15,7 +15,7 @@
       button
         background: none
         border: none
-        border-right: 1px solid #eeeeee
+        border-right: 1px solid variables.$secondary
         margin-left: 0.5rem
         padding-right: 0.5rem
         cursor: pointer
@@ -55,16 +55,6 @@
           font-size: 0.8rem
           font-weight: 300
 
-        // a 
-        //   display: block
-        //   white-space: nowrap
-        //   overflow: hidden
-        //   text-overflow: ellipsis
-        //   text-decoration: none
-
-        //   &:hover
-        //     text-decoration: underline
-
       &:hover .info
         bottom: 0
         transform: translateY(0)
@@ -78,13 +68,14 @@
       font-size: 0.9rem
 
       &:nth-child(2n)
-        background-color: variables.$tint2
+        background-color: variables.$divider
 
       td
         padding: 0.8rem 1rem
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
+
 
       .rank-col
         width: 4rem
@@ -104,16 +95,21 @@
           font-size: 0.75rem
           font-weight: 300
           margin-top: 0.2rem
+          color: variables.$secondary-text
         
         a:first-child
           font-size: 0.9rem
           font-weight: 700
           margin-top: 0rem
+          color: variables.$primary-text
 
       .count-col
         width: 8rem
         font-size: 0.77rem
         text-align: right  
+
+        a
+          color: variables.$secondary-text
 
   .footer
     display: flex
@@ -121,6 +117,9 @@
     margin-top: 1rem
     margin-bottom: 4rem
     font-size: 0.9rem
+
+    a
+      color: variables.$secondary
 
   a 
     display: block
