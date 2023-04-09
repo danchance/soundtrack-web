@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styles from '@/styles/components/navbar.module.sass';
 import Link from 'next/link';
 import Search from './navbar/search';
+import UserMenu from './navbar/user_menu';
 
 /**
  * Main navigation bar component. Contains:
@@ -21,33 +22,7 @@ const NavBar = ({}) => {
       <Search />
       {!isLoading && (
         <>
-          {user && (
-            <div>
-              <button className={styles['user-profile']}>
-                <Image
-                  src={user.picture!}
-                  alt="user profile"
-                  width="45"
-                  height="45"
-                  className={styles['user-profile-img']}
-                ></Image>
-              </button>
-
-              {/* <h2>{user!.username}</h2>
-            <p>{user!.email}</p> */}
-              {/* <button
-              onClick={() =>
-                logout({
-                  logoutParams: {
-                    returnTo: process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL
-                  }
-                })
-              }
-            >
-              Log Out
-            </button> */}
-            </div>
-          )}
+          {user && <UserMenu user={user} />}
           {!user && (
             <div>
               <button

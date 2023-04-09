@@ -42,6 +42,10 @@ const Profile: NextPageWithLayout = () => {
     console.log(data);
   }, [data]);
 
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
   if (error) {
     return (
       <>
