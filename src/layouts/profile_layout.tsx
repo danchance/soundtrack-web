@@ -98,7 +98,9 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
               <div className={styles['user-track']}></div>
             </div>
           </div>
-          <ProfileNav user={data.user.username} page={page} />
+          <div className={styles['nav']}>
+            <ProfileNav user={data.user.username} page={page} />
+          </div>
         </div>
       )}
       <div className={styles['profile-wrapper']}>{children}</div>

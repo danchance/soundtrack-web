@@ -30,41 +30,40 @@ const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
           className={active === UserPage.PROFILE ? styles['active'] : ''}
           onClick={() => setActive(UserPage.PROFILE)}
         >
-          <Link href={`${path}`}>Profile</Link>
+          <Link href={`${path}`}>PROFILE</Link>
         </li>
         <li
           className={active === UserPage.RECAP ? styles['active'] : ''}
           onClick={() => setActive(UserPage.RECAP)}
         >
-          <Link href={`${path}/recap`}>Recap</Link>
+          <Link href={`${path}/recap`}>RECAP</Link>
         </li>
         <li
           className={active === UserPage.DISCOVER ? styles['active'] : ''}
           onClick={() => setActive(UserPage.DISCOVER)}
         >
-          <Link href={`${path}/discover`}>Discover</Link>
+          <Link href={`${path}/discover`}>DISCOVER</Link>
         </li>
         <li
           className={active === UserPage.TRACKS ? styles['active'] : ''}
           onClick={() => setActive(UserPage.TRACKS)}
         >
-          <Link href={`${path}/tracks`}>Tracks</Link>
+          <Link href={`${path}/tracks`}>TRACKS</Link>
         </li>
         <li
           className={active === UserPage.ARTISTS ? styles['active'] : ''}
           onClick={() => setActive(UserPage.ARTISTS)}
         >
-          <Link href={`${path}/artists`}>Artists</Link>
+          <Link href={`${path}/artists`}>ARTISTS</Link>
         </li>
         <li
           className={active === UserPage.ALBUMS ? styles['active'] : ''}
           onClick={() => setActive(UserPage.ALBUMS)}
         >
-          <Link href={`${path}/albums`}>Albums</Link>
+          <Link href={`${path}/albums`}>ALBUMS</Link>
         </li>
         <div className={styles['indicator']}></div>
       </ul>
-      <div className={styles['underline']}></div>
     </div>
   );
 };

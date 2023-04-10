@@ -1,9 +1,9 @@
 @use '../variables'
 
 .profile-header
-  margin-top: 5rem 
-  background-color: #0e2947
-
+  margin-top: 4rem 
+  background-color: #23272a
+  border-bottom: 1px solid #f0f0f0
 
   .header-img
     position: relative
@@ -34,16 +34,22 @@
         flex-direction: column
         gap: 0.5rem
 
-        p
-        font-size: 0.9rem
+        h1
+          color: #f0f0f0
 
-        h1, p
-          color: #ffffff
+        p
+          font-size: 0.9rem
+          color: #d5d5d5
 
       .user-track
         width: 7rem
         height: 7rem
         background-color: #ffffff
+
+  .nav
+    max-width: variables.$site-container-width
+    margin: auto
+    padding: 0 1rem
 
 .profile-wrapper
   margin: auto
