@@ -1,20 +1,22 @@
 import React from 'react';
 import NavBar from '../components/navbar/navbar';
-import styles from '@/styles/layouts/layout.module.sass';
 import { useRouter } from 'next/router';
 import Footer from '@/components/footer';
 
+/**
+ * Default layout used for all pages.
+ */
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const fullLayout = ['/'].includes(useRouter().pathname);
-  let containerClass = 'container';
-  if (fullLayout) {
-    containerClass = 'full-container';
-  }
+  /**
+   * If the current page is the home page, then the header should not have
+   * a background
+   */
+  const headerBackground = !['/'].includes(useRouter().pathname);
 
   return (
     <>
-      <NavBar hasBackground={!fullLayout} />
-      <div className={styles[containerClass]}>{children}</div>
+      <NavBar hasBackground={headerBackground} />
+      {children}
       <Footer />
     </>
   );
