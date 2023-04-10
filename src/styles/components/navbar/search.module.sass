@@ -20,14 +20,21 @@
       padding: 0.5rem
       width: 100%
       max-width: 20rem
-      color: variables.$light-primary
+      color: #ffffff
       background: none
       border: none
-      border-bottom: 3px solid variables.$light-primary
+      border-bottom: 2px solid #ffffff
       outline: none
+
+      &::placeholder 
+        color: variables.$light-primary
+        opacity: 1
+
+      &::-ms-input-placeholder 
+        color: variables.$light-primary
 
   .search-btn
     background: none
     border: none
-    border-bottom: 3px solid variables.$light-primary
+    border-bottom: 2px solid #ffffff
     cursor: pointer        
