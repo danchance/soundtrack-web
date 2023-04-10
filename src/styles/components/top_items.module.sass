@@ -1,12 +1,17 @@
 @use '../variables'
 
 .top-items
+  margin-bottom: 2rem
+  border-bottom: 1px solid #d5d5d5
+
   .header
     display: flex
     justify-content: space-between
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
-    border-bottom: 2px solid variables.$secondary
+
+    h2
+      font-weight: 500
 
     .options
       display: flex
@@ -15,7 +20,7 @@
       button
         background: none
         border: none
-        border-right: 1px solid variables.$secondary
+        border-right: 1px solid #d5d5d5
         margin-left: 0.5rem
         padding-right: 0.5rem
         cursor: pointer
@@ -37,7 +42,7 @@
         position: absolute
         width: 100%
         height: 4.5rem
-        bottom: 2rem
+        bottom: 1.8rem
         padding: 0.5rem
         background-color: rgba(0, 0, 0, 0.65)
         transform: translateY(100%)
@@ -47,13 +52,16 @@
         h3, h4
           width: fit-content
           max-width: 100%
-          font-size: 1rem
-          font-weight: 600
+          font-size: 0.9rem
+          font-weight: 500
           margin-bottom: 0.3rem
 
         h4
           font-size: 0.8rem
           font-weight: 300
+
+          a
+            color: #d5d5d5
 
       &:hover .info
         bottom: 0
@@ -68,7 +76,7 @@
       font-size: 0.9rem
 
       &:nth-child(2n)
-        background-color: variables.$divider
+        background-color: #303539
 
       td
         padding: 0.8rem 1rem
@@ -95,13 +103,13 @@
           font-size: 0.75rem
           font-weight: 300
           margin-top: 0.2rem
-          color: variables.$secondary-text
+          color: #d5d5d5
         
         a:first-child
           font-size: 0.9rem
-          font-weight: 700
+          font-weight: 600
           margin-top: 0rem
-          color: variables.$primary-text
+          color: #f0f0f0
 
       .count-col
         width: 8rem
@@ -114,12 +122,13 @@
   .footer
     display: flex
     justify-content: flex-end
-    margin-top: 1rem
-    margin-bottom: 4rem
+    margin: 1rem 0
     font-size: 0.9rem
 
     a
-      color: variables.$secondary
+      color: #d5d5d5
+      font-size: 0.8rem
+      font-weight: 300
 
   a 
     display: block

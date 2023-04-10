@@ -1,12 +1,17 @@
 @use '../variables'
 
 .recent-tracks
+  margin-bottom: 2rem
+  border-bottom: 1px solid #d5d5d5
+
   .header
     display: flex
     justify-content: space-between
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
-    border-bottom: 2px solid variables.$secondary
+
+    h2
+      font-weight: 500
 
     .options
       display: flex
@@ -15,7 +20,7 @@
       button
         background: none
         border: none
-        border-right: 1px solid variables.$secondary
+        border-right: 1px solid #d5d5d5
         margin-left: 0.5rem
         padding-right: 0.5rem
         cursor: pointer
@@ -41,7 +46,7 @@
       font-size: 0.9rem
 
       &:nth-child(2n)
-        background-color: variables.$divider
+        background-color: #303539
 
       td
         padding: 0.4rem 1rem
@@ -58,7 +63,7 @@
 
       .track-col
         min-width: 30rem
-        font-weight: 700
+        font-weight: 600
 
       .artist-col
         min-width: 15rem
@@ -74,11 +79,12 @@
   .footer
     display: flex
     justify-content: flex-end
-    margin-top: 1rem
-    margin-bottom: 4rem
+    margin: 1rem 0
 
     a
-      color: variables.$secondary
+      color: #d5d5d5
+      font-size: 0.8rem
+      font-weight: 300
 
   a
     text-decoration: none
