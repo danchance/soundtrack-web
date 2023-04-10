@@ -1,22 +1,54 @@
 @use '../variables'
 
-.profile
+.profile-header
+  margin-top: 5rem 
+  background-color: #0e2947
 
-  .header
+
+  .header-img
+    position: relative
+    height: 12rem
+
+  img
+    display: block
+    object-fit: cover
+
+  .profile-info
     display: flex
-    margin-bottom: 1rem
+    max-width: variables.$site-container-width
+    margin: auto
+    padding: 1rem
 
-    .profile-image
-      object-fit: cover
+    .avatar-img
+      border-radius: 50%
 
-    .info
+    .user
       display: flex
-      flex-direction: column
       justify-content: space-between
+      align-items: center
       width: 100%
+      margin-left: 2rem
 
-      .text
-        margin-left: 1rem
+      .user-data
+        display: flex
+        flex-direction: column
+        gap: 0.5rem
+
+        p
+        font-size: 0.9rem
+
+        h1, p
+          color: #ffffff
+
+      .user-track
+        width: 7rem
+        height: 7rem
+        background-color: #ffffff
+
+.profile-wrapper
+  margin: auto
+  padding: 1rem
+  max-width: variables.$site-container-width
   
 .error
   display: grid
