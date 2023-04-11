@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 enum Status {
   LOADING,
@@ -20,9 +20,10 @@ type Action<T> =
 /**
  * Custom hook for fetching data.
  * @param url The url for the request.
- * @returns isLoading, error and data.
+ * @returns isLoading, error, data and the request function.
  */
-const useFetch = <T>(url: string): State<T> => {
+const useFetch = <T>(url: string) => {
+  const cancelRequest = useRef(false);
   const initialState: State<T> = {
     isLoading: true,
     error: null,
@@ -33,7 +34,7 @@ const useFetch = <T>(url: string): State<T> => {
     (state: State<T>, action: Action<T>): State<T> => {
       switch (action.type) {
         case Status.LOADING:
-          return { isLoading: true, error: null, data: null };
+          return { ...state, isLoading: true };
         case Status.FETCHED:
           return {
             isLoading: false,
@@ -49,38 +50,49 @@ const useFetch = <T>(url: string): State<T> => {
     initialState
   );
 
-  useEffect(() => {
-    let cancelRequest = false;
+  /**
+   * Fetches data from the provided url.
+   * This function only needs to be called from outside this hook if the
+   * same request (unchanged url) needs to be made again.
+   */
+  const request = async () => {
+    cancelRequest.current = false;
     if (!url) return;
-    (async () => {
-      try {
-        dispatch({ type: Status.LOADING });
-        const response = await fetch(url);
-        const data = await response.json();
-        if (!response.ok) {
-          dispatch({ type: Status.ERROR, error: data.error });
-          return;
-        }
-        if (cancelRequest) return;
-        dispatch({ type: Status.FETCHED, results: data });
-      } catch (error) {
-        if (cancelRequest) return;
-        dispatch({
-          type: Status.ERROR,
-          error: { status: 500, message: 'Internal Server Error' }
-        });
+    try {
+      dispatch({ type: Status.LOADING });
+      const response = await fetch(url);
+      const data = await response.json();
+      if (!response.ok) {
+        dispatch({ type: Status.ERROR, error: data.error });
+        return;
       }
-    })();
+      if (cancelRequest.current) return;
+      dispatch({ type: Status.FETCHED, results: data });
+    } catch (error) {
+      if (cancelRequest.current) return;
+      dispatch({
+        type: Status.ERROR,
+        error: { status: 500, message: 'Internal Server Error' }
+      });
+    }
+  };
 
-    // Ensure the hook does not try to update state after is has been unmounted.
+  /**
+   * Fetches data when the url changes.
+   */
+  useEffect(() => {
+    request();
+
+    // Ensure the hook does not try to update state after is has been
+    // unmounted.
     return () => {
-      cancelRequest = true;
+      cancelRequest.current = true;
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
-  return { ...state };
+  return { ...state, request };
 };
 
 export default useFetch;
