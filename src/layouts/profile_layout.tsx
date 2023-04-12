@@ -6,6 +6,7 @@ import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
 import NotFoundImage from '@/assets/images/404.svg';
 import Link from 'next/link';
+import CurrentTrack from '@/components/user/current_track';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -95,7 +96,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                 <p>1200 streams</p>
                 <p>Member since {memberSince}</p>
               </div>
-              <div className={styles['user-track']}></div>
+              <CurrentTrack userid={data.user.id} />
             </div>
           </div>
           <div className={styles['nav']}>
