@@ -6,6 +6,7 @@ import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
 import NotFoundImage from '@/assets/images/404.svg';
 import Link from 'next/link';
+import CurrentTrack from '@/components/user/current_track';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -75,27 +76,36 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   }
 
   return (
-    <div className={styles['profile']}>
+    <>
       {data && (
-        <div className={styles['header']}>
-          <Image
-            src={data.user.image}
-            alt={`${data.user.username} profile picture`}
-            width={150}
-            height={150}
-            className={styles['profile-image']}
-          ></Image>
-          <div className={styles['info']}>
-            <div className={styles['text']}>
-              <h1 className="">{data.user.username}</h1>
-              <p>Member since {memberSince}</p>
+        <div className={styles['profile-header']}>
+          <div className={styles['header-img']}>
+            <Image src={data.user.image} alt="" fill></Image>
+          </div>
+          <div className={styles['profile-info']}>
+            <Image
+              src={data.user.image}
+              alt={`${data.user.username} avatar`}
+              width={150}
+              height={150}
+              className={styles['avatar-img']}
+            ></Image>
+            <div className={styles['user']}>
+              <div className={styles['user-data']}>
+                <h1 className="">@{data.user.username}</h1>
+                <p>1200 streams</p>
+                <p>Member since {memberSince}</p>
+              </div>
+              <CurrentTrack userid={data.user.id} />
             </div>
+          </div>
+          <div className={styles['nav']}>
             <ProfileNav user={data.user.username} page={page} />
           </div>
         </div>
       )}
-      {children}
-    </div>
+      <div className={styles['profile-wrapper']}>{children}</div>
+    </>
   );
 };
 
