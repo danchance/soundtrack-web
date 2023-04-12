@@ -25,42 +25,45 @@ export enum SettingsPage {
  */
 const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
   const router = useRouter();
-  const { isAuthenticated } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
 
   /**
    * All Settings pages are only accessible to authenticated users, redirect
    * to home page if user is not authenticated.
    */
   useEffect(() => {
+    if (isLoading) return;
     if (!isAuthenticated) {
       router.push('/');
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   return (
-    <>
+    <div className={styles['container']}>
+      <h1>User Settings</h1>
       <div className={styles['navigation']}>
         <ul>
           <li className={page === SettingsPage.ACCOUNT ? styles['active'] : ''}>
-            <Link href="settings/account">ACCOUNT</Link>
+            <Link href="/settings/account">ACCOUNT</Link>
           </li>
           <li className={page === SettingsPage.PROFILE ? styles['active'] : ''}>
-            <Link href="settings/profile">PROFILE</Link>
+            <Link href="/settings/profile">PROFILE</Link>
           </li>
           <li className={page === SettingsPage.PRIVACY ? styles['active'] : ''}>
-            <Link href="settings/privacy">PRIVACY</Link>
+            <Link href="/settings/privacy">PRIVACY</Link>
           </li>
           <li
             className={
               page === SettingsPage.CONNECTIONS ? styles['active'] : ''
             }
           >
-            <Link href="settings/connections">CONNECTIONS</Link>
+            <Link href="/settings/connections">CONNECTIONS</Link>
           </li>
         </ul>
       </div>
       <div className={styles['settings-wrapper']}>{children}</div>
-    </>
+    </div>
   );
 };
 

@@ -5,9 +5,9 @@ import { ReactElement } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 
 /**
- * User Account Settings page.
+ * User Privacy Settings page.
  */
-const Account = () => {
+const Privacy = () => {
   const { user } = useAuth0();
 
   return (
@@ -17,8 +17,8 @@ const Account = () => {
   );
 };
 
-Account.getLayout = function getLayout(page: ReactElement) {
-  return <SettingsLayout page={SettingsPage.ACCOUNT}>{page}</SettingsLayout>;
+Privacy.getLayout = function getLayout(page: ReactElement) {
+  return <SettingsLayout page={SettingsPage.PRIVACY}>{page}</SettingsLayout>;
 };
 
-export default Account;
+export default Privacy;
