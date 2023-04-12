@@ -10,8 +10,7 @@ import { useRouter } from 'next/router';
  * @param param0
  * @returns
  */
-const SpotifyAuth = ({}) => {
-  // const code = useRouter().query.code as string;
+const SpotifyAuth = () => {
   const [code, setCode] = useState<string>(useRouter().query.code as string);
   const { getAccessTokenSilently } = useAuth0();
 

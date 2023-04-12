@@ -4,7 +4,7 @@ import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement, useEffect, useState } from 'react';
 import { UserPage } from '@/components/profile_nav';
 import { useRouter } from 'next/router';
-import RecentlyPlayed from '@/components/recently_played';
+import RecentlyPlayed from '@/components/user/recently_played';
 import useFetch from '@/hooks/useFetch';
 import LoadingSpinner from '@/components/loading_spinner';
 import {

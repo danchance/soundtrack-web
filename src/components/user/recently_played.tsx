@@ -1,4 +1,4 @@
-import styles from '@/styles/components/recently_played.module.sass';
+import styles from '@/styles/components/user/recently_played.module.sass';
 import formatDate from '@/utils/format_date';
 import Image from 'next/image';
 import Link from 'next/link';
