@@ -1,4 +1,5 @@
-import { useEffect, useReducer, useRef } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 
 enum Status {
   LOADING,
@@ -20,15 +21,18 @@ type Action<T> =
 /**
  * Custom hook for fetching data.
  * @param url The url for the request.
+ * @param accessTokenReq Set to true if the request requires an access token.
  * @returns isLoading, error, data and the request function.
  */
-const useFetch = <T>(url: string) => {
+const useFetch = <T>(url: string, accessTokenReq = false) => {
   const cancelRequest = useRef(false);
   const initialState: State<T> = {
     isLoading: true,
     error: null,
     data: null
   };
+  const [accessToken, setAccessToken] = useState<string>('');
+  const { getAccessTokenSilently } = useAuth0();
 
   const [state, dispatch] = useReducer(
     (state: State<T>, action: Action<T>): State<T> => {
@@ -51,6 +55,25 @@ const useFetch = <T>(url: string) => {
   );
 
   /**
+   * Sets the access token if the request requires one.
+   */
+  useEffect(() => {
+    if (!accessTokenReq) return;
+    (async () => {
+      try {
+        const token = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
+          }
+        });
+        setAccessToken(token);
+      } catch (error) {
+        setAccessToken('');
+      }
+    })();
+  }, [accessTokenReq, getAccessTokenSilently]);
+
+  /**
    * Fetches data from the provided url.
    * This function only needs to be called from outside this hook if the
    * same request (unchanged url) needs to be made again.
@@ -58,9 +81,14 @@ const useFetch = <T>(url: string) => {
   const request = async () => {
     cancelRequest.current = false;
     if (!url) return;
+    if (accessTokenReq && !accessToken) return;
     try {
       dispatch({ type: Status.LOADING });
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        ...(accessTokenReq && {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        })
+      });
       const data = await response.json();
       if (!response.ok) {
         dispatch({ type: Status.ERROR, error: data.error });
@@ -90,7 +118,7 @@ const useFetch = <T>(url: string) => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, accessToken]);
 
   return { ...state, request };
 };
