@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
+import useAccessToken from './useAccessToken';
 
 enum Status {
   LOADING,
@@ -31,7 +32,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     error: null,
     data: null
   };
-  const [accessToken, setAccessToken] = useState<string>('');
+  const { accessToken } = useAccessToken();
   const { getAccessTokenSilently } = useAuth0();
 
   const [state, dispatch] = useReducer(
@@ -53,25 +54,6 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     },
     initialState
   );
-
-  /**
-   * Sets the access token if the request requires one.
-   */
-  useEffect(() => {
-    if (!accessTokenReq) return;
-    (async () => {
-      try {
-        const token = await getAccessTokenSilently({
-          authorizationParams: {
-            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
-          }
-        });
-        setAccessToken(token);
-      } catch (error) {
-        setAccessToken('');
-      }
-    })();
-  }, [accessTokenReq, getAccessTokenSilently]);
 
   /**
    * Fetches data from the provided url.
