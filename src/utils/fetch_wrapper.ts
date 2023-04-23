@@ -7,7 +7,7 @@
 const fetcher = async <T>(url: RequestInfo, options?: RequestInit) => {
   const response = await fetch(url, options);
   if (!response.ok) {
-    return Promise.reject(response);
+    return Promise.reject(await response.json());
   }
   return response.json().catch(() => ({})) as Promise<T>;
 };
