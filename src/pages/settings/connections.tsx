@@ -1,10 +1,13 @@
-import SpotifyAuth from '@/components/spotify_auth';
-import { useAuth0 } from '@auth0/auth0-react';
+import SpotifyConnection from '@/components/spotify_connection';
 import styles from '@/styles/pages/settings.module.sass';
 import { ReactElement, useEffect, useState } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import LoadingSpinner from '@/components/loading_spinner';
 import useFetch from '@/hooks/useFetch';
+
+type SettingsResponse = {
+  spotifyConnection: boolean;
+};
 
 /**
  * User Privacy Settings page.
@@ -12,14 +15,19 @@ import useFetch from '@/hooks/useFetch';
  *  - Link Spotify account.
  */
 const Connections = () => {
-  const [url, setUrl] = useState<string>('');
-  const { user } = useAuth0();
-  const { isLoading, error, data } = useFetch(url);
+  const { isLoading, error, data } = useFetch<SettingsResponse>(
+    'http://localhost:8000/api/users/settings',
+    true
+  );
+  const [spotifyConnection, setSpotifyConnection] = useState<boolean>(false);
 
+  /**
+   * Set the initial state of the settings to the current user settings.
+   */
   useEffect(() => {
-    if (!user) return;
-    setUrl(`http://localhost:3000/api/users/${user.sub}/settings`);
-  }, [user]);
+    if (!data) return;
+    setSpotifyConnection(data.spotifyConnection);
+  }, [data]);
 
   if (isLoading) {
     return (
@@ -36,13 +44,20 @@ const Connections = () => {
       </div>
     );
   }
+
   return (
     <div className={styles['container']}>
-      <h2>Connect to Spotify</h2>
-      <p>
-        Connect your Spotify account to start tracking your streaming history.
-      </p>
-      <SpotifyAuth />
+      <div className={styles['settings-group']}>
+        <h2 className={styles['group-heading']}>Connections</h2>
+        <div className={'setting'}>
+          <h3 className={styles['setting-heading']}>Connect to Spotify</h3>
+          <p>Link your Spotify account to start tracking.</p>
+          <SpotifyConnection
+            connected={spotifyConnection}
+            setConnected={setSpotifyConnection}
+          />
+        </div>
+      </div>
     </div>
   );
 };
