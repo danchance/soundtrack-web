@@ -1,9 +1,14 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import styles from '@/styles/pages/settings.module.sass';
 import { ReactElement, useEffect, useState } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useFetch from '@/hooks/useFetch';
 import LoadingSpinner from '@/components/loading_spinner';
+import useAccessToken from '@/hooks/useAccessToken';
+import { patch } from '@/utils/fetch_wrapper';
+
+type SettingsResponse = {
+  privateProfile: boolean;
+};
 
 /**
  * User Privacy Settings page.
@@ -11,14 +16,42 @@ import LoadingSpinner from '@/components/loading_spinner';
  *  - Set Profile private.
  */
 const Privacy = () => {
-  const [url, setUrl] = useState<string>('');
-  const { user } = useAuth0();
-  const { isLoading, error, data } = useFetch(url);
+  const { accessToken } = useAccessToken();
+  const { isLoading, error, data } = useFetch<SettingsResponse>(
+    'http://localhost:8000/api/users/settings',
+    true
+  );
+  const [privateProfile, setPrivateProfile] = useState<boolean>(false);
 
+  /**
+   * Set the initial state of the settings to the current user settings.
+   */
   useEffect(() => {
-    if (!user) return;
-    setUrl(`http://localhost:3000/api/users/${user.sub}/settings`);
-  }, [user]);
+    if (!data) return;
+    setPrivateProfile(data.privateProfile);
+  }, [data]);
+
+  /**
+   * Update the user settings after every change.
+   */
+  const updateSettings = async (key: string, value: boolean) => {
+    try {
+      await patch(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/settings`,
+        JSON.stringify({
+          [key]: value
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -38,7 +71,24 @@ const Privacy = () => {
 
   return (
     <div className={styles['container']}>
-      <h2>Profile Visibility</h2>
+      <form className={styles['settings-group']}>
+        <h2 className={styles['group-heading']}>Safety and Privacy</h2>
+        <div className={styles['setting']}>
+          <h3 className={styles['setting-heading']}>Profile Visibility</h3>
+          <label htmlFor="private-profile">
+            Prevent other users from viewing your profile.
+          </label>
+          <input
+            type="checkbox"
+            name="private-profile"
+            checked={privateProfile}
+            onChange={(e) => {
+              setPrivateProfile(e.target.checked);
+              updateSettings('privateProfile', e.target.checked);
+            }}
+          />
+        </div>
+      </form>
     </div>
   );
 };
