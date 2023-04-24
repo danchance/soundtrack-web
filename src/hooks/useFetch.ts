@@ -1,4 +1,3 @@
-import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect, useReducer, useRef } from 'react';
 import useAccessToken from './useAccessToken';
 
@@ -59,7 +58,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
    * This function only needs to be called from outside this hook if the
    * same request (unchanged url) needs to be made again.
    */
-  const request = async () => {
+  const request = async (accessToken: string) => {
     cancelRequest.current = false;
     if (!url) return;
     if (accessTokenReq && !accessToken) return;
@@ -88,7 +87,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
    * Fetches data when the url changes.
    */
   useEffect(() => {
-    request();
+    request(accessToken);
 
     // Ensure the hook does not try to update state after is has been
     // unmounted.

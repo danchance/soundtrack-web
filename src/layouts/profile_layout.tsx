@@ -41,7 +41,6 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data.user.image);
       const date = new Date(data.user.createdAt);
       setMemberSince(
         date.toLocaleDateString('en-GB', {

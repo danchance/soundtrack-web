@@ -60,7 +60,6 @@ const SpotifyConnection = ({
     try {
       await _delete('http://localhost:8000/api/users/spotify', {
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`
         }
       });

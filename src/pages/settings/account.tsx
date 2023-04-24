@@ -15,7 +15,8 @@ import { _delete, patch } from '@/utils/fetch_wrapper';
  *  - Delete Account.
  */
 const Account = () => {
-  const { isLoading, error, user, getAccessTokenWithPopup } = useAuth0();
+  const { isLoading, error, user, getAccessTokenWithPopup, logout } =
+    useAuth0();
   const { accessToken } = useAccessToken();
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
@@ -68,11 +69,11 @@ const Account = () => {
     try {
       await _delete(`http://localhost:8000/api/users/${user!.sub}`, {
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`
         }
       });
-      // Redirect to home page.
+      // Account deleted successfully, log user out and redirect to home page.
+      logout();
     } catch (error) {
       console.log(error);
     }
@@ -118,14 +119,14 @@ const Account = () => {
         </div>
         <div className={styles['setting']}>
           <h3 className={styles['setting-heading']}>Change Password</h3>
-          <label htmlFor="password">Old Password</label>
+          <label htmlFor="password">New Password</label>
           <input
             type="password"
             name="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <label htmlFor="password2">New Password</label>
+          <label htmlFor="password2">Confirm Password</label>
           <input
             type="password"
             name="password2"

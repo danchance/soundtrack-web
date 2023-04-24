@@ -7,13 +7,12 @@ import { useEffect, useState } from 'react';
  */
 const useAccessToken = (): { accessToken: string } => {
   const [accessToken, setAccessToken] = useState<string>('');
-  const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently } = useAuth0();
 
   /**
    * Fetch the access token for the user.
    */
   useEffect(() => {
-    if (!isAuthenticated) return;
     (async () => {
       try {
         const token = await getAccessTokenSilently({
@@ -26,7 +25,7 @@ const useAccessToken = (): { accessToken: string } => {
         setAccessToken('');
       }
     })();
-  }, [isAuthenticated, user, getAccessTokenSilently]);
+  }, [getAccessTokenSilently]);
 
   return { accessToken };
 };

@@ -1,5 +1,7 @@
+import useAccessToken from '@/hooks/useAccessToken';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/components/user/current_track.module.sass';
+import { useAuth0 } from '@auth0/auth0-react';
 import Image from 'next/image';
 import { useEffect } from 'react';
 
@@ -21,16 +23,19 @@ type CurrentTrack = {
 const CurrentTrack = ({ userid }: { userid: string }) => {
   const url = `http://localhost:8000/api/users/${userid}/current-track`;
   const { data, request } = useFetch<{ track: CurrentTrack }>(url);
+  const { isAuthenticated } = useAuth0();
+  const { accessToken } = useAccessToken();
 
   /**
    * Check the current track every 15 seconds.
    */
   useEffect(() => {
-    const interval = setInterval(() => request(), 15000);
+    if (isAuthenticated && !accessToken) return;
+    const interval = setInterval(() => request(accessToken), 15000);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isAuthenticated, accessToken]);
 
   return (
     <div className={styles['container']}>
