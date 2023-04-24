@@ -33,7 +33,6 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     data: null
   };
   const { accessToken } = useAccessToken();
-  const { getAccessTokenSilently } = useAuth0();
 
   const [state, dispatch] = useReducer(
     (state: State<T>, action: Action<T>): State<T> => {
@@ -67,9 +66,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     try {
       dispatch({ type: Status.LOADING });
       const response = await fetch(url, {
-        ...(accessTokenReq && {
-          headers: { Authorization: `Bearer ${accessToken}` }
-        })
+        headers: { Authorization: `Bearer ${accessToken}` }
       });
       const data = await response.json();
       if (!response.ok) {
