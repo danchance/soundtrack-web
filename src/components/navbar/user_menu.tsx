@@ -76,7 +76,7 @@ const UserMenu = ({ user }: { user: User }) => {
         </section>
         <section>
           <Link
-            href="/settings"
+            href="/settings/account"
             className={styles['dropdown-item']}
             onClick={() => setIsVisible(false)}
           >

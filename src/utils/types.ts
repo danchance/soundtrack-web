@@ -60,3 +60,18 @@ export type RecentlyPlayedTrack = {
   Track: Track;
   playedAt: string;
 };
+
+// View types for the top items (trakcs, albums and artists)
+export enum TopItemView {
+  LIST = 'list',
+  GRID = 'grid',
+  CHART = 'chart'
+}
+
+// Timeframes for the top items (trakcs, albums and artists)
+export enum TopItemTimeframe {
+  WEEK = 'week',
+  MONTH = 'month',
+  YEAR = 'year',
+  ALL = 'all'
+}

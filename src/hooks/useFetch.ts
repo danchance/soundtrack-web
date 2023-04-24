@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useRef } from 'react';
+import useAccessToken from './useAccessToken';
 
 enum Status {
   LOADING,
@@ -20,15 +21,17 @@ type Action<T> =
 /**
  * Custom hook for fetching data.
  * @param url The url for the request.
+ * @param accessTokenReq Set to true if the request requires an access token.
  * @returns isLoading, error, data and the request function.
  */
-const useFetch = <T>(url: string) => {
+const useFetch = <T>(url: string, accessTokenReq = false) => {
   const cancelRequest = useRef(false);
   const initialState: State<T> = {
     isLoading: true,
     error: null,
     data: null
   };
+  const { accessToken } = useAccessToken();
 
   const [state, dispatch] = useReducer(
     (state: State<T>, action: Action<T>): State<T> => {
@@ -55,12 +58,15 @@ const useFetch = <T>(url: string) => {
    * This function only needs to be called from outside this hook if the
    * same request (unchanged url) needs to be made again.
    */
-  const request = async () => {
+  const request = async (accessToken: string) => {
     cancelRequest.current = false;
     if (!url) return;
+    if (accessTokenReq && !accessToken) return;
     try {
       dispatch({ type: Status.LOADING });
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: { Authorization: `Bearer ${accessToken}` }
+      });
       const data = await response.json();
       if (!response.ok) {
         dispatch({ type: Status.ERROR, error: data.error });
@@ -81,7 +87,7 @@ const useFetch = <T>(url: string) => {
    * Fetches data when the url changes.
    */
   useEffect(() => {
-    request();
+    request(accessToken);
 
     // Ensure the hook does not try to update state after is has been
     // unmounted.
@@ -90,7 +96,7 @@ const useFetch = <T>(url: string) => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url]);
+  }, [url, accessToken]);
 
   return { ...state, request };
 };

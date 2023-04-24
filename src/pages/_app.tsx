@@ -36,7 +36,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
           audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
         }}
         // Need Auth0 to ignore code and state params when authenticating with Spotify
-        skipRedirectCallback={router.pathname === '/settings'}
+        skipRedirectCallback={router.pathname === '/settings/connections'}
       >
         <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
       </Auth0Provider>

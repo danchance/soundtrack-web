@@ -33,7 +33,9 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
 
   useEffect(() => {
     if (router.query.user !== undefined) {
-      setUrl(`http://localhost:8000/api/users/${router.query.user as string}`);
+      setUrl(
+        `http://localhost:8000/api/users/${router.query.user as string}/info`
+      );
     }
   }, [router.query.user]);
 

@@ -6,7 +6,13 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopTrack } from '@/utils/types';
+import { TopItemTimeframe, TopItemView, TopTrack } from '@/utils/types';
+
+type TracksResponse = {
+  tracks: TopTrack[];
+  topTracksStyle: TopItemView;
+  topTracksTimeframe: TopItemTimeframe;
+};
 
 /**
  * User Tracks page.
@@ -14,7 +20,7 @@ import { TopTrack } from '@/utils/types';
 const Tracks = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<{ tracks: TopTrack[] }>(url);
+  const { isLoading, error, data } = useFetch<TracksResponse>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {
@@ -49,7 +55,9 @@ const Tracks = () => {
         <TopItems
           itemList={data.tracks}
           itemType={TopItemTypes.TRACK}
-        ></TopItems>
+          defaultView={data.topTracksStyle}
+          defaultTimeframe={data.topTracksTimeframe}
+        />
       )}
     </div>
   );

@@ -6,7 +6,13 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopAlbum } from '@/utils/types';
+import { TopAlbum, TopItemTimeframe, TopItemView } from '@/utils/types';
+
+type AlbumsResponse = {
+  albums: TopAlbum[];
+  topAlbumsStyle: TopItemView;
+  topAlbumsTimeframe: TopItemTimeframe;
+};
 
 /**
  * User Albums page.
@@ -14,7 +20,7 @@ import { TopAlbum } from '@/utils/types';
 const Albums = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<{ albums: TopAlbum[] }>(url);
+  const { isLoading, error, data } = useFetch<AlbumsResponse>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {
@@ -49,7 +55,9 @@ const Albums = () => {
         <TopItems
           itemList={data.albums}
           itemType={TopItemTypes.ALBUM}
-        ></TopItems>
+          defaultView={data.topAlbumsStyle}
+          defaultTimeframe={data.topAlbumsTimeframe}
+        />
       )}
     </div>
   );

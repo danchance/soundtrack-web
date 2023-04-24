@@ -3,7 +3,7 @@ import styles from '@/styles/components/profile_nav.module.sass';
 import { useState } from 'react';
 
 /**
- * Used to define all items in the navigation list.
+ * Define all items in the user profile navigation list.
  */
 export enum UserPage {
   PROFILE = 'Profile',
@@ -16,6 +16,8 @@ export enum UserPage {
 
 /**
  * User Profile Navigation Component.
+ * @param user The user's username.
+ * @param page The current active page.
  */
 const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
   // Track the current active navigation item.
