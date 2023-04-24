@@ -6,7 +6,13 @@ import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopArtist } from '@/utils/types';
+import { TopArtist, TopItemTimeframe, TopItemView } from '@/utils/types';
+
+type ArtistsResponse = {
+  artists: TopArtist[];
+  topArtistsStyle: TopItemView;
+  topArtistsTimeframe: TopItemTimeframe;
+};
 
 /**
  * User Artists page.
@@ -14,7 +20,7 @@ import { TopArtist } from '@/utils/types';
 const Artists = () => {
   const [url, setUrl] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<{ artists: TopArtist[] }>(url);
+  const { isLoading, error, data } = useFetch<ArtistsResponse>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {
@@ -46,7 +52,12 @@ const Artists = () => {
   return (
     <div className={styles['artists']}>
       {data && (
-        <TopItems itemList={data.artists} itemType={TopItemTypes.ARTIST} />
+        <TopItems
+          itemList={data.artists}
+          itemType={TopItemTypes.ARTIST}
+          defaultView={data.topArtistsStyle}
+          defaultTimeframe={data.topArtistsTimeframe}
+        />
       )}
     </div>
   );

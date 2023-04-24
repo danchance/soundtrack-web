@@ -11,7 +11,9 @@ import {
   TopAlbum,
   TopArtist,
   TopTrack,
-  RecentlyPlayedTrack
+  RecentlyPlayedTrack,
+  TopItemView,
+  TopItemTimeframe
 } from '@/utils/types';
 import TopItems, { TopItemTypes } from '@/components/top_items';
 
@@ -20,6 +22,12 @@ type ProfileResponse = {
   tracks: TopTrack[];
   albums: TopAlbum[];
   artists: TopArtist[];
+  topTracksStyle: TopItemView;
+  topTracksTimeframe: TopItemTimeframe;
+  topAlbumsStyle: TopItemView;
+  topAlbumsTimeframe: TopItemTimeframe;
+  topArtistsStyle: TopItemView;
+  topArtistsTimeframe: TopItemTimeframe;
 };
 
 /**
@@ -70,9 +78,24 @@ const Profile: NextPageWithLayout = () => {
       {data && (
         <>
           <RecentlyPlayed trackList={data.recentTracks} />
-          <TopItems itemList={data.tracks} itemType={TopItemTypes.TRACK} />
-          <TopItems itemList={data.albums} itemType={TopItemTypes.ALBUM} />
-          <TopItems itemList={data.artists} itemType={TopItemTypes.ARTIST} />
+          <TopItems
+            itemList={data.tracks}
+            itemType={TopItemTypes.TRACK}
+            defaultView={data.topTracksStyle}
+            defaultTimeframe={data.topTracksTimeframe}
+          />
+          <TopItems
+            itemList={data.albums}
+            itemType={TopItemTypes.ALBUM}
+            defaultView={data.topAlbumsStyle}
+            defaultTimeframe={data.topAlbumsTimeframe}
+          />
+          <TopItems
+            itemList={data.artists}
+            itemType={TopItemTypes.ARTIST}
+            defaultView={data.topArtistsStyle}
+            defaultTimeframe={data.topArtistsTimeframe}
+          />
         </>
       )}
       <h2>Top Genres</h2>

@@ -6,10 +6,13 @@ import GridSVG from '@/assets/icons/grid.svg';
 import ListSVG from '@/assets/icons/list.svg';
 import GraphSVG from '@/assets/icons/graph.svg';
 import ImageBarChart from './image_bar_chart';
+import { TopItemTimeframe, TopItemView } from '@/utils/types';
 
 type TopItemsProps = {
   itemList: Array<Item>;
   itemType: TopItemTypes;
+  defaultView: TopItemView;
+  defaultTimeframe: TopItemTimeframe;
 };
 
 type Item = {
@@ -27,20 +30,19 @@ export enum TopItemTypes {
   ARTIST = 'Artist'
 }
 
-enum View {
-  LIST = 0,
-  GRID = 1,
-  GRAPH = 2
-}
-
 /**
  * Component used to display either a users top tracks, albums or artists.
  * @param itemList The list of items to display.
  * @param itemType The type of item we are displaying.
  * @returns
  */
-const TopItems = ({ itemList, itemType }: TopItemsProps) => {
-  const [view, setView] = useState<View>(View.LIST);
+const TopItems = ({
+  itemList,
+  itemType,
+  defaultView,
+  defaultTimeframe
+}: TopItemsProps) => {
+  const [view, setView] = useState<TopItemView>(defaultView);
   const heading = `Top ${itemType}s`;
 
   // Get the images, labels and data for the bar chart view.
@@ -61,13 +63,13 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
       <div className={styles['header']}>
         <h2>{heading}</h2>
         <div className={styles['options']}>
-          <button onClick={() => setView(View.GRID)}>
+          <button onClick={() => setView(TopItemView.GRID)}>
             <Image src={GridSVG} alt="Grid Icon" width={16} height={16}></Image>
           </button>
-          <button onClick={() => setView(View.LIST)}>
+          <button onClick={() => setView(TopItemView.LIST)}>
             <Image src={ListSVG} alt="List Icon" width={16} height={16}></Image>
           </button>
-          <button onClick={() => setView(View.GRAPH)}>
+          <button onClick={() => setView(TopItemView.CHART)}>
             <Image
               src={GraphSVG}
               alt="Graph Icon"
@@ -77,7 +79,7 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
           </button>
         </div>
       </div>
-      {view === View.GRID && (
+      {view === TopItemView.GRID && (
         <div className={styles['grid']}>
           {itemList.map((item) => (
             <div className={styles['item']} key={item.id}>
@@ -122,7 +124,7 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
           ))}
         </div>
       )}
-      {view === View.LIST && (
+      {view === TopItemView.LIST && (
         <table className={styles['list']}>
           <tbody>
             {itemList.map((item, index) => (
@@ -156,7 +158,7 @@ const TopItems = ({ itemList, itemType }: TopItemsProps) => {
           </tbody>
         </table>
       )}
-      {view === View.GRAPH && (
+      {view === TopItemView.CHART && (
         <ImageBarChart data={data} labels={labels} images={images} />
       )}
       <div className={styles['footer']}>
