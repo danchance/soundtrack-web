@@ -1,6 +1,6 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import useFetch from '@/hooks/useFetch';
-import LibraryLayout from '@/layouts/library_layout';
+import LibraryLayout, { LibraryPage } from '@/layouts/library_layout';
 import styles from '@/styles/pages/library/track.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
@@ -11,17 +11,15 @@ type TrackResponse = {
 };
 
 const Track = () => {
-  const router = useRouter();
+  const { track } = useRouter().query;
   const [url, setUrl] = useState<string>('');
   const { isLoading, error, data } = useFetch<TrackResponse>(url);
 
   useEffect(() => {
-    if (router.query.track !== undefined) {
-      setUrl(
-        `http://localhost:8000/api/tracks/${router.query.track as string}`
-      );
+    if (track !== undefined) {
+      setUrl(`http://localhost:8000/api/tracks/${track as string}`);
     }
-  }, [router.query.track]);
+  }, [track]);
 
   useEffect(() => {
     if (data) {
@@ -51,7 +49,7 @@ const Track = () => {
 };
 
 Track.getLayout = function getLayout(page: ReactElement) {
-  return <LibraryLayout>{page}</LibraryLayout>;
+  return <LibraryLayout pageType={LibraryPage.TRACK}>{page}</LibraryLayout>;
 };
 
 export default Track;

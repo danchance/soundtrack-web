@@ -1,6 +1,36 @@
 @use '../variables'
-  
+
+.library-header
+  margin-bottom: 2rem
+
+  .hero-img
+    position: relative
+    width: 100%
+    height: 18rem
+    background-color: rgb(62, 101, 199)
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+
+    img
+      object-fit: cover
+
+  .header-wrapper
+    position: relative
+    margin: auto
+    max-width: 1000px
+    min-height: 140px
+
+    .primary-img
+      position: absolute
+      top: -80px
+      left: 1rem
+      border: 3px solid black
+
+    .header-info
+      margin-left: 240px
+      padding: 1rem
+
 .library-wrapper
-  margin: 4rem auto 0 auto
+  margin: auto
   padding: 1rem
   max-width: variables.$site-container-width
+
