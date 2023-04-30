@@ -1,8 +1,3 @@
-const MINUTE = 60;
-const HOUR = MINUTE * 60;
-const DAY = HOUR * 24;
-const YEAR = DAY * 365;
-
 /**
  * Formats the input date string for display.
  * @example date is today => hh:mm
@@ -11,7 +6,7 @@ const YEAR = DAY * 365;
  * @param date Date for formatting
  * @returns Formatted date string
  */
-const formatDate = (dateString: string): string => {
+export const formatDate = (dateString: string): string => {
   const today = new Date();
   const date = new Date(dateString);
 
@@ -30,5 +25,3 @@ const formatDate = (dateString: string): string => {
   })}`;
   return formattedDate;
 };
-
-export default formatDate;

@@ -1,5 +1,5 @@
 import styles from '@/styles/components/user/recently_played.module.sass';
-import formatDate from '@/utils/format_date';
+import { formatDate } from '@/utils/format_date_time';
 import Image from 'next/image';
 import Link from 'next/link';
 import { RecentlyPlayedTrack } from '@/utils/types';
