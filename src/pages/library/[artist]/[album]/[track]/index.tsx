@@ -17,15 +17,9 @@ const Track = () => {
 
   useEffect(() => {
     if (track !== undefined) {
-      setUrl(`http://localhost:8000/api/tracks/${track as string}`);
+      setUrl(`http://localhost:8000/api/tracks/${track as string}/data`);
     }
   }, [track]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
 
   useEffect(() => {
     if (data) {
@@ -45,7 +39,15 @@ const Track = () => {
     );
   }
 
-  return <div className={styles['container']}>{<h1>{data!.name}</h1>}</div>;
+  return (
+    <div className={styles['container']}>
+      <div className={styles['primary-col']}>
+        <div className={[styles['top'], styles['listeners']].join(' ')}>
+          <h2>TOP LISTENERS</h2>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 Track.getLayout = function getLayout(page: ReactElement) {

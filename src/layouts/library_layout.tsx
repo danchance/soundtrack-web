@@ -38,11 +38,11 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
       setUrl(`http://localhost:8000/api/artists/${router.query.artist}`);
       return;
     }
-    if (pageType === LibraryPage.ALBUM) {
+    if (pageType === LibraryPage.ALBUM && router.query.album) {
       setUrl(`http://localhost:8000/api/albums/${router.query.album}`);
       return;
     }
-    if (pageType === LibraryPage.TRACK) {
+    if (pageType === LibraryPage.TRACK && router.query.track) {
       setUrl(`http://localhost:8000/api/tracks/${router.query.track}`);
       return;
     }

@@ -17,7 +17,7 @@ const Album = () => {
 
   useEffect(() => {
     if (album !== undefined) {
-      setUrl(`http://localhost:8000/api/albums/${album as string}`);
+      setUrl(`http://localhost:8000/api/albums/${album as string}/data`);
     }
   }, [album]);
 
@@ -40,7 +40,21 @@ const Album = () => {
   }
 
   return (
-    <div className={styles['container']}>{<h1>{data!.albumName}</h1>}</div>
+    <div className={styles['container']}>
+      <div className={styles['primary-col']}>
+        <div className={[styles['top'], styles['tracks']].join(' ')}>
+          <h2>TRACKS</h2>
+        </div>
+        <div className={[styles['top'], styles['albums']].join(' ')}>
+          <h2>MORE ALBUMS</h2>
+        </div>
+      </div>
+      <div className={styles['secondary-col']}>
+        <div className={[styles['top'], styles['listeners']].join(' ')}>
+          <h2>TOP LISTENERS</h2>
+        </div>
+      </div>
+    </div>
   );
 };
 
