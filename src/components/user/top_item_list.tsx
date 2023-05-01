@@ -7,6 +7,9 @@ import ListSVG from '@/assets/icons/list.svg';
 import GraphSVG from '@/assets/icons/graph.svg';
 import ImageBarChart from '../image_bar_chart';
 import { TopItemTimeframe, TopItemView } from '@/utils/types';
+import GoldMedal from '@/assets/icons/gold.png';
+import SilverMedal from '@/assets/icons/silver.png';
+import BronzeMedal from '@/assets/icons/bronze.png';
 
 type TopItemListProps = {
   itemList: Array<Item>;
@@ -158,7 +161,23 @@ const TopItemList = ({
           <tbody>
             {itemList.map((item, index) => (
               <tr key={item.id}>
-                <td className={styles['rank-col']}>{index + 1}</td>
+                <td className={styles['rank-col']}>
+                  {index <= 2 && (
+                    <Image
+                      src={
+                        index === 0
+                          ? GoldMedal
+                          : index === 1
+                          ? SilverMedal
+                          : BronzeMedal
+                      }
+                      alt={(index + 1).toString()}
+                      width={30}
+                      height={30}
+                    ></Image>
+                  )}
+                  {index > 2 && index + 1}
+                </td>
                 <td className={styles['artwork-col']}>
                   <Link href="#">
                     <Image
