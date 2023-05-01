@@ -1,0 +1,82 @@
+@use '../variables'
+
+.library-header
+  margin-bottom: 2rem
+
+  .hero-img
+    position: relative
+    width: 100%
+    height: 18rem
+    background-color: rgb(62, 101, 199)
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)
+
+    img
+      object-fit: cover
+
+  .header-wrapper
+    position: relative
+    margin: auto
+    max-width: 1000px
+    min-height: 140px
+
+    .primary-img
+      position: absolute
+      top: -60px
+      left: 1rem
+      border: 3px solid black
+
+    .header-info
+      margin-left: 250px
+      padding: 1rem
+
+      .title
+        margin-bottom: 0.8rem
+
+        h1
+          display: inline
+
+          &.artist-name
+            font-size: 1.3rem
+            font-weight: 600
+            margin-left: 0.8rem
+
+          a
+            text-decoration: none
+
+      .album-data
+        margin-bottom: 0.8rem
+
+        h2
+          display: inline
+          font-size: 0.9rem
+          font-weight: 500
+
+        span
+          margin: 0 0.5rem   
+
+      .tag
+        padding: 0.5rem 1rem
+        width: fit-content
+        color: white
+        font-size: 0.9rem
+        letter-spacing: 0.05rem
+        border-radius: 0.4rem
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)
+
+        &:hover
+          cursor: pointer
+
+        &.artist
+          background-color: #6c5ce7   
+
+        &.album
+          background-color: #0984e3
+
+        &.track
+          background-color: #00b894  
+
+.library-wrapper
+  margin: auto
+  padding: 1rem
+  max-width: variables.$site-container-width
+

@@ -77,7 +77,7 @@ const Profile: NextPageWithLayout = () => {
     <div className={styles['overview']}>
       {data && (
         <>
-          <RecentlyPlayed trackList={data.recentTracks} />
+          <RecentlyPlayed itemList={data.recentTracks} />
           <TopItems
             itemList={data.tracks}
             itemType={TopItemTypes.TRACK}

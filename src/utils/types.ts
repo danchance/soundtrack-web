@@ -7,6 +7,7 @@ type Artist = {
   id: string;
   name: string;
   image: string;
+  slug: string;
 };
 
 // Standard album type
@@ -18,6 +19,7 @@ type Album = {
   trackNum: number;
   type: string;
   Artist: Artist;
+  slug: string;
 };
 
 // Standard track type
@@ -26,13 +28,17 @@ type Track = {
   name: string;
   duration: number;
   Album: Album;
+  slug: string;
 };
 
 // Users top streamed tracks
 export type TopTrack = {
   id: string;
   artistName: string;
+  artistSlug: string;
   trackName: string;
+  trackSlug: string;
+  albumSlug: string;
   artwork: string;
   count: number;
 };
@@ -41,7 +47,9 @@ export type TopTrack = {
 export type TopAlbum = {
   id: string;
   artistName: string;
+  artistSlug: string;
   albumName: string;
+  albumSlug: string;
   artwork: string;
   count: number;
 };
@@ -50,6 +58,7 @@ export type TopAlbum = {
 export type TopArtist = {
   id: string;
   artistName: string;
+  artistSlug: string;
   artwork: string;
   count: number;
 };

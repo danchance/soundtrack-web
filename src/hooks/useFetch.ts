@@ -62,6 +62,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     cancelRequest.current = false;
     if (!url) return;
     if (accessTokenReq && !accessToken) return;
+    console.log('requesting');
     try {
       dispatch({ type: Status.LOADING });
       const response = await fetch(url, {
@@ -84,7 +85,25 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
   };
 
   /**
+   * Fetches data when the url changes or access token changes.
+   * Used when an access token is required for the request.
+   */
+  useEffect(() => {
+    if (!accessTokenReq) return;
+    request(accessToken);
+
+    // Ensure the hook does not try to update state after is has been
+    // unmounted.
+    return () => {
+      cancelRequest.current = true;
+    };
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url, accessToken]);
+
+  /**
    * Fetches data when the url changes.
+   * Used when an access token is not required for the request.
    */
   useEffect(() => {
     request(accessToken);
@@ -96,7 +115,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [url, accessToken]);
+  }, [url]);
 
   return { ...state, request };
 };

@@ -1,18 +1,19 @@
 import styles from '@/styles/components/user/recently_played.module.sass';
-import formatDate from '@/utils/format_date';
+import { formatDate } from '@/utils/format_date_time';
 import Image from 'next/image';
 import Link from 'next/link';
 import { RecentlyPlayedTrack } from '@/utils/types';
 
 type RecentlyPlayedProps = {
-  trackList: RecentlyPlayedTrack[];
+  itemList: RecentlyPlayedTrack[];
 };
 
 /**
  * Component for displaying a users recently played tracks.
- * @param trackList The list of tracks to display.
+ * @param itemList The list of tracks to display.
  */
-const RecentlyPlayed = ({ trackList }: RecentlyPlayedProps) => {
+const RecentlyPlayed = ({ itemList: itemList }: RecentlyPlayedProps) => {
+  console.log(itemList);
   return (
     <div className={styles['recent-tracks']}>
       <div className={styles['header']}>
@@ -20,27 +21,35 @@ const RecentlyPlayed = ({ trackList }: RecentlyPlayedProps) => {
       </div>
       <table className={styles['list']}>
         <tbody>
-          {trackList.map((track) => (
-            <tr key={track.id}>
+          {itemList.map((item) => (
+            <tr key={item.id}>
               <td className={styles['artwork-col']}>
-                <Link href="#">
+                <Link
+                  href={`/library/${item.Track.Album.Artist.slug}/${item.Track.Album.slug}/${item.Track.slug}`}
+                >
                   <Image
                     className={styles['artwork']}
-                    src={track.Track.Album.artwork}
-                    alt={track.Track.name}
+                    src={item.Track.Album.artwork}
+                    alt={item.Track.name}
                     width={40}
                     height={40}
                   ></Image>
                 </Link>
               </td>
               <td className={styles['track-col']}>
-                <Link href="#">{track.Track.name}</Link>
+                <Link
+                  href={`/library/${item.Track.Album.Artist.slug}/${item.Track.Album.slug}/${item.Track.slug}`}
+                >
+                  {item.Track.name}
+                </Link>
               </td>
               <td className={styles['artist-col']}>
-                <Link href="#">{track.Track.Album.Artist.name}</Link>
+                <Link href={`/library/${item.Track.Album.Artist.slug}`}>
+                  {item.Track.Album.Artist.name}
+                </Link>
               </td>
               <td className={styles['time-col']}>
-                <p>{formatDate(track.playedAt)}</p>
+                <p>{formatDate(item.playedAt)}</p>
               </td>
             </tr>
           ))}

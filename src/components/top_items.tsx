@@ -22,6 +22,9 @@ type Item = {
   count: number;
   trackName?: string;
   albumName?: string;
+  trackSlug?: string;
+  albumSlug?: string;
+  artistSlug: string;
 };
 
 export enum TopItemTypes {
@@ -45,7 +48,9 @@ const TopItems = ({
   const [view, setView] = useState<TopItemView>(defaultView);
   const heading = `Top ${itemType}s`;
 
-  // Get the images, labels and data for the bar chart view.
+  /**
+   * Get the images, labels and data for the bar chart view.
+   */
   const images = itemList.map((item) => item.artwork);
   const labels = itemList.map((item) => {
     if (itemType === TopItemTypes.TRACK) {
@@ -83,37 +88,61 @@ const TopItems = ({
         <div className={styles['grid']}>
           {itemList.map((item) => (
             <div className={styles['item']} key={item.id}>
-              <Link href="#" className={styles['artwork']}>
+              <Link
+                href={
+                  itemType === TopItemTypes.TRACK
+                    ? `/library/${item.artistSlug}/${item.albumSlug}/${item.trackSlug}`
+                    : itemType === TopItemTypes.ALBUM
+                    ? `/library/${item.artistSlug}/${item.albumSlug}`
+                    : `/library/${item.artistSlug}`
+                }
+                className={styles['artwork']}
+              >
                 <Image
                   src={item.artwork}
                   alt={`${itemType} artwork`}
                   fill
                 ></Image>
               </Link>
+
               <div className={styles['info']}>
                 {itemType === TopItemTypes.ALBUM && (
                   <>
                     <h3 className={styles['album-name']}>
-                      <Link href="#">{item.albumName}</Link>
+                      <Link
+                        href={`/library/${item.artistSlug}/${item.albumSlug}`}
+                      >
+                        {item.albumName}
+                      </Link>
                     </h3>
                     <h4 className={styles['artist-name']}>
-                      <Link href="#">{item.artistName}</Link>
+                      <Link href={`/library/${item.artistSlug}`}>
+                        {item.artistName}
+                      </Link>
                     </h4>
                   </>
                 )}
                 {itemType === TopItemTypes.TRACK && (
                   <>
                     <h3 className={styles['track-name']}>
-                      <Link href="#">{item.trackName}</Link>
+                      <Link
+                        href={`/library/${item.artistSlug}/${item.albumSlug}/${item.trackSlug}`}
+                      >
+                        {item.trackName}
+                      </Link>
                     </h3>
                     <h4 className={styles['artist-name']}>
-                      <Link href="#">{item.artistName}</Link>
+                      <Link href={`/library/${item.artistSlug}`}>
+                        {item.artistName}
+                      </Link>
                     </h4>
                   </>
                 )}
                 {itemType === TopItemTypes.ARTIST && (
                   <h3 className={styles['artist-name']}>
-                    <Link href="#">{item.artistName}</Link>
+                    <Link href={`/library/${item.artistSlug}`}>
+                      {item.artistName}
+                    </Link>
                   </h3>
                 )}
                 <h4 className={styles['count']}>
@@ -143,12 +172,22 @@ const TopItems = ({
                 </td>
                 <td className={styles['info-col']}>
                   {itemType === TopItemTypes.TRACK && (
-                    <Link href="#">{item.trackName}</Link>
+                    <Link
+                      href={`/library/${item.artistSlug}/${item.albumSlug}/${item.trackSlug}`}
+                    >
+                      {item.trackName}
+                    </Link>
                   )}
                   {itemType === TopItemTypes.ALBUM && (
-                    <Link href="#">{item.albumName}</Link>
+                    <Link
+                      href={`/library/${item.artistSlug}/${item.albumSlug}`}
+                    >
+                      {item.albumName}
+                    </Link>
                   )}
-                  <Link href="#">{item.artistName}</Link>
+                  <Link href={`/library/${item.artistSlug}`}>
+                    {item.artistName}
+                  </Link>
                 </td>
                 <td className={styles['count-col']}>
                   <Link href="#">{`${item.count} streams`}</Link>
