@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/components/library/list.module.sass';
+import GoldMedal from '@/assets/icons/gold.png';
+import SilverMedal from '@/assets/icons/silver.png';
+import BronzeMedal from '@/assets/icons/bronze.png';
 
 type UserListProps = {
   users: {
@@ -15,7 +18,6 @@ type UserListProps = {
  * Component for displaying top listeners of an artist, album or track.
  * Builds a table wit the columns: Rank, Profile Image, Username, Streams
  * @param users Array of users
- * @returns
  */
 const UserList = ({ users }: UserListProps) => {
   return (
@@ -33,7 +35,28 @@ const UserList = ({ users }: UserListProps) => {
         <tbody>
           {users.map((user, index) => (
             <tr key={user.id}>
-              <td className={styles['rank-col']}>{index + 1}</td>
+              <td className={styles['rank-col']}>
+                {index === 0 && (
+                  <Image src={GoldMedal} alt="1" width={30} height={30}></Image>
+                )}
+                {index === 1 && (
+                  <Image
+                    src={SilverMedal}
+                    alt="2"
+                    width={30}
+                    height={30}
+                  ></Image>
+                )}
+                {index === 2 && (
+                  <Image
+                    src={BronzeMedal}
+                    alt="3"
+                    width={30}
+                    height={30}
+                  ></Image>
+                )}
+                {index > 2 && index + 1}
+              </td>
               <td className={styles['image-col']}>
                 <Image src={user.picture} alt="" width={40} height={40}></Image>
               </td>

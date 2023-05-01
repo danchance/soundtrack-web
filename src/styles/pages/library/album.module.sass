@@ -66,6 +66,10 @@
       &:hover
         text-decoration: underline
 
+@media (max-width: 800px)
+  .container
+    grid-template-columns: 1fr
+
 @container albums (max-width: 600px) 
   .more-albums 
     grid-template-columns: repeat(3, 1fr) !important

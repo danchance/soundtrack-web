@@ -8,6 +8,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
+import GoldMedal from '@/assets/icons/gold.png';
+import SilverMedal from '@/assets/icons/silver.png';
+import BronzeMedal from '@/assets/icons/bronze.png';
 
 type ArtistResponse = {
   id: string;
@@ -70,7 +73,11 @@ const Artist = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['primary-col']}>
-        <TrackList tracks={data!.topTracks} heading="TOP TRACKS" />
+        <TrackList
+          tracks={data!.topTracks}
+          heading="TOP TRACKS"
+          medals={true}
+        />
         <div className={[styles['top'], styles['albums']].join(' ')}>
           <h2 className={styles['heading']}>TOP ALBUMS</h2>
           <table>
@@ -85,7 +92,33 @@ const Artist = () => {
             <tbody>
               {data!.topAlbums.map((album, index) => (
                 <tr key={album.id}>
-                  <td className={styles['rank-col']}>{index + 1}</td>
+                  <td className={styles['rank-col']}>
+                    {index === 0 && (
+                      <Image
+                        src={GoldMedal}
+                        alt="1"
+                        width={30}
+                        height={30}
+                      ></Image>
+                    )}
+                    {index === 1 && (
+                      <Image
+                        src={SilverMedal}
+                        alt="2"
+                        width={30}
+                        height={30}
+                      ></Image>
+                    )}
+                    {index === 2 && (
+                      <Image
+                        src={BronzeMedal}
+                        alt="3"
+                        width={30}
+                        height={30}
+                      ></Image>
+                    )}
+                    {index > 2 && index + 1}
+                  </td>
                   <td className={styles['image-col']}>
                     <Image
                       src={album.artwork}
