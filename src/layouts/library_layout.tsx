@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import BackgroundImage from '@/assets/images/main-background.jpg';
 import Link from 'next/link';
+import { formatTime } from '@/utils/format_date_time';
 
 type LibraryLayoutProps = {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ type LibraryResponse = {
   trackNum?: number;
   artistName?: string;
   artistSlug?: string;
+  duration?: number;
 };
 
 /**
@@ -92,7 +94,7 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   <span>&bull;</span>
                   <h2>{data.trackNum} songs</h2>
                   <span>&bull;</span>
-                  <h2>1hr 5min</h2>
+                  <h2>{formatTime(data.duration!)}</h2>
                 </div>
               )}
             </div>
