@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import styles from '@/styles/components/top_items.module.sass';
+import styles from '@/styles/components/user/top_item_list.module.sass';
 import Image from 'next/image';
 import Link from 'next/link';
 import GridSVG from '@/assets/icons/grid.svg';
 import ListSVG from '@/assets/icons/list.svg';
 import GraphSVG from '@/assets/icons/graph.svg';
-import ImageBarChart from './image_bar_chart';
+import ImageBarChart from '../image_bar_chart';
 import { TopItemTimeframe, TopItemView } from '@/utils/types';
 
-type TopItemsProps = {
+type TopItemListProps = {
   itemList: Array<Item>;
   itemType: TopItemTypes;
   defaultView: TopItemView;
@@ -39,14 +39,14 @@ export enum TopItemTypes {
  * @param itemType The type of item we are displaying.
  * @returns
  */
-const TopItems = ({
+const TopItemList = ({
   itemList,
   itemType,
   defaultView,
   defaultTimeframe
-}: TopItemsProps) => {
+}: TopItemListProps) => {
   const [view, setView] = useState<TopItemView>(defaultView);
-  const heading = `Top ${itemType}s`;
+  const heading = `Top ${itemType}s`.toUpperCase();
 
   /**
    * Get the images, labels and data for the bar chart view.
@@ -64,7 +64,7 @@ const TopItems = ({
   const data = itemList.map((item) => item.count);
 
   return (
-    <div className={styles['top-items']}>
+    <div className={styles['container']}>
       <div className={styles['header']}>
         <h2>{heading}</h2>
         <div className={styles['options']}>
@@ -207,4 +207,4 @@ const TopItems = ({
   );
 };
 
-export default TopItems;
+export default TopItemList;

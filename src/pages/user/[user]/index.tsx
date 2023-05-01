@@ -15,7 +15,7 @@ import {
   TopItemView,
   TopItemTimeframe
 } from '@/utils/types';
-import TopItems, { TopItemTypes } from '@/components/top_items';
+import TopItems, { TopItemTypes } from '@/components/user/top_item_list';
 
 type ProfileResponse = {
   recentTracks: RecentlyPlayedTrack[];
@@ -74,7 +74,7 @@ const Profile: NextPageWithLayout = () => {
   }
 
   return (
-    <div className={styles['overview']}>
+    <div className={styles['container']}>
       {data && (
         <>
           <RecentlyPlayed itemList={data.recentTracks} />
@@ -98,7 +98,6 @@ const Profile: NextPageWithLayout = () => {
           />
         </>
       )}
-      <h2>Top Genres</h2>
     </div>
   );
 };

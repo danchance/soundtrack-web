@@ -1,17 +1,16 @@
-@use '../variables'
+@use '../../variables'
 
-.top-items
-  margin-bottom: 2rem
-  border-bottom: 1px solid #d5d5d5
+.container
+  padding: 1rem
+  background-color: #fbfbfb
+  border-radius: 1rem
+  box-shadow: 3px 3px 10px #e4e4e4
 
   .header
     display: flex
     justify-content: space-between
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
-
-    h2
-      font-weight: 500
 
     .options
       display: flex
@@ -65,8 +64,8 @@
           font-size: 0.8rem
           font-weight: 300
 
-          a
-            color: #d5d5d5
+        a
+          color: #d5d5d5
 
       &:hover .info
         bottom: 0
@@ -127,13 +126,11 @@
   .footer
     display: flex
     justify-content: flex-end
-    margin: 1rem 0
+    margin-top: 1rem
     font-size: 0.9rem
 
     a
-      color: #d5d5d5
       font-size: 0.8rem
-      font-weight: 300
 
   a 
     display: block

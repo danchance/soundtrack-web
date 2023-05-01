@@ -15,9 +15,9 @@ type RecentlyPlayedProps = {
 const RecentlyPlayed = ({ itemList: itemList }: RecentlyPlayedProps) => {
   console.log(itemList);
   return (
-    <div className={styles['recent-tracks']}>
+    <div className={styles['container']}>
       <div className={styles['header']}>
-        <h2>Recently Played</h2>
+        <h2>RECENTLY PLAYED</h2>
       </div>
       <table className={styles['list']}>
         <tbody>
