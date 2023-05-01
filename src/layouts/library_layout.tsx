@@ -67,8 +67,8 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
               className={styles['primary-img']}
               src={data.artwork}
               alt={data.name}
-              width={220}
-              height={220}
+              width={230}
+              height={230}
             ></Image>
             <div className={styles['header-info']}>
               <div className={styles['title']}>
@@ -103,6 +103,13 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   <h2>Duration: {formatTime(data.duration!)}</h2>
                 </div>
               )}
+              <div
+                className={[styles['tag'], styles[pageType.toLowerCase()]].join(
+                  ' '
+                )}
+              >
+                {pageType.toUpperCase()}
+              </div>
             </div>
           </div>
         </div>
