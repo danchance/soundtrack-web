@@ -4,6 +4,7 @@ import styles from '@/styles/components/library/list.module.sass';
 import GoldMedal from '@/assets/icons/gold.png';
 import SilverMedal from '@/assets/icons/silver.png';
 import BronzeMedal from '@/assets/icons/bronze.png';
+import { useState } from 'react';
 
 type TrackListProps = {
   tracks: {
@@ -22,11 +23,15 @@ type TrackListProps = {
 
 /**
  * Component for displaying a list of tracks, used on the album and artist pages.
+ * Displays 10 tracks by default. If there are more than 10 tracks pressing the
+ * Show All" button will display all tracks.
  * @param tracks List of track to display.
  * @param heading Heading to display above the list.
  * @param medals Whether to display gold, silver and bronze medals or not.
  */
 const TrackList = ({ tracks, heading, medals }: TrackListProps) => {
+  const [showAll, setShowAll] = useState<boolean>(false);
+
   return (
     <div className={styles['container']}>
       <h2 className={styles['heading']}>{heading}</h2>
@@ -41,69 +46,79 @@ const TrackList = ({ tracks, heading, medals }: TrackListProps) => {
           </tr>
         </thead>
         <tbody>
-          {tracks.map((track, index) => (
-            <tr key={track.id}>
-              {!medals && <td className={styles['rank-col']}>{index + 1}</td>}
-              {medals && (
-                <td className={styles['rank-col']}>
-                  {index <= 2 && (
-                    <Image
-                      src={
-                        index === 0
-                          ? GoldMedal
-                          : index === 1
-                          ? SilverMedal
-                          : BronzeMedal
+          {tracks.map((track, index) => {
+            if (!showAll && index >= 10) return;
+            return (
+              <tr key={track.id}>
+                {!medals && <td className={styles['rank-col']}>{index + 1}</td>}
+                {medals && (
+                  <td className={styles['rank-col']}>
+                    {index <= 2 && (
+                      <Image
+                        src={
+                          index === 0
+                            ? GoldMedal
+                            : index === 1
+                            ? SilverMedal
+                            : BronzeMedal
+                        }
+                        alt={(index + 1).toString()}
+                        width={30}
+                        height={30}
+                      ></Image>
+                    )}
+                    {index > 2 && index + 1}
+                  </td>
+                )}
+                <td className={styles['image-col']}>
+                  <Link
+                    href={{
+                      pathname: `/library/[artist]/[album]/[track]`,
+                      query: {
+                        artist: track.artistSlug,
+                        album: track.albumSlug,
+                        track: track.trackSlug
                       }
-                      alt={(index + 1).toString()}
-                      width={30}
-                      height={30}
+                    }}
+                  >
+                    <Image
+                      src={track.artwork}
+                      alt=""
+                      width={40}
+                      height={40}
                     ></Image>
-                  )}
-                  {index > 2 && index + 1}
+                  </Link>
                 </td>
-              )}
-              <td className={styles['image-col']}>
-                <Link
-                  href={{
-                    pathname: `/library/[artist]/[album]/[track]`,
-                    query: {
-                      artist: track.artistSlug,
-                      album: track.albumSlug,
-                      track: track.trackSlug
-                    }
-                  }}
-                >
-                  <Image
-                    src={track.artwork}
-                    alt=""
-                    width={40}
-                    height={40}
-                  ></Image>
-                </Link>
-              </td>
-              <td className={styles['title-col']}>
-                <Link
-                  href={{
-                    pathname: `/library/[artist]/[album]/[track]`,
-                    query: {
-                      artist: track.artistSlug,
-                      album: track.albumSlug,
-                      track: track.trackSlug
-                    }
-                  }}
-                >
-                  {track.trackName}
-                </Link>
-              </td>
-              <td className={styles['streams-col']}>{track.count}</td>
-              <td className={styles['duration-col']}>
-                {new Date(track.duration).toISOString().slice(14, -5)}
-              </td>
-            </tr>
-          ))}
+                <td className={styles['title-col']}>
+                  <Link
+                    href={{
+                      pathname: `/library/[artist]/[album]/[track]`,
+                      query: {
+                        artist: track.artistSlug,
+                        album: track.albumSlug,
+                        track: track.trackSlug
+                      }
+                    }}
+                  >
+                    {track.trackName}
+                  </Link>
+                </td>
+                <td className={styles['streams-col']}>{track.count}</td>
+                <td className={styles['duration-col']}>
+                  {new Date(track.duration).toISOString().slice(14, -5)}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+      <div className={styles['button-container']}>
+        {tracks.length > 10 && (
+          <button onClick={() => setShowAll(!showAll)}>
+            {showAll ? 'Show Less' : 'Show More'}
+          </button>
+        )}
+      </div>
     </div>
   );
 };
