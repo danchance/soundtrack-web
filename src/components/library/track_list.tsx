@@ -13,12 +13,13 @@ type TrackListProps = {
     albumSlug: string;
     artistSlug: string;
   }[];
+  heading: string;
 };
 
-const TrackList = ({ tracks }: TrackListProps) => {
+const TrackList = ({ tracks, heading }: TrackListProps) => {
   return (
     <div className={styles['container']}>
-      <h2 className={styles['heading']}>TOP TRACKS</h2>
+      <h2 className={styles['heading']}>{heading}</h2>
       <table>
         <thead>
           <tr>

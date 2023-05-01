@@ -73,20 +73,21 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
             <div className={styles['header-info']}>
               <div className={styles['title']}>
                 <h1>{data.name.toUpperCase()}</h1>
-                {pageType === LibraryPage.ALBUM && (
-                  <h1 className={styles['artist-name']}>
-                    <Link
-                      href={{
-                        pathname: `/library/[artist]`,
-                        query: {
-                          artist: data!.artistSlug
-                        }
-                      }}
-                    >
-                      BY {data.artistName?.toUpperCase()}
-                    </Link>
-                  </h1>
-                )}
+                {pageType === LibraryPage.ALBUM ||
+                  (pageType === LibraryPage.TRACK && (
+                    <h1 className={styles['artist-name']}>
+                      <Link
+                        href={{
+                          pathname: `/library/[artist]`,
+                          query: {
+                            artist: data!.artistSlug
+                          }
+                        }}
+                      >
+                        BY {data.artistName?.toUpperCase()}
+                      </Link>
+                    </h1>
+                  ))}
               </div>
               {pageType === LibraryPage.ALBUM && (
                 <div className={styles['album-data']}>
@@ -95,6 +96,11 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   <h2>{data.trackNum} songs</h2>
                   <span>&bull;</span>
                   <h2>{formatTime(data.duration!)}</h2>
+                </div>
+              )}
+              {pageType === LibraryPage.TRACK && (
+                <div className={styles['album-data']}>
+                  <h2>Duration: {formatTime(data.duration!)}</h2>
                 </div>
               )}
             </div>

@@ -72,7 +72,7 @@ const Album = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['primary-col']}>
-        <TrackList tracks={data!.albumTracks} />
+        <TrackList tracks={data!.albumTracks} heading="ALBUM TRACKS" />
         <div className={[styles['top'], styles['albums']].join(' ')}>
           <h2 className={styles['heading']}>MORE ALBUMS</h2>
           <div className={styles['more-albums']}>

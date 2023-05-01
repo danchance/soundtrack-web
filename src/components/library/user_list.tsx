@@ -54,6 +54,9 @@ const UserList = ({ users }: UserListProps) => {
           ))}
         </tbody>
       </table>
+      {users.length === 0 && (
+        <h3 className={styles['no-rows-msg']}>Be the first to appear here!</h3>
+      )}
     </div>
   );
 };

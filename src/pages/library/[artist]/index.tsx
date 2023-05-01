@@ -70,7 +70,7 @@ const Artist = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['primary-col']}>
-        <TrackList tracks={data!.topTracks} />
+        <TrackList tracks={data!.topTracks} heading="TOP TRACKS" />
         <div className={[styles['top'], styles['albums']].join(' ')}>
           <h2 className={styles['heading']}>TOP ALBUMS</h2>
           <table>
