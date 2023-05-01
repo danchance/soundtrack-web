@@ -1,0 +1,72 @@
+.container
+  padding: 1rem
+  border-radius: 1rem
+  background-color: #fbfbfb
+  box-shadow: 3px 3px 10px #e4e4e4
+
+  .heading
+    padding-bottom: 1rem
+  
+  table
+    width: 100%
+    border-collapse: collapse
+    table-layout: fixed
+
+    thead
+      margin-top: 3rem
+      line-height: 2rem
+      text-align: left
+      border-bottom: 1px solid #f0f0f0
+
+      th
+        &:last-child
+          padding-right: 1rem
+
+    tbody
+      tr
+        font-size: 0.9rem
+
+        &:nth-child(2n)
+          background-color: #f0f0f0
+      
+      td
+        padding: 0.4rem 0
+
+        &:last-child
+          padding-right: 1rem
+
+        a
+          display: block
+          max-width: fit-content
+          white-space: nowrap
+          overflow: hidden
+          text-overflow: ellipsis
+          text-decoration: none
+
+          &:hover
+            text-decoration: underline
+
+    .rank-col
+      width: 3rem 
+      text-align: center
+
+    .image-col
+      width: 40px
+
+      img
+        display: block
+        object-fit: cover
+
+    .title-col
+      padding-left: 1rem
+    
+    .streams-col, .plays-col, .duration-col
+      width: 7rem
+      text-align: right
+
+    .plays-col
+      width: 4rem
+
+    .duration-col
+      width: 6rem
+    

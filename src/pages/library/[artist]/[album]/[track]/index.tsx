@@ -1,3 +1,4 @@
+import UserList from '@/components/library/user_list';
 import LoadingSpinner from '@/components/loading_spinner';
 import useFetch from '@/hooks/useFetch';
 import LibraryLayout, { LibraryPage } from '@/layouts/library_layout';
@@ -8,6 +9,12 @@ import { ReactElement, useEffect, useState } from 'react';
 type TrackResponse = {
   id: string;
   name: string;
+  topListeners: {
+    id: string;
+    username: string;
+    picture: string;
+    count: number;
+  }[];
 };
 
 const Track = () => {
@@ -42,9 +49,7 @@ const Track = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['primary-col']}>
-        <div className={[styles['top'], styles['listeners']].join(' ')}>
-          <h2>TOP LISTENERS</h2>
-        </div>
+        <UserList users={data!.topListeners} />
       </div>
     </div>
   );

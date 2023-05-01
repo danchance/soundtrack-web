@@ -1,3 +1,5 @@
+import TrackList from '@/components/library/track_list';
+import UserList from '@/components/library/user_list';
 import LoadingSpinner from '@/components/loading_spinner';
 import useFetch from '@/hooks/useFetch';
 import LibraryLayout, { LibraryPage } from '@/layouts/library_layout';
@@ -19,6 +21,7 @@ type ArtistResponse = {
     count: number;
     trackSlug: string;
     albumSlug: string;
+    artistSlug: string;
   }[];
   topAlbums: {
     id: string;
@@ -67,64 +70,7 @@ const Artist = () => {
   return (
     <div className={styles['container']}>
       <div className={styles['primary-col']}>
-        <div className={[styles['top'], styles['tracks']].join(' ')}>
-          <h2 className={styles['heading']}>TOP TRACKS</h2>
-          <table>
-            <thead>
-              <tr>
-                <th className={styles['rank-col']}>#</th>
-                <th className={styles['image-col']}></th>
-                <th className={styles['title-col']}>Title</th>
-                <th className={styles['streams-col']}>Streams</th>
-                <th className={styles['duration-col']}>Duration</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data!.topTracks.map((track, index) => (
-                <tr key={track.id}>
-                  <td className={styles['rank-col']}>{index + 1}</td>
-                  <td className={styles['image-col']}>
-                    <Link
-                      href={{
-                        pathname: `/library/[artist]/[album]/[track]`,
-                        query: {
-                          artist: data!.artistSlug,
-                          album: track.albumSlug,
-                          track: track.trackSlug
-                        }
-                      }}
-                    >
-                      <Image
-                        src={track.artwork}
-                        alt=""
-                        width={40}
-                        height={40}
-                      ></Image>
-                    </Link>
-                  </td>
-                  <td className={styles['title-col']}>
-                    <Link
-                      href={{
-                        pathname: `/library/[artist]/[album]/[track]`,
-                        query: {
-                          artist: data!.artistSlug,
-                          album: track.albumSlug,
-                          track: track.trackSlug
-                        }
-                      }}
-                    >
-                      {track.trackName}
-                    </Link>
-                  </td>
-                  <td className={styles['streams-col']}>{track.count}</td>
-                  <td className={styles['duration-col']}>
-                    {new Date(track.duration).toISOString().slice(14, -5)}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <TrackList tracks={data!.topTracks} />
         <div className={[styles['top'], styles['albums']].join(' ')}>
           <h2 className={styles['heading']}>TOP ALBUMS</h2>
           <table>
@@ -169,47 +115,7 @@ const Artist = () => {
         </div>
       </div>
       <div className={styles['secondary-col']}>
-        <div className={[styles['top'], styles['listeners']].join(' ')}>
-          <h2 className={styles['heading']}>TOP LISTENERS</h2>
-          <table>
-            <thead>
-              <tr>
-                <th className={styles['rank-col']}>#</th>
-                <th className={styles['image-col']}></th>
-                <th className={styles['title-col']}>Title</th>
-                <th className={styles['streams-col']}>Streams</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data!.topListeners.map((listener, index) => (
-                <tr key={listener.id}>
-                  <td className={styles['rank-col']}>{index + 1}</td>
-                  <td className={styles['image-col']}>
-                    <Image
-                      src={listener.picture}
-                      alt=""
-                      width={40}
-                      height={40}
-                    ></Image>
-                  </td>
-                  <td className={styles['title-col']}>
-                    <Link
-                      href={{
-                        pathname: `/user/[username]`,
-                        query: {
-                          username: listener.username
-                        }
-                      }}
-                    >
-                      {listener.username}
-                    </Link>
-                  </td>
-                  <td className={styles['streams-col']}>{listener.count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <UserList users={data!.topListeners} />
       </div>
     </div>
   );

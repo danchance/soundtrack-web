@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import BackgroundImage from '@/assets/images/main-background.jpg';
+import Link from 'next/link';
 
 type LibraryLayoutProps = {
   children: React.ReactNode;
@@ -20,6 +21,10 @@ type LibraryResponse = {
   id: string;
   name: string;
   artwork: string;
+  releaseYear?: number;
+  trackNum?: number;
+  artistName?: string;
+  artistSlug?: string;
 };
 
 /**
@@ -64,7 +69,32 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
               height={220}
             ></Image>
             <div className={styles['header-info']}>
-              <h1>{data.name.toUpperCase()}</h1>
+              <div className={styles['title']}>
+                <h1>{data.name.toUpperCase()}</h1>
+                {pageType === LibraryPage.ALBUM && (
+                  <h1 className={styles['artist-name']}>
+                    <Link
+                      href={{
+                        pathname: `/library/[artist]`,
+                        query: {
+                          artist: data!.artistSlug
+                        }
+                      }}
+                    >
+                      BY {data.artistName?.toUpperCase()}
+                    </Link>
+                  </h1>
+                )}
+              </div>
+              {pageType === LibraryPage.ALBUM && (
+                <div className={styles['album-data']}>
+                  <h2>{data.releaseYear}</h2>
+                  <span>&bull;</span>
+                  <h2>{data.trackNum} songs</h2>
+                  <span>&bull;</span>
+                  <h2>1hr 5min</h2>
+                </div>
+              )}
             </div>
           </div>
         </div>
