@@ -120,12 +120,22 @@ const Artist = () => {
                     {index > 2 && index + 1}
                   </td>
                   <td className={styles['image-col']}>
-                    <Image
-                      src={album.artwork}
-                      alt=""
-                      width={40}
-                      height={40}
-                    ></Image>
+                    <Link
+                      href={{
+                        pathname: `/library/[artist]/[album]/`,
+                        query: {
+                          artist: data!.artistSlug,
+                          album: album.albumSlug
+                        }
+                      }}
+                    >
+                      <Image
+                        src={album.artwork}
+                        alt=""
+                        width={40}
+                        height={40}
+                      ></Image>
+                    </Link>
                   </td>
                   <td className={styles['title-col']}>
                     <Link

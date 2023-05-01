@@ -58,7 +58,21 @@ const UserList = ({ users }: UserListProps) => {
                 {index > 2 && index + 1}
               </td>
               <td className={styles['image-col']}>
-                <Image src={user.picture} alt="" width={40} height={40}></Image>
+                <Link
+                  href={{
+                    pathname: `/user/[username]`,
+                    query: {
+                      username: user.username
+                    }
+                  }}
+                >
+                  <Image
+                    src={user.picture}
+                    alt=""
+                    width={40}
+                    height={40}
+                  ></Image>
+                </Link>
               </td>
               <td className={styles['title-col']}>
                 <Link
