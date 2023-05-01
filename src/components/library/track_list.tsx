@@ -46,26 +46,16 @@ const TrackList = ({ tracks, heading, medals }: TrackListProps) => {
               {!medals && <td className={styles['rank-col']}>{index + 1}</td>}
               {medals && (
                 <td className={styles['rank-col']}>
-                  {index === 0 && (
+                  {index <= 2 && (
                     <Image
-                      src={GoldMedal}
-                      alt="1"
-                      width={30}
-                      height={30}
-                    ></Image>
-                  )}
-                  {index === 1 && (
-                    <Image
-                      src={SilverMedal}
-                      alt="2"
-                      width={30}
-                      height={30}
-                    ></Image>
-                  )}
-                  {index === 2 && (
-                    <Image
-                      src={BronzeMedal}
-                      alt="3"
+                      src={
+                        index === 0
+                          ? GoldMedal
+                          : index === 1
+                          ? SilverMedal
+                          : BronzeMedal
+                      }
+                      alt={(index + 1).toString()}
                       width={30}
                       height={30}
                     ></Image>
