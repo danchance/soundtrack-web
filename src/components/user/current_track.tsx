@@ -22,9 +22,13 @@ type CurrentTrack = {
  */
 const CurrentTrack = ({ userid }: { userid: string }) => {
   const url = `http://localhost:8000/api/users/${userid}/current-track`;
-  const { data, request } = useFetch<{ track: CurrentTrack }>(url);
+  const { data, request } = useFetch<CurrentTrack>(url);
   const { isAuthenticated } = useAuth0();
   const { accessToken } = useAccessToken();
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   /**
    * Check the current track every 15 seconds.
@@ -37,9 +41,17 @@ const CurrentTrack = ({ userid }: { userid: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, accessToken]);
 
+  if (!data) return <></>;
+
   return (
     <div className={styles['container']}>
-      {data?.track && <Image src={data.track.artwork} alt="" fill></Image>}
+      <div className={styles['track']}>
+        <Image src={data.artwork} alt="" fill></Image>
+      </div>
+      <div className={styles['info']}>
+        <h2 className={styles['heading']}>CURRENT STREAM</h2>
+        <h3 className={styles['track-name']}>{data.name}</h3>
+      </div>
     </div>
   );
 };

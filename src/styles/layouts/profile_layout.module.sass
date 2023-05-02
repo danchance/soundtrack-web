@@ -1,55 +1,66 @@
 @use '../variables'
 
-.profile-header
-  margin-top: 4rem 
-  background-color: #23272a
-  border-bottom: 1px solid #d5d5d5
+.nav-background
+    height: 4rem
+    width: 100%
+    margin-bottom: 1rem
+    background-color: #2c3e50
 
-  .header-img
-    position: relative
-    height: 12rem
-
-  img
-    display: block
-    object-fit: cover
-
-  .profile-info
-    display: flex
-    max-width: variables.$site-container-width
-    margin: auto
-    padding: 1rem
-
-    .avatar-img
-      border-radius: 50%
-
-    .user
-      display: flex
-      justify-content: space-between
-      align-items: center
-      width: 100%
-      margin-left: 2rem
-
-      .user-data
-        display: flex
-        flex-direction: column
-        gap: 0.5rem
-
-        h1
-          color: #f0f0f0
-
-        p
-          font-size: 0.9rem
-          color: #d5d5d5
-
-  .nav
-    max-width: variables.$site-container-width
-    margin: auto
-    padding: 0 1rem
-
-.profile-wrapper
+.container
   margin: auto
-  padding: 1rem
+  padding: 0 1rem 1rem 1rem
   max-width: variables.$site-container-width
+
+  .profile-header
+    margin-bottom: 2rem
+    border-radius: 1rem
+    background-color: #fbfbfb
+    box-shadow: 3px 3px 10px #e4e4e4
+
+    .header-img
+      position: relative
+      height: 16rem
+
+      img
+        border-radius: 1rem 1rem 0 0
+
+    img
+      display: block
+      object-fit: cover
+
+    .profile-info
+      position: relative
+      display: flex
+      margin: auto
+      margin-bottom: 1.5rem
+      padding: 1rem
+      max-width: 900px
+
+      .avatar-img
+        position: absolute
+        top: -80px
+        border-radius: 50%
+        border: 4px solid black
+
+      .user
+        display: flex
+        justify-content: space-between
+        width: 100%
+        margin-left: 220px
+
+        .user-data
+          h1
+            font-size: 2.2rem
+            margin-bottom: 0.6rem
+
+          p
+            font-size: 0.9rem
+            margin-bottom: 0.4rem
+
+    .nav
+      margin: auto
+      width: fit-content
+      padding: 0 1rem
   
 .error
   display: grid

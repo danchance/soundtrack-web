@@ -2,7 +2,7 @@ import ProfileLayout from '@/layouts/profile_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
 import { ReactElement, useEffect, useState } from 'react';
-import { UserPage } from '@/components/profile_nav';
+import { UserPage } from '@/components/user/profile_nav';
 import { useRouter } from 'next/router';
 import RecentlyPlayed from '@/components/user/recently_played';
 import useFetch from '@/hooks/useFetch';

@@ -1,5 +1,5 @@
 import LoadingSpinner from '@/components/loading_spinner';
-import { UserPage } from '@/components/profile_nav';
+import { UserPage } from '@/components/user/profile_nav';
 import TopItems, { TopItemTypes } from '@/components/user/top_item_list';
 import ProfileLayout from '@/layouts/profile_layout';
 import useFetch from '@/hooks/useFetch';

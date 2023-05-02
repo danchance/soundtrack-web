@@ -1,4 +1,4 @@
-@use '../variables'
+@use '../../variables'
 
 .navigation 
   position: relative
@@ -17,13 +17,12 @@
         justify-content: center
         padding-bottom: 0.75rem
         text-decoration: none
-        color: #f0f0f0
 
-      &.active 
+      &.active
         font-weight: 700
 
         &~ .indicator::before
-          background-color: #b5b5b5
+          background-color: #2d3436
 
       @for $i from 1 through 6 
         &:nth-child(#{$i}).active ~ .indicator 

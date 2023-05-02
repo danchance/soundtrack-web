@@ -84,7 +84,7 @@ const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
         label: 'Streams',
         data: data,
         fill: false,
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(133, 99, 132, 0.5)']
+        backgroundColor: ['#a29bfe', '#74b9ff']
       }
     ]
   };

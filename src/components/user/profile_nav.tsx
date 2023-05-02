@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import styles from '@/styles/components/profile_nav.module.sass';
+import styles from '@/styles/components/user/profile_nav.module.sass';
 import { useState } from 'react';
 
 /**
