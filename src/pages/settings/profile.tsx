@@ -13,17 +13,17 @@ import useAccessToken from '@/hooks/useAccessToken';
 import { patch } from '@/utils/fetch_wrapper';
 import UploadProfilePicture from '@/components/settings/upload_image';
 
+export enum StyleType {
+  LIST = 'list',
+  GRID = 'grid',
+  CHART = 'chart'
+}
+
 export enum Timeframe {
   WEEK = 'week',
   MONTH = 'month',
   YEAR = 'year',
   ALL = 'all'
-}
-
-export enum StyleType {
-  LIST = 'list',
-  GRID = 'grid',
-  CHART = 'chart'
 }
 
 type SettingsResponse = {

@@ -1,4 +1,4 @@
-import styles from '@/styles/components/image_bar_chart.module.sass';
+import styles from '@/styles/components/user/top_items/top_item_bar_chart.module.sass';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -38,7 +38,7 @@ type ImageBarChartProps = {
  * @param labels Labels to display in the tooltip.
  * @param images Images to display on the x-axis.
  */
-const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
+const TopItemBarChart = ({ data, labels, images }: ImageBarChartProps) => {
   // Bar chart options
   const options = {
     responsive: true,
@@ -96,4 +96,4 @@ const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
   );
 };
 
-export default ImageBarChart;
+export default TopItemBarChart;

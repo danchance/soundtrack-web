@@ -1,17 +1,20 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/user/profile_nav';
-import TopItems, { TopItemTypes } from '@/components/user/top_item_list';
+import TopItemDisplay, {
+  TopItemTypes
+} from '@/components/user/top_items/top_item_display';
 import ProfileLayout from '@/layouts/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopArtist, TopItemTimeframe, TopItemView } from '@/utils/types';
+import { TopArtist } from '@/utils/types';
+import { StyleType, Timeframe } from '@/pages/settings/profile';
 
 type ArtistsResponse = {
   artists: TopArtist[];
-  topArtistsStyle: TopItemView;
-  topArtistsTimeframe: TopItemTimeframe;
+  topArtistsStyle: StyleType;
+  topArtistsTimeframe: Timeframe;
 };
 
 /**
@@ -52,7 +55,7 @@ const Artists = () => {
   return (
     <div className={styles['artists']}>
       {data && (
-        <TopItems
+        <TopItemDisplay
           itemList={data.artists}
           itemType={TopItemTypes.ARTIST}
           defaultView={data.topArtistsStyle}

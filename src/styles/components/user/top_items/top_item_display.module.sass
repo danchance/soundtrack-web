@@ -1,0 +1,32 @@
+@use '../../../variables'
+
+.container
+  padding: 1rem
+  background-color: #fbfbfb
+  border-radius: 1rem
+  box-shadow: 3px 3px 10px #e4e4e4
+
+  .header
+    display: flex
+    justify-content: space-between
+    margin-bottom: 0.5rem
+    padding-bottom: 0.5rem
+    
+  .footer
+    display: flex
+    justify-content: flex-end
+    margin-top: 1rem
+    font-size: 0.9rem
+
+    a
+      font-size: 0.8rem
+
+  a 
+    display: block
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+    text-decoration: none
+
+    &:hover
+      text-decoration: underline

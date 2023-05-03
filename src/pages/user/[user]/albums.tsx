@@ -1,17 +1,20 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/user/profile_nav';
-import TopItems, { TopItemTypes } from '@/components/user/top_item_list';
+import TopItemDisplay, {
+  TopItemTypes
+} from '@/components/user/top_items/top_item_display';
 import ProfileLayout from '@/layouts/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopAlbum, TopItemTimeframe, TopItemView } from '@/utils/types';
+import { TopAlbum } from '@/utils/types';
+import { StyleType, Timeframe } from '@/pages/settings/profile';
 
 type AlbumsResponse = {
   albums: TopAlbum[];
-  topAlbumsStyle: TopItemView;
-  topAlbumsTimeframe: TopItemTimeframe;
+  topAlbumsStyle: StyleType;
+  topAlbumsTimeframe: Timeframe;
 };
 
 /**
@@ -52,7 +55,7 @@ const Albums = () => {
   return (
     <div className={styles['albums']}>
       {data && (
-        <TopItems
+        <TopItemDisplay
           itemList={data.albums}
           itemType={TopItemTypes.ALBUM}
           defaultView={data.topAlbumsStyle}

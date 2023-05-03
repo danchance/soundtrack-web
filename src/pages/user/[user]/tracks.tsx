@@ -1,17 +1,20 @@
 import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/user/profile_nav';
-import TopItems, { TopItemTypes } from '@/components/user/top_item_list';
+import TopItemDisplay, {
+  TopItemTypes
+} from '@/components/user/top_items/top_item_display';
 import ProfileLayout from '@/layouts/profile_layout';
 import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
-import { TopItemTimeframe, TopItemView, TopTrack } from '@/utils/types';
+import { TopTrack } from '@/utils/types';
+import { StyleType, Timeframe } from '@/pages/settings/profile';
 
 type TracksResponse = {
   tracks: TopTrack[];
-  topTracksStyle: TopItemView;
-  topTracksTimeframe: TopItemTimeframe;
+  topTracksStyle: StyleType;
+  topTracksTimeframe: Timeframe;
 };
 
 /**
@@ -52,7 +55,7 @@ const Tracks = () => {
   return (
     <div className={styles['tracks']}>
       {data && (
-        <TopItems
+        <TopItemDisplay
           itemList={data.tracks}
           itemType={TopItemTypes.TRACK}
           defaultView={data.topTracksStyle}
