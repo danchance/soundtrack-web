@@ -18,6 +18,7 @@ type User = {
   username: string;
   image: string;
   createdAt: string;
+  streamCount: number;
 };
 
 /**
@@ -98,7 +99,12 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                 <div className={styles['user-data']}>
                   <h1>@{data.user.username}</h1>
                   <p>Member since {memberSince}</p>
-                  <p>1200 streams</p>
+                  <p>
+                    <span className={styles['stream-count']}>
+                      {data.user.streamCount.toLocaleString()}
+                    </span>{' '}
+                    streams
+                  </p>
                 </div>
                 <CurrentTrack userid={data.user.id} />
               </div>

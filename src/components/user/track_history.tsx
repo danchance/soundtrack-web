@@ -67,7 +67,7 @@ const TrackHistory = ({ username }: TrackHistoryProps) => {
         </table>
       )}
       <div className={styles['footer']}>
-        <Link href="#">View All</Link>
+        <Link href={`/user/${username}/tracks`}>View All</Link>
       </div>
     </div>
   );

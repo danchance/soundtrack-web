@@ -15,8 +15,6 @@ type CurrentTrack = {
 
 /**
  * Component for displaying the track the user is currently playing.
- * If the user is not playing a track, the last track they played is
- * displayed.
  * Checks if the track is still playing every 15 seconds.
  * @param user The user to display the current track for.
  */
@@ -41,7 +39,7 @@ const CurrentTrack = ({ userid }: { userid: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, accessToken]);
 
-  if (!data) return <></>;
+  if (!data || !data.playingNow) return <></>;
 
   return (
     <div className={styles['container']}>
