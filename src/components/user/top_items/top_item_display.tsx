@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from '@/styles/components/user/top_items/top_item_display.module.sass';
 import Link from 'next/link';
 import TopItemBarChart from './top_item_bar_chart';
-import TopItemsOptions from './top_item_options';
+import TopItemOptions from './top_item_options';
 import { StyleType, Timeframe } from '@/pages/settings/profile';
 import TopItemGrid from './top_item_grid';
 import TopItemList from './top_item_list';
+import useFetch from '@/hooks/useFetch';
 
 type TopItemDisplayProps = {
-  itemList: Array<Item>;
+  username: string;
   itemType: TopItemTypes;
-  defaultView: StyleType;
-  defaultTimeframe: Timeframe;
 };
 
 export type Item = {
@@ -32,43 +31,69 @@ export enum TopItemTypes {
   ARTIST = 'Artist'
 }
 
+type TopItemResponse = {
+  tracks?: Array<Item>;
+  albums?: Array<Item>;
+  artists?: Array<Item>;
+  timeframe: Timeframe;
+  style: StyleType;
+};
+
 /**
  * Component used to display either a users top tracks, albums or artists.
  * Items can be viewed in a list, grid or chart and can be filtered by timeframe.
- * @param itemList The list of items to display.
+ * @param username The username of the user we are displaying the items for.
  * @param itemType The type of item we are displaying.
  * @returns
  */
-const TopItemDisplay = ({
-  itemList,
-  itemType,
-  defaultView,
-  defaultTimeframe
-}: TopItemDisplayProps) => {
-  const [timeframe, setTimeframe] = useState<Timeframe>(defaultTimeframe);
-  const [style, setStyle] = useState<StyleType>(defaultView);
+const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
   const heading = `Top ${itemType}s`.toUpperCase();
+  const baseUrl = `http://localhost:8000/api/users/${username}/${
+    itemType === TopItemTypes.TRACK
+      ? 'tracks'
+      : itemType === TopItemTypes.ALBUM
+      ? 'albums'
+      : 'artists'
+  }`;
+  const [url, setUrl] = useState<string>(baseUrl);
+  const { data } = useFetch<TopItemResponse>(url);
+  const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);
+  const [style, setStyle] = useState<StyleType>();
+  const [itemList, setItemList] = useState<Array<Item>>([]);
 
   /**
-   * Get the images, labels and data for the bar chart view.
+   * Set the list of items, timeframe and style when new data is fetched.
+   * Style is only updated when data is first fetched.
    */
-  const images = itemList.map((item) => item.artwork);
-  const labels = itemList.map((item) => {
-    if (itemType === TopItemTypes.TRACK) {
-      return item.trackName;
-    } else if (itemType === TopItemTypes.ALBUM) {
-      return item.albumName;
-    } else {
-      return item.artistName;
+  useEffect(() => {
+    if (data) {
+      if (itemType === TopItemTypes.TRACK) setItemList(data.tracks!);
+      if (itemType === TopItemTypes.ALBUM) setItemList(data.albums!);
+      if (itemType === TopItemTypes.ARTIST) setItemList(data.artists!);
+      if (style === undefined) setStyle(data.style);
+      setTimeframe(data.timeframe);
     }
-  }) as string[];
-  const data = itemList.map((item) => item.count);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, itemType]);
+
+  /**
+   * When the timeframe is changed update the API URL, which will trigger a
+   * re-fetch of the data for the new timeframe.
+   */
+  useEffect(() => {
+    if (!data) return;
+    if (timeframe === data.timeframe) return;
+    setUrl(`${baseUrl}?timeframe=${timeframe}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timeframe]);
+
+  if (!data || style === undefined) return <></>;
 
   return (
     <div className={styles['container']}>
       <div className={styles['header']}>
         <h2>{heading}</h2>
-        <TopItemsOptions
+        <TopItemOptions
           timeframe={timeframe}
           setTimeframe={setTimeframe}
           style={style}
@@ -82,7 +107,7 @@ const TopItemDisplay = ({
         <TopItemList itemList={itemList} itemType={itemType} />
       )}
       {style === StyleType.CHART && (
-        <TopItemBarChart data={data} labels={labels} images={images} />
+        <TopItemBarChart itemList={itemList} itemType={itemType} />
       )}
       <div className={styles['footer']}>
         <Link href="#">View All</Link>

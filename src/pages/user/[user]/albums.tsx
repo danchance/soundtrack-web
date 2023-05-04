@@ -1,65 +1,24 @@
-import LoadingSpinner from '@/components/loading_spinner';
 import { UserPage } from '@/components/user/profile_nav';
 import TopItemDisplay, {
   TopItemTypes
 } from '@/components/user/top_items/top_item_display';
 import ProfileLayout from '@/layouts/profile_layout';
-import useFetch from '@/hooks/useFetch';
 import styles from '@/styles/pages/user/albums.module.sass';
 import { useRouter } from 'next/router';
-import { ReactElement, useEffect, useState } from 'react';
-import { TopAlbum } from '@/utils/types';
-import { StyleType, Timeframe } from '@/pages/settings/profile';
-
-type AlbumsResponse = {
-  albums: TopAlbum[];
-  topAlbumsStyle: StyleType;
-  topAlbumsTimeframe: Timeframe;
-};
+import { ReactElement } from 'react';
 
 /**
  * User Albums page.
  */
 const Albums = () => {
-  const [url, setUrl] = useState<string>('');
-  const router = useRouter();
-  const { isLoading, error, data } = useFetch<AlbumsResponse>(url);
-
-  useEffect(() => {
-    if (router.query.user !== undefined) {
-      setUrl(
-        `http://localhost:8000/api/users/${router.query.user as string}/albums`
-      );
-    }
-  }, [router.query.user]);
-
-  if (error) {
-    return (
-      <>
-        <div className={styles['error']}>
-          <p>Looks like something went wrong! :(</p>
-          <button>Try again</button>
-        </div>
-      </>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div className={styles['spinner']}>
-        <LoadingSpinner height={5} />
-      </div>
-    );
-  }
+  const user = useRouter().query.user;
 
   return (
     <div className={styles['albums']}>
-      {data && (
+      {user && (
         <TopItemDisplay
-          itemList={data.albums}
+          username={user as string}
           itemType={TopItemTypes.ALBUM}
-          defaultView={data.topAlbumsStyle}
-          defaultTimeframe={data.topAlbumsTimeframe}
         />
       )}
     </div>

@@ -7,53 +7,36 @@ import { useRouter } from 'next/router';
 import RecentlyPlayed from '@/components/user/recently_played';
 import useFetch from '@/hooks/useFetch';
 import LoadingSpinner from '@/components/loading_spinner';
-import {
-  TopAlbum,
-  TopArtist,
-  TopTrack,
-  RecentlyPlayedTrack
-} from '@/utils/types';
+import { RecentlyPlayedTrack } from '@/utils/types';
 import TopItemDisplay, {
   TopItemTypes
 } from '@/components/user/top_items/top_item_display';
-import { StyleType, Timeframe } from '@/pages/settings/profile';
 
-type ProfileResponse = {
+type RecentlyPlayedResponse = {
   recentTracks: RecentlyPlayedTrack[];
-  tracks: TopTrack[];
-  albums: TopAlbum[];
-  artists: TopArtist[];
-  topTracksStyle: StyleType;
-  topTracksTimeframe: Timeframe;
-  topAlbumsStyle: StyleType;
-  topAlbumsTimeframe: Timeframe;
-  topArtistsStyle: StyleType;
-  topArtistsTimeframe: Timeframe;
 };
 
 /**
  * User Profile page.
  */
 const Profile: NextPageWithLayout = () => {
+  const user = useRouter().query.user;
   const [url, setUrl] = useState<string>('');
-  const router = useRouter();
-  const { isLoading, error, data } = useFetch<ProfileResponse>(url);
+  const { isLoading, error, data } = useFetch<RecentlyPlayedResponse>(url);
 
+  /**
+   *
+   *
+   * TODO: Change request to recently played endpoint and remove profile endpoint.
+   *
+   *
+   *
+   */
   useEffect(() => {
-    if (router.query.user !== undefined) {
-      setUrl(
-        `http://localhost:8000/api/users/${router.query.user as string}/profile`
-      );
+    if (user !== undefined) {
+      setUrl(`http://localhost:8000/api/users/${user as string}/profile`);
     }
-  }, [router.query.user]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
+  }, [user]);
 
   if (error) {
     return (
@@ -76,26 +59,20 @@ const Profile: NextPageWithLayout = () => {
 
   return (
     <div className={styles['container']}>
-      {data && (
+      {data && <RecentlyPlayed itemList={data.recentTracks} />}
+      {user && (
         <>
-          <RecentlyPlayed itemList={data.recentTracks} />
           <TopItemDisplay
-            itemList={data.tracks}
+            username={user as string}
             itemType={TopItemTypes.TRACK}
-            defaultView={data.topTracksStyle}
-            defaultTimeframe={data.topTracksTimeframe}
           />
           <TopItemDisplay
-            itemList={data.albums}
+            username={user as string}
             itemType={TopItemTypes.ALBUM}
-            defaultView={data.topAlbumsStyle}
-            defaultTimeframe={data.topAlbumsTimeframe}
           />
           <TopItemDisplay
-            itemList={data.artists}
+            username={user as string}
             itemType={TopItemTypes.ARTIST}
-            defaultView={data.topArtistsStyle}
-            defaultTimeframe={data.topArtistsTimeframe}
           />
         </>
       )}

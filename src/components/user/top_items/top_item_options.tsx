@@ -10,7 +10,7 @@ type TimeframeProps = {
   timeframe: Timeframe;
   setTimeframe: Dispatch<SetStateAction<Timeframe>>;
   style: StyleType;
-  setStyle: Dispatch<SetStateAction<StyleType>>;
+  setStyle: Dispatch<SetStateAction<StyleType | undefined>>;
 };
 
 /**
@@ -21,7 +21,7 @@ type TimeframeProps = {
  * @param style The style to display.
  * @param setStyle The function to set the style.
  */
-const TopItemsOptions = ({
+const TopItemOptions = ({
   timeframe,
   setTimeframe,
   style,
@@ -64,4 +64,4 @@ const TopItemsOptions = ({
   );
 };
 
-export default TopItemsOptions;
+export default TopItemOptions;
