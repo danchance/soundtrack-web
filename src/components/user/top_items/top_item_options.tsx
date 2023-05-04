@@ -2,9 +2,12 @@ import styles from '@/styles/components/user/top_items/top_item_options.module.s
 import { StyleType, Timeframe } from '@/pages/settings/profile';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
-import GridSVG from '@/assets/icons/grid.svg';
-import ListSVG from '@/assets/icons/list.svg';
-import GraphSVG from '@/assets/icons/graph.svg';
+import Grid from '@/assets/icons/grid.svg';
+import GridActive from '@/assets/icons/grid_active.svg';
+import List from '@/assets/icons/list.svg';
+import ListActive from '@/assets/icons/list_active.svg';
+import Graph from '@/assets/icons/graph.svg';
+import GraphActive from '@/assets/icons/graph_active.svg';
 
 type TimeframeProps = {
   timeframe: Timeframe;
@@ -46,19 +49,34 @@ const TopItemOptions = ({
         onClick={() => setStyle(StyleType.GRID)}
         className={styles['style-btn']}
       >
-        <Image src={GridSVG} alt="Grid Icon" width={16} height={16}></Image>
+        <Image
+          src={style === StyleType.GRID ? GridActive : Grid}
+          alt="Grid Icon"
+          width={16}
+          height={16}
+        ></Image>
       </button>
       <button
         onClick={() => setStyle(StyleType.LIST)}
         className={styles['style-btn']}
       >
-        <Image src={ListSVG} alt="List Icon" width={16} height={16}></Image>
+        <Image
+          src={style === StyleType.LIST ? ListActive : List}
+          alt="List Icon"
+          width={16}
+          height={16}
+        ></Image>
       </button>
       <button
         onClick={() => setStyle(StyleType.CHART)}
         className={styles['style-btn']}
       >
-        <Image src={GraphSVG} alt="Graph Icon" width={16} height={16}></Image>
+        <Image
+          src={style === StyleType.CHART ? GraphActive : Graph}
+          alt="Graph Icon"
+          width={16}
+          height={16}
+        ></Image>
       </button>
     </div>
   );
