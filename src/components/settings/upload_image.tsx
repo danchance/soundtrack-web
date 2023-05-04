@@ -70,7 +70,7 @@ const UploadProfilePicture = ({
         />
         <div className={styles['instructions']}>
           <p>Images must be .png or .jpg format</p>
-          <p>Drag and Drop or Click to Choose Image</p>
+          <p>Click to Choose Image</p>
           <label htmlFor="file-input" className={styles['input-label']}>
             Upload an image
           </label>
