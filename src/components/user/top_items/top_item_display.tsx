@@ -110,7 +110,17 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
         <TopItemBarChart itemList={itemList} itemType={itemType} />
       )}
       <div className={styles['footer']}>
-        <Link href="#">View All</Link>
+        <Link
+          href={
+            itemType === TopItemTypes.TRACK
+              ? `/user/${username}/tracks`
+              : itemType === TopItemTypes.ALBUM
+              ? `/user/${username}/albums`
+              : `/user/${username}/artists`
+          }
+        >
+          View All
+        </Link>
       </div>
     </div>
   );
