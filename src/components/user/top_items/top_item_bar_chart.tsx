@@ -1,4 +1,4 @@
-import styles from '@/styles/components/image_bar_chart.module.sass';
+import styles from '@/styles/components/user/top_items/top_item_bar_chart.module.sass';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -7,6 +7,7 @@ import {
   BarElement,
   Tooltip
 } from 'chart.js';
+import { Item, TopItemTypes } from './top_item_display';
 
 const addImage = (chart: any) => {
   let imgs = chart.config.options.plugins.addImageLabels;
@@ -27,9 +28,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, {
 });
 
 type ImageBarChartProps = {
-  labels: string[];
-  images: string[];
-  data: number[];
+  itemList: Array<Item>;
+  itemType: TopItemTypes;
 };
 
 /**
@@ -38,7 +38,22 @@ type ImageBarChartProps = {
  * @param labels Labels to display in the tooltip.
  * @param images Images to display on the x-axis.
  */
-const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
+const TopItemBarChart = ({ itemList, itemType }: ImageBarChartProps) => {
+  /**
+   * Get the images, labels and data for the bar chart view.
+   */
+  const images = itemList.map((item) => item.artwork);
+  const labels = itemList.map((item) => {
+    if (itemType === TopItemTypes.TRACK) {
+      return item.trackName;
+    } else if (itemType === TopItemTypes.ALBUM) {
+      return item.albumName;
+    } else {
+      return item.artistName;
+    }
+  }) as string[];
+  const data = itemList.map((item) => item.count);
+
   // Bar chart options
   const options = {
     responsive: true,
@@ -84,7 +99,7 @@ const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
         label: 'Streams',
         data: data,
         fill: false,
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(133, 99, 132, 0.5)']
+        backgroundColor: ['#a29bfe', '#74b9ff']
       }
     ]
   };
@@ -96,4 +111,4 @@ const ImageBarChart = ({ data, labels, images }: ImageBarChartProps) => {
   );
 };
 
-export default ImageBarChart;
+export default TopItemBarChart;

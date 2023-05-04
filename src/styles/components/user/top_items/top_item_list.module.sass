@@ -1,0 +1,51 @@
+@use '../../../variables'
+
+.list
+  border-collapse: collapse
+  width: 100%
+  table-layout: fixed
+
+  tr
+    font-size: 0.9rem
+
+    &:nth-child(2n)
+      background-color: #f0f0f0
+
+    td
+      padding: 0.8rem 1rem
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+
+    .rank-col
+      width: 4rem
+      text-align: center
+
+    .artwork-col
+      padding: 0.4rem 0.4rem
+      width: 50px
+
+      .artwork
+        display: block
+
+    .info-col
+      min-width: 30rem
+
+      a:last-child
+        font-size: 0.75rem
+        font-weight: 300
+        margin-top: 0.2rem
+      
+      a:first-child
+        font-size: 0.9rem
+        font-weight: 600
+        margin-top: 0rem
+
+    .count-col
+      width: 8rem
+      font-size: 0.77rem
+      text-align: right  
+
+      a
+        color: variables.$secondary-text

@@ -1,17 +1,16 @@
 @use '../../variables'
 
-.recent-tracks
-  margin-bottom: 2rem
-  border-bottom: 1px solid #d5d5d5
+.container
+  padding: 1rem
+  background-color: #fbfbfb
+  border-radius: 1rem
+  box-shadow: 3px 3px 10px #e4e4e4
 
   .header
     display: flex
     justify-content: space-between
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
-
-    h2
-      font-weight: 500
 
     .options
       display: flex
@@ -29,14 +28,6 @@
           border: none
           padding-right: 0
 
-  .error
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    gap: 1rem
-    min-height: 5rem
-
   .list
     border-collapse: collapse
     width: 100%
@@ -46,7 +37,7 @@
       font-size: 0.9rem
 
       &:nth-child(2n)
-        background-color: #303539
+        background-color: #f0f0f0
 
       td
         padding: 0.4rem 1rem
@@ -79,12 +70,10 @@
   .footer
     display: flex
     justify-content: flex-end
-    margin: 1rem 0
+    margin-top: 1rem
 
     a
-      color: #d5d5d5
       font-size: 0.8rem
-      font-weight: 300
 
   a
     text-decoration: none

@@ -1,0 +1,44 @@
+@use '../../../variables'
+  
+.container
+  display: grid
+  grid-template-columns: repeat(5, 1fr)
+
+  .item
+    position: relative
+    aspect-ratio: 1/1
+    overflow: hidden
+
+    .artwork
+      position: relative
+      width: 100%
+      height: 100%
+
+    .info
+      position: absolute
+      width: 100%
+      height: 4.5rem
+      bottom: 1.8rem
+      padding: 0.5rem
+      background-color: rgba(0, 0, 0, 0.65)
+      transform: translateY(100%)
+      transition: transform 0.5s, opacity 0.5s
+      transition: transform 0.5s, bottom 0.5s
+
+      h3, h4
+        width: fit-content
+        max-width: 100%
+        font-size: 0.9rem
+        font-weight: 500
+        margin-bottom: 0.3rem
+
+      h4
+        font-size: 0.8rem
+        font-weight: 300
+
+      a
+        color: #d5d5d5
+
+    &:hover .info
+      bottom: 0
+      transform: translateY(0)

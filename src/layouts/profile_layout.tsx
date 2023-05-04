@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import ProfileNav, { UserPage } from '../components/profile_nav';
+import ProfileNav, { UserPage } from '../components/user/profile_nav';
 import styles from '@/styles/layouts/profile_layout.module.sass';
 import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
@@ -18,6 +18,7 @@ type User = {
   username: string;
   image: string;
   createdAt: string;
+  streamCount: number;
 };
 
 /**
@@ -79,34 +80,42 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
 
   return (
     <>
-      {data && (
-        <div className={styles['profile-header']}>
-          <div className={styles['header-img']}>
-            <Image src={data.user.image} alt="" fill></Image>
-          </div>
-          <div className={styles['profile-info']}>
-            <Image
-              src={data.user.image}
-              alt={`${data.user.username} avatar`}
-              width={150}
-              height={150}
-              className={styles['avatar-img']}
-            ></Image>
-            <div className={styles['user']}>
-              <div className={styles['user-data']}>
-                <h1 className="">@{data.user.username}</h1>
-                <p>1200 streams</p>
-                <p>Member since {memberSince}</p>
+      <div className={styles['nav-background']}></div>
+      <div className={styles['container']}>
+        {data && (
+          <div className={styles['profile-header']}>
+            <div className={styles['header-img']}>
+              <Image src={data.user.image} alt="" fill></Image>
+            </div>
+            <div className={styles['profile-info']}>
+              <Image
+                src={data.user.image}
+                alt={`${data.user.username} avatar`}
+                width={200}
+                height={200}
+                className={styles['avatar-img']}
+              ></Image>
+              <div className={styles['user']}>
+                <div className={styles['user-data']}>
+                  <h1>@{data.user.username}</h1>
+                  <p>Member since {memberSince}</p>
+                  <p>
+                    <span className={styles['stream-count']}>
+                      {data.user.streamCount.toLocaleString()}
+                    </span>{' '}
+                    streams
+                  </p>
+                </div>
+                <CurrentTrack userid={data.user.id} />
               </div>
-              <CurrentTrack userid={data.user.id} />
+            </div>
+            <div className={styles['nav']}>
+              <ProfileNav user={data.user.username} page={page} />
             </div>
           </div>
-          <div className={styles['nav']}>
-            <ProfileNav user={data.user.username} page={page} />
-          </div>
-        </div>
-      )}
-      <div className={styles['profile-wrapper']}>{children}</div>
+        )}
+        {children}
+      </div>
     </>
   );
 };

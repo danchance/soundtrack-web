@@ -43,7 +43,7 @@ const UserMenu = ({ user }: { user: User }) => {
         </section>
         <section>
           <Link
-            href={`/user/${user.username}`}
+            href={`/user/${user.username}/profile`}
             className={styles['dropdown-item']}
             onClick={() => setIsVisible(false)}
           >
