@@ -27,7 +27,7 @@ const TrackHistory = ({ username }: TrackHistoryProps) => {
       <div className={styles['header']}>
         <h2>RECENTLY PLAYED</h2>
       </div>
-      {isLoading && <LoadingSpinner height={5} />}
+      {isLoading && <LoadingSpinner size={2.5} weight={4} />}
       {data && (
         <table className={styles['list']}>
           <tbody>

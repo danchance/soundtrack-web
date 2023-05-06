@@ -67,7 +67,7 @@ const Track = () => {
   if (isLoading) {
     return (
       <div>
-        <LoadingSpinner height={5} />
+        <LoadingSpinner size={2.5} weight={4} />
       </div>
     );
   }
