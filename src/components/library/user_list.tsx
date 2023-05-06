@@ -55,7 +55,7 @@ const UserList = ({ users }: UserListProps) => {
               <td className={styles['image-col']}>
                 <Link
                   href={{
-                    pathname: `/user/[username]`,
+                    pathname: `/user/[username]/profile`,
                     query: {
                       username: user.username
                     }
@@ -72,7 +72,7 @@ const UserList = ({ users }: UserListProps) => {
               <td className={styles['title-col']}>
                 <Link
                   href={{
-                    pathname: `/user/[username]`,
+                    pathname: `/user/[username]/profile`,
                     query: {
                       username: user.username
                     }

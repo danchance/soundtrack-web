@@ -80,6 +80,7 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
             </li>
           </ul>
         </nav>
+        <div></div>
         <div className={styles['settings-wrapper']}>{children}</div>
       </div>
     </>

@@ -58,12 +58,13 @@ const SpotifyConnection = ({
    */
   const disconnect = async () => {
     try {
+      setConnected(null);
       await _delete('http://localhost:8000/api/users/spotify', {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       });
-      setConnected(false);
+      setTimeout(() => setConnected(false), 1000);
     } catch (error) {
       console.log(error);
     }
