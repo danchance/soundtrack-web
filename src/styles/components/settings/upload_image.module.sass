@@ -5,9 +5,9 @@
 
   .image-container
     position: relative
-    width: 12rem
-    height: 12rem
-    border: 2px solid #ACB1D6
+    width: 10rem
+    height: 10rem
+    border: 2px solid #2d3436
 
     .preview-image
       object-fit: cover
@@ -23,13 +23,22 @@
 
     .input-label
       margin-top: 1rem
-      padding: 0.6rem
+      padding: 0.5rem 1rem
       max-width: fit-content
-      color: #ACB1D6
-      border: 2px solid #ACB1D6
+      font-weight: 500
+      background-color: #ACB1D6
+      box-shadow: 0px 0px 3px #ACB1D6
+      border-radius: 1rem
       cursor: pointer
+
+      &:hover
+        background-color: #acb1d6ae
 
     .instructions
       display: flex
       flex-direction: column
       gap: 0.2rem
+
+      p
+        font-size: 0.9rem
+        line-height: 1.2rem

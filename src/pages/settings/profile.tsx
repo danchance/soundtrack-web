@@ -8,10 +8,12 @@ import {
 } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useFetch from '@/hooks/useFetch';
-import LoadingSpinner from '@/components/loading_spinner';
 import useAccessToken from '@/hooks/useAccessToken';
 import { patch } from '@/utils/fetch_wrapper';
 import UploadProfilePicture from '@/components/settings/upload_image';
+import ClockIcon from '@/assets/icons/clock.svg';
+import StyleIcon from '@/assets/icons/style.png';
+import Image from 'next/image';
 
 export enum StyleType {
   LIST = 'list',
@@ -110,8 +112,20 @@ const Profile = () => {
     setValue: Dispatch<SetStateAction<T>>
   ) => {
     return (
-      <>
-        <label htmlFor={name}>{label}</label>
+      <div className={styles['setting-option']}>
+        <Image
+          src={
+            Object.values(Timeframe).includes(value as Timeframe)
+              ? ClockIcon
+              : StyleIcon
+          }
+          alt="timeframe"
+          width={20}
+          height={20}
+        ></Image>
+        <label htmlFor={name} className={styles['option-name']}>
+          {label}
+        </label>
         <select
           name={name}
           value={value}
@@ -136,17 +150,9 @@ const Profile = () => {
             </>
           )}
         </select>
-      </>
-    );
-  };
-
-  if (isLoading) {
-    return (
-      <div>
-        <LoadingSpinner height={5} />
       </div>
     );
-  }
+  };
 
   if (error) {
     return (
@@ -156,12 +162,25 @@ const Profile = () => {
     );
   }
 
+  if (!data) return <></>;
+
   return (
     <div className={styles['container']}>
       <div className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Profile Picture</h2>
         <div className={styles['setting']}>
           <UploadProfilePicture
+            text="Choose an image to use as your profile picture"
+            previewImage={profilePicture}
+            setPreviewImage={setProfilePicture}
+          />
+        </div>
+      </div>
+      <div className={styles['settings-group']}>
+        <h2 className={styles['group-heading']}>Banner Image</h2>
+        <div className={styles['setting']}>
+          <UploadProfilePicture
+            text="Choose an image to use as your profile banner"
             previewImage={profilePicture}
             setPreviewImage={setProfilePicture}
           />
@@ -169,46 +188,47 @@ const Profile = () => {
       </div>
       <form className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Profile Layout Preferences</h2>
-        <div className={styles['setting']}>
-          <h3 className={styles['setting-heading']}>Top Tracks</h3>
+        <div className={[styles['setting'], styles['layout']].join(' ')}>
+          <h3 className={styles['setting-name']}>Top Tracks</h3>
           {DropdownOption(
-            'Timeframe',
+            'Timeframe:',
             'topTracksTimeframe',
             topTracksTimeframe,
             setTopTracksTimeframe
           )}
           {DropdownOption(
-            'Style',
+            'Style:',
             'topTracksStyle',
             topTracksStyle,
             setTopTracksStyle
           )}
         </div>
-        <div className={styles['setting']}>
-          <h3 className={styles['setting-heading']}>Top Albums</h3>
+        <div className={[styles['setting'], styles['layout']].join(' ')}>
+          <h3 className={styles['setting-name']}>Top Albums</h3>
+
           {DropdownOption(
-            'Timeframe',
+            'Timeframe:',
             'topAlbumsTimeframe',
             topAlbumsTimeframe,
             setTopAlbumsTimeframe
           )}
           {DropdownOption(
-            'Style',
+            'Style:',
             'topAlbumsStyle',
             topAlbumsStyle,
             setTopAlbumsStyle
           )}
         </div>
-        <div className={styles['setting']}>
-          <h3 className={styles['setting-heading']}>Top Artists</h3>
+        <div className={[styles['setting'], styles['layout']].join(' ')}>
+          <h3 className={styles['setting-name']}>Top Artists</h3>
           {DropdownOption(
-            'Timeframe',
+            'Timeframe:',
             'topArtistsTimeframe',
             topArtistsTimeframe,
             setTopArtistsTimeframe
           )}
           {DropdownOption(
-            'Style',
+            'Style:',
             'topArtistsStyle',
             topArtistsStyle,
             setTopArtistsStyle

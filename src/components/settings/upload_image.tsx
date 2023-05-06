@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 
 type UploadImageProps = {
+  text: string;
   previewImage: string;
   setPreviewImage: Dispatch<SetStateAction<string>>;
 };
@@ -16,9 +17,12 @@ type ImageUploadResponse = {
 
 /**
  * Component for uploading a profile picture.
+ * @param text - Text to display above the upload button.
  * @param previewImage - Preview image to display initially.
+ * @param setPreviewImage - Function to set the preview image.
  */
 const UploadProfilePicture = ({
+  text,
   previewImage,
   setPreviewImage
 }: UploadImageProps) => {
@@ -69,10 +73,10 @@ const UploadProfilePicture = ({
           className={styles['file-input']}
         />
         <div className={styles['instructions']}>
+          <p>{text}</p>
           <p>Images must be .png or .jpg format</p>
-          <p>Click to Choose Image</p>
           <label htmlFor="file-input" className={styles['input-label']}>
-            Upload an image
+            Upload Image
           </label>
         </div>
       </form>
