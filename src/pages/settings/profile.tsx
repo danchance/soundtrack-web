@@ -10,7 +10,7 @@ import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useFetch from '@/hooks/useFetch';
 import useAccessToken from '@/hooks/useAccessToken';
 import { patch } from '@/utils/fetch_wrapper';
-import UploadProfilePicture from '@/components/settings/upload_image';
+import UploadImage from '@/components/settings/upload_image';
 import ClockIcon from '@/assets/icons/clock.svg';
 import StyleIcon from '@/assets/icons/style.png';
 import Image from 'next/image';
@@ -30,6 +30,7 @@ export enum Timeframe {
 
 type SettingsResponse = {
   profilePicture: string;
+  bannerPicture: string;
   topTracksTimeframe: Timeframe;
   topTracksStyle: StyleType;
   topAlbumsTimeframe: Timeframe;
@@ -49,11 +50,12 @@ type SettingsResponse = {
  */
 const Profile = () => {
   const { accessToken } = useAccessToken();
-  const { isLoading, error, data } = useFetch<SettingsResponse>(
+  const { error, data } = useFetch<SettingsResponse>(
     'http://localhost:8000/api/users/settings',
     true
   );
   const [profilePicture, setProfilePicture] = useState<string>('');
+  const [bannerPicture, setBannerPicture] = useState<string>('');
   const [topTracksTimeframe, setTopTracksTimeframe] = useState<Timeframe>();
   const [topTracksStyle, setTopTracksStyle] = useState<StyleType>();
   const [topAlbumsTimeframe, setTopAlbumsTimeframe] = useState<Timeframe>();
@@ -67,6 +69,7 @@ const Profile = () => {
   useEffect(() => {
     if (!data) return;
     setProfilePicture(data.profilePicture);
+    setBannerPicture(data.bannerPicture);
     setTopTracksTimeframe(data.topTracksTimeframe);
     setTopTracksStyle(data.topTracksStyle);
     setTopAlbumsTimeframe(data.topAlbumsTimeframe);
@@ -169,8 +172,8 @@ const Profile = () => {
       <div className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Profile Picture</h2>
         <div className={styles['setting']}>
-          <UploadProfilePicture
-            text="Choose an image to use as your profile picture"
+          <UploadImage
+            imageType="profile"
             previewImage={profilePicture}
             setPreviewImage={setProfilePicture}
           />
@@ -179,10 +182,10 @@ const Profile = () => {
       <div className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Banner Image</h2>
         <div className={styles['setting']}>
-          <UploadProfilePicture
-            text="Choose an image to use as your profile banner"
-            previewImage={profilePicture}
-            setPreviewImage={setProfilePicture}
+          <UploadImage
+            imageType="banner"
+            previewImage={bannerPicture}
+            setPreviewImage={setBannerPicture}
           />
         </div>
       </div>

@@ -5,29 +5,28 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 
 type UploadImageProps = {
-  text: string;
+  imageType: 'profile' | 'banner';
   previewImage: string;
   setPreviewImage: Dispatch<SetStateAction<string>>;
 };
 
 type ImageUploadResponse = {
   picture: { status: string; message: string };
-  newProfilePicture: string;
+  newImage: string;
 };
 
 /**
  * Component for uploading a profile picture.
- * @param text - Text to display above the upload button.
+ * @param imageType - Type of image to upload, profile or banner
  * @param previewImage - Preview image to display initially.
  * @param setPreviewImage - Function to set the preview image.
  */
-const UploadProfilePicture = ({
-  text,
+const UploadImage = ({
+  imageType,
   previewImage,
   setPreviewImage
 }: UploadImageProps) => {
   const { accessToken } = useAccessToken();
-  console.log(previewImage);
 
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -35,8 +34,9 @@ const UploadProfilePicture = ({
     let formData = new FormData();
     formData.append('picture', files[0]);
     try {
+      const endpoint = `users/${imageType}-picture`;
       const res = await post<ImageUploadResponse>(
-        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/profile-picture`,
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/${endpoint}`,
         formData,
         {
           headers: {
@@ -44,8 +44,7 @@ const UploadProfilePicture = ({
           }
         }
       );
-      console.log(res);
-      setPreviewImage(res.newProfilePicture);
+      setPreviewImage(res.newImage);
     } catch (error) {
       console.log(error);
     }
@@ -53,7 +52,7 @@ const UploadProfilePicture = ({
 
   return (
     <div className={styles['container']}>
-      <div className={styles['image-container']}>
+      <div className={[styles['image-container'], styles[imageType]].join(' ')}>
         {previewImage !== '' && (
           <Image
             src={previewImage}
@@ -67,15 +66,17 @@ const UploadProfilePicture = ({
         <input
           type="file"
           name="file-input"
-          id="file-input"
+          id={imageType}
           accept="image/jpg, image/jpeg, image/png"
-          onChange={uploadImage}
+          onChange={(e) => uploadImage(e)}
           className={styles['file-input']}
         />
         <div className={styles['instructions']}>
-          <p>{text}</p>
+          <p>{`Choose an image to use as your ${
+            imageType === 'profile' ? 'profile picture' : 'profile banner'
+          }`}</p>
           <p>Images must be .png or .jpg format</p>
-          <label htmlFor="file-input" className={styles['input-label']}>
+          <label htmlFor={imageType} className={styles['input-label']}>
             Upload Image
           </label>
         </div>
@@ -84,4 +85,4 @@ const UploadProfilePicture = ({
   );
 };
 
-export default UploadProfilePicture;
+export default UploadImage;
