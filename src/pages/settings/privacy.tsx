@@ -5,6 +5,8 @@ import useFetch from '@/hooks/useFetch';
 import LoadingSpinner from '@/components/loading_spinner';
 import useAccessToken from '@/hooks/useAccessToken';
 import { patch } from '@/utils/fetch_wrapper';
+import Image from 'next/image';
+import ProfileIcon from '@/assets/icons/profile.png';
 
 type SettingsResponse = {
   privateProfile: boolean;
@@ -17,11 +19,15 @@ type SettingsResponse = {
  */
 const Privacy = () => {
   const { accessToken } = useAccessToken();
-  const { isLoading, error, data } = useFetch<SettingsResponse>(
+  const { error, data } = useFetch<SettingsResponse>(
     'http://localhost:8000/api/users/settings',
     true
   );
-  const [privateProfile, setPrivateProfile] = useState<boolean>(false);
+  const [privateProfile, setPrivateProfile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    console.log(privateProfile);
+  }, [privateProfile]);
 
   /**
    * Set the initial state of the settings to the current user settings.
@@ -53,14 +59,6 @@ const Privacy = () => {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div>
-        <LoadingSpinner height={5} />
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div>
@@ -73,20 +71,45 @@ const Privacy = () => {
     <div className={styles['container']}>
       <form className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Safety and Privacy</h2>
-        <div className={styles['setting']}>
-          <h3 className={styles['setting-heading']}>Profile Visibility</h3>
-          <label htmlFor="private-profile">
-            Prevent other users from viewing your profile.
-          </label>
-          <input
-            type="checkbox"
-            name="private-profile"
-            checked={privateProfile}
-            onChange={(e) => {
-              setPrivateProfile(e.target.checked);
-              updateSettings('privateProfile', e.target.checked);
-            }}
-          />
+        <div className={[styles['setting'], styles['privacy']].join(' ')}>
+          <div className={styles['info']}>
+            <Image
+              src={ProfileIcon}
+              alt="profile"
+              width={50}
+              height={50}
+            ></Image>
+            <div>
+              <h3 className={styles['setting-name']}>Profile Visibility</h3>
+              <label
+                htmlFor="private-profile"
+                className={styles['setting-desc']}
+              >
+                Set your profile to private. This will prevent other users from
+                viewing your profile.
+              </label>
+            </div>
+          </div>
+          <div className={styles['toggle-wrapper']}>
+            {privateProfile === null && <LoadingSpinner size={1} weight={2} />}
+            {privateProfile !== null && (
+              <div className={styles['toggle-switch']}>
+                <input
+                  type="checkbox"
+                  name="private-profile"
+                  checked={privateProfile}
+                  readOnly
+                />
+                <span
+                  className={styles['toggle']}
+                  onClick={() => {
+                    updateSettings('privateProfile', !privateProfile);
+                    setPrivateProfile(!privateProfile);
+                  }}
+                ></span>
+              </div>
+            )}
+          </div>
         </div>
       </form>
     </div>
