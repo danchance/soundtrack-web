@@ -17,6 +17,7 @@ type User = {
   id: string;
   username: string;
   image: string;
+  bannerImage: string;
   createdAt: string;
   streamCount: number;
 };
@@ -30,7 +31,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   const [url, setUrl] = useState<string>('');
   const [memberSince, setMemberSince] = useState<string>('');
   const router = useRouter();
-  const { isLoading, error, data } = useFetch<{ user: User }>(url);
+  const { error, data } = useFetch<{ user: User }>(url);
 
   useEffect(() => {
     if (router.query.user !== undefined) {
@@ -85,7 +86,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
         {data && (
           <div className={styles['profile-header']}>
             <div className={styles['header-img']}>
-              <Image src={data.user.image} alt="" fill></Image>
+              <Image src={data.user.bannerImage} alt="" fill></Image>
             </div>
             <div className={styles['profile-info']}>
               <Image
