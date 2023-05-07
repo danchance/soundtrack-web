@@ -1,7 +1,7 @@
 import ProfileLayout from '@/layouts/profile_layout';
 import styles from '@/styles/pages/user/profile.module.sass';
 import { NextPageWithLayout } from '@/pages/_app';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { UserPage } from '@/components/user/profile_nav';
 import { useRouter } from 'next/router';
 import TrackHistory from '@/components/user/track_history';
@@ -13,25 +13,26 @@ import TopItemDisplay, {
  * User Profile page.
  */
 const Profile: NextPageWithLayout = () => {
-  const user = useRouter().query.user;
+  const router = useRouter();
+  const [username, setUsername] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (router.query.user) {
+      setUsername(router.query.user as string);
+      console.log('changed username');
+    } else {
+      setUsername(null);
+    }
+  }, [router.query.user]);
 
   return (
     <div className={styles['container']}>
-      {user && (
+      {username && (
         <>
-          <TrackHistory username={user as string} />
-          <TopItemDisplay
-            username={user as string}
-            itemType={TopItemTypes.TRACK}
-          />
-          <TopItemDisplay
-            username={user as string}
-            itemType={TopItemTypes.ALBUM}
-          />
-          <TopItemDisplay
-            username={user as string}
-            itemType={TopItemTypes.ARTIST}
-          />
+          <TrackHistory username={username} />
+          <TopItemDisplay username={username} itemType={TopItemTypes.TRACK} />
+          <TopItemDisplay username={username} itemType={TopItemTypes.ALBUM} />
+          <TopItemDisplay username={username} itemType={TopItemTypes.ARTIST} />
         </>
       )}
     </div>
