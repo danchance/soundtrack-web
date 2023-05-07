@@ -20,9 +20,22 @@ type RecentlyPlayedResponse = {
  */
 const TrackHistory = ({ username }: TrackHistoryProps) => {
   const url = `http://localhost:8000/api/users/${username}/track-history`;
-  const { data } = useFetch<RecentlyPlayedResponse>(url, true);
+  const { data, error } = useFetch<RecentlyPlayedResponse>(url, true);
 
-  if (!data)
+  if (error) {
+    return (
+      <div className={styles['container']}>
+        <div className={styles['header']}>
+          <h2>RECENTLY PLAYED</h2>
+        </div>
+        <p>
+          {error.status} : {error.message}
+        </p>
+      </div>
+    );
+  }
+
+  if (!data) {
     return (
       <div className={styles['container']}>
         <div className={styles['header']}>
@@ -31,6 +44,7 @@ const TrackHistory = ({ username }: TrackHistoryProps) => {
         <LoadingSpinner size={2.5} weight={4} />
       </div>
     );
+  }
 
   return (
     <div className={styles['container']}>

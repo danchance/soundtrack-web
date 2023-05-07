@@ -4,9 +4,8 @@ import ProfileNav, { UserPage } from '../components/user/profile_nav';
 import styles from '@/styles/layouts/profile_layout.module.sass';
 import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
-import NotFoundImage from '@/assets/images/404.svg';
-import Link from 'next/link';
 import CurrentTrack from '@/components/user/current_track';
+import Default404 from '@/components/default_404';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -54,29 +53,13 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
     }
   }, [data]);
 
-  if (error) {
-    if (error.status === 404) {
-      return (
-        <div className={styles['error']}>
-          <div className={styles['info']}>
-            <h1>{"It's Empty Here"}</h1>
-            <p>
-              {
-                "Looks like this page can't be found. Maybe it was moved or renamed"
-              }
-            </p>
-            <Link href="/">BACK TO HOMEPAGE</Link>
-          </div>
-          <Image
-            src={NotFoundImage}
-            alt={error.message}
-            width={600}
-            height={600}
-          ></Image>
-        </div>
-      );
-    }
-    return <></>;
+  if (error && error.status === 404) {
+    return (
+      <>
+        <div className={styles['nav-background']}></div>
+        <Default404 />
+      </>
+    );
   }
 
   return (
@@ -84,38 +67,40 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
       <div className={styles['nav-background']}></div>
       <div className={styles['container']}>
         {data && (
-          <div className={styles['profile-header']}>
-            <div className={styles['header-img']}>
-              <Image src={data.user.bannerImage} alt="" fill></Image>
-            </div>
-            <div className={styles['profile-info']}>
-              <Image
-                src={data.user.image}
-                alt={`${data.user.username} avatar`}
-                width={200}
-                height={200}
-                className={styles['avatar-img']}
-              ></Image>
-              <div className={styles['user']}>
-                <div className={styles['user-data']}>
-                  <h1>@{data.user.username}</h1>
-                  <p>Member since {memberSince}</p>
-                  <p>
-                    <span className={styles['stream-count']}>
-                      {data.user.streamCount.toLocaleString()}
-                    </span>{' '}
-                    streams
-                  </p>
+          <>
+            <div className={styles['profile-header']}>
+              <div className={styles['header-img']}>
+                <Image src={data.user.bannerImage} alt="" fill></Image>
+              </div>
+              <div className={styles['profile-info']}>
+                <Image
+                  src={data.user.image}
+                  alt={`${data.user.username} avatar`}
+                  width={200}
+                  height={200}
+                  className={styles['avatar-img']}
+                ></Image>
+                <div className={styles['user']}>
+                  <div className={styles['user-data']}>
+                    <h1>@{data.user.username}</h1>
+                    <p>Member since {memberSince}</p>
+                    <p>
+                      <span className={styles['stream-count']}>
+                        {data.user.streamCount.toLocaleString()}
+                      </span>{' '}
+                      streams
+                    </p>
+                  </div>
+                  <CurrentTrack userid={data.user.id} />
                 </div>
-                <CurrentTrack userid={data.user.id} />
+              </div>
+              <div className={styles['nav']}>
+                <ProfileNav user={data.user.username} page={page} />
               </div>
             </div>
-            <div className={styles['nav']}>
-              <ProfileNav user={data.user.username} page={page} />
-            </div>
-          </div>
+            {children}
+          </>
         )}
-        {children}
       </div>
     </>
   );
