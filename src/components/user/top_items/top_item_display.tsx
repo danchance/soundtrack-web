@@ -56,7 +56,7 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
       : 'artists'
   }`;
   const [url, setUrl] = useState<string>(baseUrl);
-  const { data } = useFetch<TopItemResponse>(url);
+  const { data } = useFetch<TopItemResponse>(url, true);
   const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);
   const [style, setStyle] = useState<StyleType>();
   const [itemList, setItemList] = useState<Array<Item>>([]);
