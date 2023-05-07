@@ -40,30 +40,50 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
   }, [isLoading]);
 
   return (
-    <div className={styles['container']}>
-      <h1>User Settings</h1>
-      <div className={styles['navigation']}>
-        <ul>
-          <li className={page === SettingsPage.ACCOUNT ? styles['active'] : ''}>
-            <Link href="/settings/account">ACCOUNT</Link>
-          </li>
-          <li className={page === SettingsPage.PROFILE ? styles['active'] : ''}>
-            <Link href="/settings/profile">PROFILE</Link>
-          </li>
-          <li className={page === SettingsPage.PRIVACY ? styles['active'] : ''}>
-            <Link href="/settings/privacy">PRIVACY</Link>
-          </li>
-          <li
-            className={
-              page === SettingsPage.CONNECTIONS ? styles['active'] : ''
-            }
-          >
-            <Link href="/settings/connections">CONNECTIONS</Link>
-          </li>
-        </ul>
+    <>
+      <div className={styles['nav-background']}></div>
+      <div className={styles['container']}>
+        <nav className={styles['nav']}>
+          <h1 className={styles['heading']}>Settings</h1>
+          <ul>
+            <li
+              className={[
+                styles['nav-item'],
+                page === SettingsPage.ACCOUNT ? styles['active'] : ''
+              ].join(' ')}
+            >
+              <Link href="/settings/account">Account</Link>
+            </li>
+            <li
+              className={[
+                styles['nav-item'],
+                page === SettingsPage.PROFILE ? styles['active'] : ''
+              ].join(' ')}
+            >
+              <Link href="/settings/profile">Profile</Link>
+            </li>
+            <li
+              className={[
+                styles['nav-item'],
+                page === SettingsPage.PRIVACY ? styles['active'] : ''
+              ].join(' ')}
+            >
+              <Link href="/settings/privacy">Privacy</Link>
+            </li>
+            <li
+              className={[
+                styles['nav-item'],
+                page === SettingsPage.CONNECTIONS ? styles['active'] : ''
+              ].join(' ')}
+            >
+              <Link href="/settings/connections">Connections</Link>
+            </li>
+          </ul>
+        </nav>
+        <div></div>
+        <div className={styles['settings-wrapper']}>{children}</div>
       </div>
-      <div className={styles['settings-wrapper']}>{children}</div>
-    </div>
+    </>
   );
 };
 

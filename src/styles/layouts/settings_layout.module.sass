@@ -1,12 +1,44 @@
 @use '../variables'
 
+.nav-background
+  height: 4rem
+  width: 100%
+  margin-bottom: 1rem
+  background-color: #1e3799
+
 .container
-  margin: 5rem auto 0 auto
-  padding: 1rem
+  display: grid
+  grid-template-columns: 11rem 3fr
+  gap: 3rem
+  margin: auto
+  padding: 0 1rem 1rem 1rem
   max-width: variables.$site-container-width
 
-  .active a
-    color: red
+  .nav
+    position: fixed
+    width: 11rem
+
+    .heading
+      font-size: 1.5rem
+      font-weight: 600
+      letter-spacing: -0.05rem
+      margin-bottom: 1.4rem
+
+    .nav-item
+      border-radius: 0.8rem
+
+      &.active
+        background-color: #ACB1D6
+
+      &:hover
+        background-color: #ACB1D6
+        background-color: #acb1d6ae
+        cursor: pointer
+
+      a
+        display: block
+        padding: 0.6rem 0.8rem
+        width: 100%
+        font-weight: 600
+        text-decoration: none
   
-.settings-wrapper
-  margin-top: 3rem

@@ -1,11 +1,12 @@
 import styled, { keyframes } from 'styled-components';
 
-const Container = styled.div<{ height: number }>`
+const Container = styled.div<{ size: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: ${(props) => props.height}em;
 `;
+
+// min-height: ${(props) => props.size}rem;
 
 const rotation = keyframes`
   0% {
@@ -17,10 +18,10 @@ const rotation = keyframes`
   }
 `;
 
-const Spinner = styled.div`
-  width: 48px;
-  height: 48px;
-  border: 5px solid #212121;
+const Spinner = styled.div<{ size: number; weight: number }>`
+  height: ${(props) => props.size}rem;
+  width: ${(props) => props.size}rem;
+  border: ${(props) => props.weight}px solid #212121;
   border-bottom-color: transparent;
   border-radius: 50%;
   animation: ${rotation} 1s linear infinite;
@@ -30,10 +31,10 @@ const Spinner = styled.div`
  * Loading Spinner component.
  * @param height The height of the spinner container, not the actual spinner.
  */
-const LoadingSpinner = ({ height }: { height: number }) => {
+const LoadingSpinner = ({ size, weight }: { size: number; weight: number }) => {
   return (
-    <Container height={height}>
-      <Spinner></Spinner>
+    <Container size={size}>
+      <Spinner size={size} weight={weight}></Spinner>
     </Container>
   );
 };

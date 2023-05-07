@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useRef } from 'react';
 import useAccessToken from './useAccessToken';
+import { useAuth0 } from '@auth0/auth0-react';
 
 enum Status {
   LOADING,
@@ -32,6 +33,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
     data: null
   };
   const { accessToken } = useAccessToken();
+  const { isAuthenticated } = useAuth0();
 
   const [state, dispatch] = useReducer(
     (state: State<T>, action: Action<T>): State<T> => {
@@ -61,8 +63,7 @@ const useFetch = <T>(url: string, accessTokenReq = false) => {
   const request = async (accessToken: string) => {
     cancelRequest.current = false;
     if (!url) return;
-    if (accessTokenReq && !accessToken) return;
-    console.log('requesting');
+    if (isAuthenticated && accessTokenReq && !accessToken) return;
     try {
       dispatch({ type: Status.LOADING });
       const response = await fetch(url, {

@@ -20,14 +20,14 @@ type RecentlyPlayedResponse = {
  */
 const TrackHistory = ({ username }: TrackHistoryProps) => {
   const url = `http://localhost:8000/api/users/${username}/track-history`;
-  const { isLoading, data } = useFetch<RecentlyPlayedResponse>(url);
+  const { isLoading, data } = useFetch<RecentlyPlayedResponse>(url, true);
 
   return (
     <div className={styles['container']}>
       <div className={styles['header']}>
         <h2>RECENTLY PLAYED</h2>
       </div>
-      {isLoading && <LoadingSpinner height={5} />}
+      {isLoading && <LoadingSpinner size={2.5} weight={4} />}
       {data && (
         <table className={styles['list']}>
           <tbody>

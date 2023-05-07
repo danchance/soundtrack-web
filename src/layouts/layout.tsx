@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from '../components/navbar/navbar';
 import { useRouter } from 'next/router';
 import Footer from '@/components/footer';
+import styles from '@/styles/layouts/layout.module.sass';
 
 /**
  * Default layout used for all pages.
@@ -14,11 +15,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const headerBackground = !['/'].includes(useRouter().pathname);
 
   return (
-    <>
+    <div className={styles['container']}>
       <NavBar hasBackground={headerBackground} />
-      {children}
+      <div className={styles['content']}>{children}</div>
       <Footer />
-    </>
+    </div>
   );
 };
 
