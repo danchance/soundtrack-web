@@ -7,6 +7,7 @@ import { StyleType, Timeframe } from '@/pages/settings/profile';
 import TopItemGrid from './top_item_grid';
 import TopItemList from './top_item_list';
 import useFetch from '@/hooks/useFetch';
+import { useRouter } from 'next/router';
 
 type TopItemDisplayProps = {
   username: string;
@@ -56,10 +57,11 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
       : 'artists'
   }`;
   const [url, setUrl] = useState<string>(baseUrl);
-  const { data } = useFetch<TopItemResponse>(url, true);
+  const { data, error } = useFetch<TopItemResponse>(url, true);
   const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);
   const [style, setStyle] = useState<StyleType>();
   const [itemList, setItemList] = useState<Array<Item>>([]);
+  const router = useRouter();
 
   /**
    * Set the list of items, timeframe and style when new data is fetched.
@@ -86,6 +88,10 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
     setUrl(`${baseUrl}?timeframe=${timeframe}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timeframe]);
+
+  if (error) {
+    router.push('/500');
+  }
 
   if (!data || style === undefined) return <></>;
 

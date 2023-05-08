@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { RecentlyPlayedTrack } from '@/utils/types';
 import useFetch from '@/hooks/useFetch';
 import LoadingSpinner from '../loading_spinner';
+import { useRouter } from 'next/router';
 
 type TrackHistoryProps = {
   username: string;
@@ -21,18 +22,10 @@ type RecentlyPlayedResponse = {
 const TrackHistory = ({ username }: TrackHistoryProps) => {
   const url = `http://localhost:8000/api/users/${username}/track-history`;
   const { data, error } = useFetch<RecentlyPlayedResponse>(url, true);
+  const router = useRouter();
 
   if (error) {
-    return (
-      <div className={styles['container']}>
-        <div className={styles['header']}>
-          <h2>RECENTLY PLAYED</h2>
-        </div>
-        <p>
-          {error.status} : {error.message}
-        </p>
-      </div>
-    );
+    router.push('/500');
   }
 
   if (!data) {

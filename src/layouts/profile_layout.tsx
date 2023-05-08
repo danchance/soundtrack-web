@@ -71,15 +71,19 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   }, [data, user]);
 
   /**
-   * If the user is not found, display the 404 page.
+   * If the user is not found, display the 404 page, otherwise display the
+   * 500 Server Error page.
    */
   if (error) {
-    return (
-      <>
-        <div className={styles['nav-background']}></div>
-        {error.status === 404 ? <Default404 /> : <Default500 />}
-      </>
-    );
+    if (error.status === 404) {
+      return (
+        <>
+          <div className={styles['nav-background']}></div>
+          <Default404 />
+        </>
+      );
+    }
+    router.push('/500');
   }
 
   return (

@@ -1,8 +1,8 @@
-import styles from '@/styles/pages/404.module.sass';
+import styles from '@/styles/pages/error.module.sass';
 import Default404 from '@/components/default_404';
 
 /**
- * Custom 404 page.
+ * Custom 404 Not Found page.
  */
 const Custom404 = () => {
   return (

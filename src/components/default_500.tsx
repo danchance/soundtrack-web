@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '@/styles/components/default_404.module.sass';
+import styles from '@/styles/components/default_error.module.sass';
 import ErrorImage from '@/assets/images/500.png';
 
 /**
