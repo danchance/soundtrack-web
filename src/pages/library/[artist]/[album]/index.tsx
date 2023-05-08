@@ -11,11 +11,15 @@ import { ReactElement, useEffect, useState } from 'react';
 
 type AlbumResponse = {
   id: string;
-  albumName: string;
-  albumSlug: string;
-  albumArtwork: string;
-  artistName: string;
-  artistSlug: string;
+  name: string;
+  slug: string;
+  artwork: string;
+  artist: {
+    id: string;
+    name: string;
+    artwork: string;
+    slug: string;
+  };
   albumTracks: {
     id: string;
     trackName: string;
@@ -86,7 +90,7 @@ const Album = () => {
                       href={{
                         pathname: `/library/[artist]/[album]`,
                         query: {
-                          artist: data!.artistSlug,
+                          artist: data!.artist.slug,
                           album: album.albumSlug
                         }
                       }}
