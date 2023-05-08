@@ -6,6 +6,8 @@ import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
 import CurrentTrack from '@/components/user/current_track';
 import Default404 from '@/components/default_404';
+import { useAuth0 } from '@auth0/auth0-react';
+import LockIcon from '@/assets/icons/lock.svg';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -19,6 +21,7 @@ type User = {
   bannerImage: string;
   createdAt: string;
   streamCount: number;
+  privateProfile: boolean;
 };
 
 /**
@@ -29,9 +32,14 @@ type User = {
 const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   const [url, setUrl] = useState<string>('');
   const [memberSince, setMemberSince] = useState<string>('');
+  const [displayProfile, setDisplayProfile] = useState<boolean>(false);
   const router = useRouter();
   const { error, data } = useFetch<{ user: User }>(url);
+  const { isLoading, user } = useAuth0();
 
+  /**
+   * Set the url to fetch the user data from.
+   */
   useEffect(() => {
     if (router.query.user !== undefined) {
       setUrl(
@@ -40,6 +48,11 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
     }
   }, [router.query.user]);
 
+  /**
+   * Format the date the user joined for display and check if the profile
+   * should be displayed. The profile is hidden if it is private and the
+   * user is not the owner of the profile.
+   */
   useEffect(() => {
     if (data) {
       const date = new Date(data.user.createdAt);
@@ -50,9 +63,15 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
           day: 'numeric'
         })
       );
+      !data.user.privateProfile || data.user.id === user?.sub
+        ? setDisplayProfile(true)
+        : setDisplayProfile(false);
     }
-  }, [data]);
+  }, [data, user]);
 
+  /**
+   * If the user is not found, display the 404 page.
+   */
   if (error && error.status === 404) {
     return (
       <>
@@ -68,7 +87,9 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
       <div className={styles['container']}>
         {data && (
           <>
-            <div className={styles['profile-header']}>
+            <div
+              className={[styles['profile-header'], styles['card']].join(' ')}
+            >
               <div className={styles['header-img']}>
                 <Image src={data.user.bannerImage} alt="" fill></Image>
               </div>
@@ -84,12 +105,14 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                   <div className={styles['user-data']}>
                     <h1>@{data.user.username}</h1>
                     <p>Member since {memberSince}</p>
-                    <p>
-                      <span className={styles['stream-count']}>
-                        {data.user.streamCount.toLocaleString()}
-                      </span>{' '}
-                      streams
-                    </p>
+                    {displayProfile && (
+                      <p>
+                        <span className={styles['stream-count']}>
+                          {data.user.streamCount.toLocaleString()}
+                        </span>{' '}
+                        streams
+                      </p>
+                    )}
                   </div>
                   <CurrentTrack userid={data.user.id} />
                 </div>
@@ -98,7 +121,22 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                 <ProfileNav user={data.user.username} page={page} />
               </div>
             </div>
-            {children}
+            {displayProfile && children}
+            {!isLoading && displayProfile === false && (
+              <div className={[styles['card'], styles['private']].join(' ')}>
+                <Image
+                  src={LockIcon}
+                  alt="private profile"
+                  width={100}
+                  height={100}
+                  className={styles['lock-img']}
+                ></Image>
+                <div className={styles['tag']}>PRIVATE</div>
+                <h2 className={styles['private-msg']}>
+                  {"This user's profile is private."}
+                </h2>
+              </div>
+            )}
           </>
         )}
       </div>

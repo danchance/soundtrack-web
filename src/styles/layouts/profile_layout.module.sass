@@ -11,11 +11,13 @@
   padding: 0 1rem 1rem 1rem
   max-width: variables.$site-container-width
 
-  .profile-header
-    margin-bottom: 2rem
+  .card
     border-radius: 1rem
     background-color: #fbfbfb
     box-shadow: 3px 3px 10px #e4e4e4
+
+  .profile-header
+    margin-bottom: 2rem
 
     .header-img
       position: relative
@@ -65,4 +67,31 @@
       margin: auto
       width: fit-content
       padding: 0 1rem
+
+  .private
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    padding: 2rem 1rem
+
+    .lock-img
+      margin-bottom: 2rem
+
+    .tag
+      margin-bottom: 2rem
+      padding: 0.5rem 1rem
+      width: fit-content
+      color: #0984e3  
+      font-size: 0.9rem
+      font-weight: 600
+      letter-spacing: 0.05rem
+      border: 2px solid #0984e3  
+      border-radius: 0.4rem
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)
+      cursor: pointer
+
+    .private-msg
+      font-size: 1rem
+      font-weight: 600
         
