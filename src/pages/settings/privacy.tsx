@@ -13,6 +13,10 @@ type SettingsResponse = {
   privateProfile: boolean;
 };
 
+type UpdateSettingsResponse = {
+  privateProfile: { status: 'success' | 'failure'; message: string };
+};
+
 /**
  * User Privacy Settings page.
  * Options on this page are:
@@ -26,6 +30,7 @@ const Privacy = () => {
   );
   const router = useRouter();
   const [privateProfile, setPrivateProfile] = useState<boolean | null>(null);
+  const [privateError, setPrivateError] = useState<boolean>(false);
 
   /**
    * Set the initial state of the settings to the current user settings.
@@ -36,18 +41,12 @@ const Privacy = () => {
   }, [data]);
 
   /**
-   * No specific error handling, redirect to 500 page.
-   */
-  if (error) {
-    router.push('/500');
-  }
-
-  /**
    * Update the user settings after every change.
    */
   const updateSettings = async (key: string, value: boolean) => {
     try {
-      await patch(
+      setPrivateError(false);
+      const res = await patch<UpdateSettingsResponse>(
         `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/settings`,
         JSON.stringify({
           [key]: value
@@ -59,17 +58,21 @@ const Privacy = () => {
           }
         }
       );
+      if (res.privateProfile.status === 'failure') {
+        setPrivateError(true);
+        setPrivateProfile(!value);
+      }
     } catch (error) {
-      console.log(error);
+      setPrivateError(true);
+      setPrivateProfile(!value);
     }
   };
 
+  /**
+   * No specific error handling, redirect to 500 page.
+   */
   if (error) {
-    return (
-      <div>
-        {error.status} {error.message}
-      </div>
-    );
+    router.push('/500');
   }
 
   return (
@@ -77,44 +80,57 @@ const Privacy = () => {
       <form className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Safety and Privacy</h2>
         <div className={[styles['setting'], styles['privacy']].join(' ')}>
-          <div className={styles['info']}>
-            <Image
-              src={ProfileIcon}
-              alt="profile"
-              width={50}
-              height={50}
-            ></Image>
-            <div>
-              <h3 className={styles['setting-name']}>Profile Visibility</h3>
-              <label
-                htmlFor="private-profile"
-                className={styles['setting-desc']}
-              >
-                Set your profile to private. This will prevent other users from
-                viewing your profile.
-              </label>
+          <div className={styles['wrapper']}>
+            <div className={styles['info']}>
+              <Image
+                src={ProfileIcon}
+                alt="profile"
+                width={50}
+                height={50}
+              ></Image>
+              <div>
+                <h3 className={styles['setting-name']}>Profile Visibility</h3>
+                <label
+                  htmlFor="private-profile"
+                  className={styles['setting-desc']}
+                >
+                  Set your profile to private. This will prevent other users
+                  from viewing your profile.
+                </label>
+              </div>
+            </div>
+            <div className={styles['toggle-wrapper']}>
+              {privateProfile === null && (
+                <LoadingSpinner size={1} weight={2} />
+              )}
+              {privateProfile !== null && (
+                <div className={styles['toggle-switch']}>
+                  <input
+                    type="checkbox"
+                    name="private-profile"
+                    checked={privateProfile}
+                    readOnly
+                  />
+                  <span
+                    className={styles['toggle']}
+                    onClick={() => {
+                      updateSettings('privateProfile', !privateProfile);
+                      setPrivateProfile(!privateProfile);
+                    }}
+                  ></span>
+                </div>
+              )}
             </div>
           </div>
-          <div className={styles['toggle-wrapper']}>
-            {privateProfile === null && <LoadingSpinner size={1} weight={2} />}
-            {privateProfile !== null && (
-              <div className={styles['toggle-switch']}>
-                <input
-                  type="checkbox"
-                  name="private-profile"
-                  checked={privateProfile}
-                  readOnly
-                />
-                <span
-                  className={styles['toggle']}
-                  onClick={() => {
-                    updateSettings('privateProfile', !privateProfile);
-                    setPrivateProfile(!privateProfile);
-                  }}
-                ></span>
-              </div>
-            )}
-          </div>
+          {privateError && (
+            <div className={styles['error']}>
+              <div className={styles['filler']}></div>
+              <p className={styles['message']}>
+                Something went wrong updating your preferences, please try
+                again.
+              </p>
+            </div>
+          )}
         </div>
       </form>
     </div>

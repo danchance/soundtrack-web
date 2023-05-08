@@ -105,9 +105,10 @@
             box-shadow: 0px 0px 8px #e4e4e4
 
       &.privacy
-        display: flex
-        justify-content: space-between
-        align-items: center
+        .wrapper
+          display: flex
+          justify-content: space-between
+          align-items: center
 
         .info
           display: flex
@@ -173,6 +174,18 @@
                 border-radius: 50%
                 -webkit-transition: .4s
                 transition: .4s
+
+        .error
+          display: flex
+
+          .filler
+            width: 50px
+
+          .message
+            margin-left: 1rem
+            font-size: 0.9rem
+            font-weight: 500
+            color: #ff6b6b
 
       &.connection
         display: flex
