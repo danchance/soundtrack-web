@@ -35,7 +35,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   const [memberSince, setMemberSince] = useState<string>('');
   const [displayProfile, setDisplayProfile] = useState<boolean>(false);
   const router = useRouter();
-  const { error, data } = useFetch<{ user: User }>(url);
+  const { error, data } = useFetch<User>(url);
   const { isLoading, user } = useAuth0();
 
   /**
@@ -56,7 +56,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
    */
   useEffect(() => {
     if (data) {
-      const date = new Date(data.user.createdAt);
+      const date = new Date(data.createdAt);
       setMemberSince(
         date.toLocaleDateString('en-GB', {
           year: 'numeric',
@@ -64,7 +64,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
           day: 'numeric'
         })
       );
-      !data.user.privateProfile || data.user.id === user?.sub
+      !data.privateProfile || data.id === user?.sub
         ? setDisplayProfile(true)
         : setDisplayProfile(false);
     }
@@ -96,34 +96,34 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
               className={[styles['profile-header'], styles['card']].join(' ')}
             >
               <div className={styles['header-img']}>
-                <Image src={data.user.bannerImage} alt="" fill></Image>
+                <Image src={data.bannerImage} alt="" fill></Image>
               </div>
               <div className={styles['profile-info']}>
                 <Image
-                  src={data.user.image}
-                  alt={`${data.user.username} avatar`}
+                  src={data.image}
+                  alt={`${data.username} avatar`}
                   width={200}
                   height={200}
                   className={styles['avatar-img']}
                 ></Image>
                 <div className={styles['user']}>
                   <div className={styles['user-data']}>
-                    <h1>@{data.user.username}</h1>
+                    <h1>@{data.username}</h1>
                     <p>Member since {memberSince}</p>
                     {displayProfile && (
                       <p>
                         <span className={styles['stream-count']}>
-                          {data.user.streamCount.toLocaleString()}
+                          {data.streamCount.toLocaleString()}
                         </span>{' '}
                         streams
                       </p>
                     )}
                   </div>
-                  <CurrentTrack userid={data.user.id} />
+                  <CurrentTrack userid={data.id} />
                 </div>
               </div>
               <div className={styles['nav']}>
-                <ProfileNav user={data.user.username} page={page} />
+                <ProfileNav user={data.username} page={page} />
               </div>
             </div>
             {displayProfile && children}
