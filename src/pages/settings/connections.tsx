@@ -5,6 +5,7 @@ import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useFetch from '@/hooks/useFetch';
 import SpotifyLogo from '@/assets/icons/spotify_logo.png';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 type SettingsResponse = {
   spotifyConnection: boolean;
@@ -16,28 +17,26 @@ type SettingsResponse = {
  *  - Link Spotify account.
  */
 const Connections = () => {
-  const { isLoading, error, data } = useFetch<SettingsResponse>(
+  const { error, data } = useFetch<SettingsResponse>(
     'http://localhost:8000/api/users/settings',
     true
   );
-  const [spotifyConnection, setSpotifyConnection] = useState<boolean | null>(
-    null
-  );
+  const router = useRouter();
+  const [spotifyConn, setSpotifyConn] = useState<boolean | null>(null);
 
   /**
    * Set the initial state of the settings to the current user settings.
    */
   useEffect(() => {
     if (!data) return;
-    setSpotifyConnection(data.spotifyConnection);
+    setSpotifyConn(data.spotifyConnection);
   }, [data]);
 
+  /**
+   * No specific error handling, redirect to 500 page.
+   */
   if (error) {
-    return (
-      <div>
-        {error.status} {error.message}
-      </div>
-    );
+    router.push('/500');
   }
 
   return (
@@ -45,26 +44,10 @@ const Connections = () => {
       <div className={styles['settings-group']}>
         <h2 className={styles['group-heading']}>Connections</h2>
         <div className={[styles['setting'], styles['connection']].join(' ')}>
-          <div className={styles['info']}>
-            <Image
-              src={SpotifyLogo}
-              alt="Spotify"
-              width={50}
-              height={50}
-            ></Image>
-            <div>
-              <h3 className={styles['connection-name']}>Spotify</h3>
-              <p className={styles['connection-text']}>
-                Link your Spotify account to start tracking.
-              </p>
-            </div>
-          </div>
-          <div>
-            <SpotifyConnection
-              connected={spotifyConnection}
-              setConnected={setSpotifyConnection}
-            />
-          </div>
+          <SpotifyConnection
+            connected={spotifyConn}
+            setConnected={setSpotifyConn}
+          />
         </div>
       </div>
     </div>

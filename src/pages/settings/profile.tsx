@@ -14,6 +14,7 @@ import UploadImage from '@/components/settings/upload_image';
 import ClockIcon from '@/assets/icons/clock.svg';
 import StyleIcon from '@/assets/icons/style.png';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export enum StyleType {
   LIST = 'list',
@@ -54,6 +55,7 @@ const Profile = () => {
     'http://localhost:8000/api/users/settings',
     true
   );
+  const router = useRouter();
   const [profilePicture, setProfilePicture] = useState<string>('');
   const [bannerPicture, setBannerPicture] = useState<string>('');
   const [topTracksTimeframe, setTopTracksTimeframe] = useState<Timeframe>();
@@ -157,12 +159,11 @@ const Profile = () => {
     );
   };
 
+  /**
+   * No specific error handling, redirect to 500 page.
+   */
   if (error) {
-    return (
-      <div>
-        {error.status} {error.message}
-      </div>
-    );
+    router.push('/500');
   }
 
   if (!data) return <></>;

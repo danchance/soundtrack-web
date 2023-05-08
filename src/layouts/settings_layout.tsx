@@ -36,8 +36,7 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
     if (!isAuthenticated) {
       router.push('/');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoading]);
+  }, [isLoading, isAuthenticated, router]);
 
   return (
     <>

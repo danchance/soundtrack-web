@@ -7,6 +7,7 @@ import useAccessToken from '@/hooks/useAccessToken';
 import { patch } from '@/utils/fetch_wrapper';
 import Image from 'next/image';
 import ProfileIcon from '@/assets/icons/profile.png';
+import { useRouter } from 'next/router';
 
 type SettingsResponse = {
   privateProfile: boolean;
@@ -23,11 +24,8 @@ const Privacy = () => {
     'http://localhost:8000/api/users/settings',
     true
   );
+  const router = useRouter();
   const [privateProfile, setPrivateProfile] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    console.log(privateProfile);
-  }, [privateProfile]);
 
   /**
    * Set the initial state of the settings to the current user settings.
@@ -36,6 +34,13 @@ const Privacy = () => {
     if (!data) return;
     setPrivateProfile(data.privateProfile);
   }, [data]);
+
+  /**
+   * No specific error handling, redirect to 500 page.
+   */
+  if (error) {
+    router.push('/500');
+  }
 
   /**
    * Update the user settings after every change.
