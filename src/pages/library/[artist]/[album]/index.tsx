@@ -44,6 +44,7 @@ const Album = () => {
   const { album } = useRouter().query;
   const [url, setUrl] = useState<string>('');
   const { isLoading, error, data } = useFetch<AlbumResponse>(url);
+  const router = useRouter();
 
   useEffect(() => {
     if (album !== undefined) {
@@ -51,14 +52,8 @@ const Album = () => {
     }
   }, [album]);
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
-
   if (error) {
-    return <div>{error.message}</div>;
+    router.push('/500');
   }
 
   if (isLoading) {
@@ -71,54 +66,58 @@ const Album = () => {
 
   return (
     <div className={styles['container']}>
-      <div className={styles['primary-col']}>
-        <TrackList
-          tracks={data!.albumTracks}
-          heading="ALBUM TRACKS"
-          medals={false}
-        />
-        <div className={[styles['top'], styles['albums']].join(' ')}>
-          <h2 className={styles['heading']}>MORE ALBUMS</h2>
-          <div className={styles['more-albums']}>
-            {data!.otherAlbums.map((album, index) => {
-              if (index > 5) return;
-              return (
-                <Link
-                  key={album.id}
-                  className={styles['album']}
-                  href={{
-                    pathname: `/library/[artist]/[album]`,
-                    query: {
-                      artist: data!.artistSlug,
-                      album: album.albumSlug
-                    }
-                  }}
-                >
-                  <div className={styles['img-container']}>
-                    <Image
-                      src={album.artwork}
-                      alt=""
-                      fill
-                      draggable={false}
-                    ></Image>
-                  </div>
-                  <h3>{album.albumName}</h3>
-                </Link>
-              );
-            })}
-          </div>
-          {data!.otherAlbums.length >= 6 && (
-            <div className={styles['link-container']}>
-              <Link href="#" className="">
-                All Albums
-              </Link>
+      {data && (
+        <>
+          <div className={styles['primary-col']}>
+            <TrackList
+              tracks={data.albumTracks}
+              heading="ALBUM TRACKS"
+              medals={false}
+            />
+            <div className={[styles['top'], styles['albums']].join(' ')}>
+              <h2 className={styles['heading']}>MORE ALBUMS</h2>
+              <div className={styles['more-albums']}>
+                {data!.otherAlbums.map((album, index) => {
+                  if (index > 5) return;
+                  return (
+                    <Link
+                      key={album.id}
+                      className={styles['album']}
+                      href={{
+                        pathname: `/library/[artist]/[album]`,
+                        query: {
+                          artist: data!.artistSlug,
+                          album: album.albumSlug
+                        }
+                      }}
+                    >
+                      <div className={styles['img-container']}>
+                        <Image
+                          src={album.artwork}
+                          alt=""
+                          fill
+                          draggable={false}
+                        ></Image>
+                      </div>
+                      <h3>{album.albumName}</h3>
+                    </Link>
+                  );
+                })}
+              </div>
+              {data.otherAlbums.length >= 6 && (
+                <div className={styles['link-container']}>
+                  <Link href="#" className="">
+                    All Albums
+                  </Link>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </div>
-      <div className={styles['secondary-col']}>
-        <UserList users={data!.topListeners} />
-      </div>
+          </div>
+          <div className={styles['secondary-col']}>
+            <UserList users={data!.topListeners} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
