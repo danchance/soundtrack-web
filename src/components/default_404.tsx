@@ -4,8 +4,7 @@ import styles from '@/styles/components/default_404.module.sass';
 import NotFoundImage from '@/assets/images/404.svg';
 
 /**
- * Default 404 page.
- * @returns
+ * Default 404 Not Found page.
  */
 const Default404 = () => {
   return (

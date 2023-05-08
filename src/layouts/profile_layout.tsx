@@ -8,6 +8,7 @@ import CurrentTrack from '@/components/user/current_track';
 import Default404 from '@/components/default_404';
 import { useAuth0 } from '@auth0/auth0-react';
 import LockIcon from '@/assets/icons/lock.svg';
+import Default500 from '@/components/default_500';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -72,11 +73,11 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   /**
    * If the user is not found, display the 404 page.
    */
-  if (error && error.status === 404) {
+  if (error) {
     return (
       <>
         <div className={styles['nav-background']}></div>
-        <Default404 />
+        {error.status === 404 ? <Default404 /> : <Default500 />}
       </>
     );
   }
