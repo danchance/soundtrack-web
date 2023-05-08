@@ -6,6 +6,40 @@
   border-radius: 1rem
   box-shadow: 3px 3px 10px #e4e4e4
 
+  &.auth-error
+    background-color: #1dd1a1
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+
+    h2
+      font-size: 1.2rem
+      font-weight: 600
+      margin-bottom: 0.5rem
+
+    h3
+      font-size: 0.9rem
+      font-weight: 400
+
+    .reconnect-btn
+      display: block
+      margin-top: 1.5rem
+      padding: 0.5rem 1rem
+      width: fit-content
+      color: #f0f0f0
+      font-size: 0.9rem
+      font-weight: 600
+      text-decoration: none
+      border: 2px solid #f0f0f0
+      border-radius: 1rem
+      cursor: pointer
+      transition: all 0.25s ease-in-out
+
+      &:hover
+        background-color: #00b894
+        color: white
+
   .header
     display: flex
     justify-content: space-between
