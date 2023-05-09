@@ -22,7 +22,7 @@ const useAccessToken = (): { accessToken: string } => {
         });
         setAccessToken(token);
       } catch (error) {
-        setAccessToken('');
+        setAccessToken('notoken');
       }
     })();
   }, [getAccessTokenSilently]);

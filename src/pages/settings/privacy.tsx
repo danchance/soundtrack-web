@@ -69,7 +69,8 @@ const Privacy = () => {
   };
 
   /**
-   * No specific error handling, redirect to 500 page.
+   * No specific error handling, redirect to 500 page if we were unable to
+   * fetch the users settings.
    */
   if (error) {
     router.push('/500');

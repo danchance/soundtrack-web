@@ -10,8 +10,7 @@ const queryParams = new URLSearchParams({
   response_type: 'code',
   client_id: clientId,
   scope: scopes.join(' '),
-  redirect_uri: redirectUri,
-  state: 'abcd'
+  redirect_uri: redirectUri
 });
 
 const config = {

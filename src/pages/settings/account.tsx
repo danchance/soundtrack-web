@@ -20,6 +20,8 @@ const Account = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [accountInfoError, setAccountInfoError] = useState<boolean>(false);
+  const [deleteAccountError, setDeleteAccountError] = useState<boolean>(false);
 
   /**
    * Update the users settings on form submit.
