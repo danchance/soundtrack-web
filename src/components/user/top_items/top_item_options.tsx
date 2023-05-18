@@ -34,15 +34,11 @@ const TopItemOptions = ({
   const { width } = useWindowSize();
 
   /**
-   * When the screen width is 800px or less the chart option is not available.
-   * When the screen width is 500px or less then only list is available.
+   * When the screen width is 800px or less the chart option is not available,
+   * so switch to the list style.
    */
   useEffect(() => {
     if (width === 0) return;
-    if (width <= 500) {
-      setStyle(StyleType.LIST);
-      return;
-    }
     if (width <= 800) {
       if (style === StyleType.CHART) {
         setStyle(StyleType.LIST);
@@ -65,45 +61,43 @@ const TopItemOptions = ({
         <option value={Timeframe.YEAR}>Year</option>
         <option value={Timeframe.ALL}>All Time</option>
       </select>
-      {width > 500 && (
-        <>
+      <>
+        <button
+          onClick={() => setStyle(StyleType.GRID)}
+          className={styles['style-btn']}
+        >
+          <Image
+            src={style === StyleType.GRID ? GridActive : Grid}
+            alt="Grid Icon"
+            width={16}
+            height={16}
+          ></Image>
+        </button>
+        <button
+          onClick={() => setStyle(StyleType.LIST)}
+          className={styles['style-btn']}
+        >
+          <Image
+            src={style === StyleType.LIST ? ListActive : List}
+            alt="List Icon"
+            width={16}
+            height={16}
+          ></Image>
+        </button>
+        {width > 800 && (
           <button
-            onClick={() => setStyle(StyleType.GRID)}
+            onClick={() => setStyle(StyleType.CHART)}
             className={styles['style-btn']}
           >
             <Image
-              src={style === StyleType.GRID ? GridActive : Grid}
-              alt="Grid Icon"
+              src={style === StyleType.CHART ? GraphActive : Graph}
+              alt="Graph Icon"
               width={16}
               height={16}
             ></Image>
           </button>
-          <button
-            onClick={() => setStyle(StyleType.LIST)}
-            className={styles['style-btn']}
-          >
-            <Image
-              src={style === StyleType.LIST ? ListActive : List}
-              alt="List Icon"
-              width={16}
-              height={16}
-            ></Image>
-          </button>
-          {width > 800 && (
-            <button
-              onClick={() => setStyle(StyleType.CHART)}
-              className={styles['style-btn']}
-            >
-              <Image
-                src={style === StyleType.CHART ? GraphActive : Graph}
-                alt="Graph Icon"
-                width={16}
-                height={16}
-              ></Image>
-            </button>
-          )}
-        </>
-      )}
+        )}
+      </>
     </div>
   );
 };
