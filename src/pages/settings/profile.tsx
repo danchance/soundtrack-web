@@ -14,6 +14,7 @@ import UploadImage from '@/components/settings/upload_image';
 import ClockIcon from '@/assets/icons/clock.svg';
 import StyleIcon from '@/assets/icons/style.png';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 export enum StyleType {
   LIST = 'list',
@@ -39,6 +40,20 @@ type SettingsResponse = {
   topArtistsStyle: StyleType;
 };
 
+type UpdateSettingsResponse = {
+  topTracksTimeframe?: SettingStatus;
+  topTracksStyle?: SettingStatus;
+  topAlbumsTimeframe?: SettingStatus;
+  topAlbumsStyle?: SettingStatus;
+  topArtistsTimeframe?: SettingStatus;
+  topArtistsStyle?: SettingStatus;
+};
+
+type SettingStatus = {
+  status: 'success' | 'failure';
+  message?: string;
+};
+
 /**
  * User Profile Settings page.
  * Options on this page are:
@@ -54,6 +69,7 @@ const Profile = () => {
     'http://localhost:8000/api/users/settings',
     true
   );
+  const router = useRouter();
   const [profilePicture, setProfilePicture] = useState<string>('');
   const [bannerPicture, setBannerPicture] = useState<string>('');
   const [topTracksTimeframe, setTopTracksTimeframe] = useState<Timeframe>();
@@ -62,6 +78,9 @@ const Profile = () => {
   const [topAlbumsStyle, setTopAlbumsStyle] = useState<StyleType>();
   const [topArtistsTimeframe, setTopArtistsTimeframe] = useState<Timeframe>();
   const [topArtistsStyle, setTopArtistsStyle] = useState<StyleType>();
+  const [topTracksError, setTopTracksError] = useState<boolean>(false);
+  const [topAlbumsError, setTopAlbumsError] = useState<boolean>(false);
+  const [topArtistsError, setTopArtistsError] = useState<boolean>(false);
 
   /**
    * Set the initial state of the settings to the current user settings.
@@ -79,11 +98,15 @@ const Profile = () => {
   }, [data]);
 
   /**
-   * Update the user settings after every change.
+   * Update the user settings after every change. If an error occurred,
+   * display an error message.
    */
   const updateSettings = async (key: string, value: string) => {
     try {
-      const res = await patch(
+      setTopTracksError(false);
+      setTopAlbumsError(false);
+      setTopArtistsError(false);
+      const res = await patch<UpdateSettingsResponse>(
         `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/settings`,
         JSON.stringify({
           [key]: value
@@ -95,8 +118,19 @@ const Profile = () => {
           }
         }
       );
+      if (res[key as keyof UpdateSettingsResponse]?.status === 'failure') {
+        throw res;
+      }
     } catch (error) {
-      console.log(error);
+      if (key.substring(0, 9) === 'topTracks') {
+        setTopTracksError(true);
+      }
+      if (key.substring(0, 9) === 'topAlbums') {
+        setTopAlbumsError(true);
+      }
+      if (key.substring(0, 10) === 'topArtists') {
+        setTopArtistsError(true);
+      }
     }
   };
 
@@ -157,12 +191,12 @@ const Profile = () => {
     );
   };
 
+  /**
+   * No specific error handling, redirect to 500 page if we were unable to
+   * fetch the users settings.
+   */
   if (error) {
-    return (
-      <div>
-        {error.status} {error.message}
-      </div>
-    );
+    router.push('/500');
   }
 
   if (!data) return <></>;
@@ -205,10 +239,15 @@ const Profile = () => {
             topTracksStyle,
             setTopTracksStyle
           )}
+          {topTracksError && (
+            <p className={styles['error-msg']}>
+              An error occurred trying to update your track preferences, please
+              try again later.
+            </p>
+          )}
         </div>
         <div className={[styles['setting'], styles['layout']].join(' ')}>
           <h3 className={styles['setting-name']}>Top Albums</h3>
-
           {DropdownOption(
             'Timeframe:',
             'topAlbumsTimeframe',
@@ -220,6 +259,12 @@ const Profile = () => {
             'topAlbumsStyle',
             topAlbumsStyle,
             setTopAlbumsStyle
+          )}
+          {topAlbumsError && (
+            <p className={styles['error-msg']}>
+              An error occurred trying to update your album preferences, please
+              try again later.
+            </p>
           )}
         </div>
         <div className={[styles['setting'], styles['layout']].join(' ')}>
@@ -235,6 +280,12 @@ const Profile = () => {
             'topArtistsStyle',
             topArtistsStyle,
             setTopArtistsStyle
+          )}
+          {topArtistsError && (
+            <p className={styles['error-msg']}>
+              An error occurred trying to update your artist preferences, please
+              try again later.
+            </p>
           )}
         </div>
       </form>

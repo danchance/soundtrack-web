@@ -11,11 +11,13 @@
   padding: 0 1rem 1rem 1rem
   max-width: variables.$site-container-width
 
-  .profile-header
-    margin-bottom: 2rem
+  .card
     border-radius: 1rem
     background-color: #fbfbfb
     box-shadow: 3px 3px 10px #e4e4e4
+
+  .profile-header
+    margin-bottom: 2rem
 
     .header-img
       position: relative
@@ -65,32 +67,31 @@
       margin: auto
       width: fit-content
       padding: 0 1rem
-  
-.error
-  display: grid
-  grid-template-columns: 1fr 1fr
-  
-  .info
+
+  .private
     display: flex
     flex-direction: column
+    align-items: center
     justify-content: center
-    padding: 4rem 2rem
-    height: fit-content
-    background-color: variables.$primary
-    border-radius: 0 10rem 10rem 0
+    padding: 2rem 1rem
 
-    h1
-      font-size: 2.5rem
+    .lock-img
       margin-bottom: 2rem
 
-    p
-      margin-bottom: 3rem
-      max-width: 20rem
-      line-height: 1.5rem
-
-    a
-      border: 2px solid variables.$light-primary
-      text-decoration: none
-      padding: 1rem 2rem
+    .tag
+      margin-bottom: 2rem
+      padding: 0.5rem 1rem
       width: fit-content
-      
+      color: #0984e3  
+      font-size: 0.9rem
+      font-weight: 600
+      letter-spacing: 0.05rem
+      border: 2px solid #0984e3  
+      border-radius: 0.4rem
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2)
+      cursor: pointer
+
+    .private-msg
+      font-size: 1rem
+      font-weight: 600
+        

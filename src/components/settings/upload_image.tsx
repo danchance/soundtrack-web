@@ -2,7 +2,8 @@ import useAccessToken from '@/hooks/useAccessToken';
 import styles from '@/styles/components/settings/upload_image.module.sass';
 import { post } from '@/utils/fetch_wrapper';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
+import LoadingSpinner from '../loading_spinner';
 
 type UploadImageProps = {
   imageType: 'profile' | 'banner';
@@ -26,11 +27,20 @@ const UploadImage = ({
   previewImage,
   setPreviewImage
 }: UploadImageProps) => {
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const { accessToken } = useAccessToken();
 
+  /**
+   * Uploads the image to the server.
+   * When an image is uploading the uploading status is set to true to
+   * display a loading spinner.
+   * @param e - Event from the file input.
+   */
   const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || !files[0]) return;
+    setUploading(true);
     let formData = new FormData();
     formData.append('picture', files[0]);
     try {
@@ -45,9 +55,11 @@ const UploadImage = ({
         }
       );
       setPreviewImage(res.newImage);
+      setError(false);
     } catch (error) {
-      console.log(error);
+      setError(true);
     }
+    setUploading(false);
   };
 
   return (
@@ -76,9 +88,27 @@ const UploadImage = ({
             imageType === 'profile' ? 'profile picture' : 'profile banner'
           }`}</p>
           <p>Images must be .png or .jpg format</p>
-          <label htmlFor={imageType} className={styles['input-label']}>
-            Upload Image
-          </label>
+          <div className={styles['btn-wrapper']}>
+            {uploading ? (
+              <button
+                className={[styles['btn'], styles['uploading']].join(' ')}
+              >
+                <LoadingSpinner size={1.25} weight={3} />
+              </button>
+            ) : (
+              <label
+                htmlFor={imageType}
+                className={[styles['input-label'], styles['btn']].join(' ')}
+              >
+                Upload Image
+              </label>
+            )}
+          </div>
+          {error && (
+            <p className={styles['error-message']}>
+              Something went wrong trying to upload your image.
+            </p>
+          )}
         </div>
       </form>
     </div>

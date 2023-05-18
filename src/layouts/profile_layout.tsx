@@ -4,9 +4,11 @@ import ProfileNav, { UserPage } from '../components/user/profile_nav';
 import styles from '@/styles/layouts/profile_layout.module.sass';
 import useFetch from '@/hooks/useFetch';
 import Image from 'next/image';
-import NotFoundImage from '@/assets/images/404.svg';
-import Link from 'next/link';
 import CurrentTrack from '@/components/user/current_track';
+import Default404 from '@/components/default_404';
+import { useAuth0 } from '@auth0/auth0-react';
+import LockIcon from '@/assets/icons/lock.svg';
+import Default500 from '@/components/default_500';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -20,6 +22,7 @@ type User = {
   bannerImage: string;
   createdAt: string;
   streamCount: number;
+  privateProfile: boolean;
 };
 
 /**
@@ -30,9 +33,14 @@ type User = {
 const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   const [url, setUrl] = useState<string>('');
   const [memberSince, setMemberSince] = useState<string>('');
+  const [displayProfile, setDisplayProfile] = useState<boolean>(false);
   const router = useRouter();
-  const { error, data } = useFetch<{ user: User }>(url);
+  const { error, data } = useFetch<User>(url);
+  const { isLoading, user } = useAuth0();
 
+  /**
+   * Set the url to fetch the user data from.
+   */
   useEffect(() => {
     if (router.query.user !== undefined) {
       setUrl(
@@ -41,9 +49,14 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
     }
   }, [router.query.user]);
 
+  /**
+   * Format the date the user joined for display and check if the profile
+   * should be displayed. The profile is hidden if it is private and the
+   * user is not the owner of the profile.
+   */
   useEffect(() => {
     if (data) {
-      const date = new Date(data.user.createdAt);
+      const date = new Date(data.createdAt);
       setMemberSince(
         date.toLocaleDateString('en-GB', {
           year: 'numeric',
@@ -51,32 +64,26 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
           day: 'numeric'
         })
       );
+      !data.privateProfile || data.id === user?.sub
+        ? setDisplayProfile(true)
+        : setDisplayProfile(false);
     }
-  }, [data]);
+  }, [data, user]);
 
+  /**
+   * If the user is not found, display the 404 page, otherwise display the
+   * 500 Server Error page.
+   */
   if (error) {
     if (error.status === 404) {
       return (
-        <div className={styles['error']}>
-          <div className={styles['info']}>
-            <h1>{"It's Empty Here"}</h1>
-            <p>
-              {
-                "Looks like this page can't be found. Maybe it was moved or renamed"
-              }
-            </p>
-            <Link href="/">BACK TO HOMEPAGE</Link>
-          </div>
-          <Image
-            src={NotFoundImage}
-            alt={error.message}
-            width={600}
-            height={600}
-          ></Image>
-        </div>
+        <>
+          <div className={styles['nav-background']}></div>
+          <Default404 />
+        </>
       );
     }
-    return <></>;
+    router.push('/500');
   }
 
   return (
@@ -84,38 +91,59 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
       <div className={styles['nav-background']}></div>
       <div className={styles['container']}>
         {data && (
-          <div className={styles['profile-header']}>
-            <div className={styles['header-img']}>
-              <Image src={data.user.bannerImage} alt="" fill></Image>
-            </div>
-            <div className={styles['profile-info']}>
-              <Image
-                src={data.user.image}
-                alt={`${data.user.username} avatar`}
-                width={200}
-                height={200}
-                className={styles['avatar-img']}
-              ></Image>
-              <div className={styles['user']}>
-                <div className={styles['user-data']}>
-                  <h1>@{data.user.username}</h1>
-                  <p>Member since {memberSince}</p>
-                  <p>
-                    <span className={styles['stream-count']}>
-                      {data.user.streamCount.toLocaleString()}
-                    </span>{' '}
-                    streams
-                  </p>
+          <>
+            <div
+              className={[styles['profile-header'], styles['card']].join(' ')}
+            >
+              <div className={styles['header-img']}>
+                <Image src={data.bannerImage} alt="" fill></Image>
+              </div>
+              <div className={styles['profile-info']}>
+                <Image
+                  src={data.image}
+                  alt={`${data.username} avatar`}
+                  width={200}
+                  height={200}
+                  className={styles['avatar-img']}
+                ></Image>
+                <div className={styles['user']}>
+                  <div className={styles['user-data']}>
+                    <h1>@{data.username}</h1>
+                    <p>Member since {memberSince}</p>
+                    {displayProfile && (
+                      <p>
+                        <span className={styles['stream-count']}>
+                          {data.streamCount.toLocaleString()}
+                        </span>{' '}
+                        streams
+                      </p>
+                    )}
+                  </div>
+                  <CurrentTrack userid={data.id} />
                 </div>
-                <CurrentTrack userid={data.user.id} />
+              </div>
+              <div className={styles['nav']}>
+                <ProfileNav user={data.username} page={page} />
               </div>
             </div>
-            <div className={styles['nav']}>
-              <ProfileNav user={data.user.username} page={page} />
-            </div>
-          </div>
+            {displayProfile && children}
+            {!isLoading && displayProfile === false && (
+              <div className={[styles['card'], styles['private']].join(' ')}>
+                <Image
+                  src={LockIcon}
+                  alt="private profile"
+                  width={100}
+                  height={100}
+                  className={styles['lock-img']}
+                ></Image>
+                <div className={styles['tag']}>PRIVATE</div>
+                <h2 className={styles['private-msg']}>
+                  {"This user's profile is private."}
+                </h2>
+              </div>
+            )}
+          </>
         )}
-        {children}
       </div>
     </>
   );

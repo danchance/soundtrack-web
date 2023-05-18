@@ -3,7 +3,29 @@ import styles from '@/styles/pages/settings.module.sass';
 import { ReactElement, useState } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useAccessToken from '@/hooks/useAccessToken';
-import { _delete, patch } from '@/utils/fetch_wrapper';
+import { patch } from '@/utils/fetch_wrapper';
+import DeleteAccount from '@/components/settings/delete_account';
+
+type PatchSettingsError = {
+  error: {
+    status: number;
+    error: [
+      {
+        type: string;
+        value: string;
+        msg: string;
+        path: string;
+        location: string;
+      }
+    ];
+  };
+};
+
+type PatchSettingsResponse = {
+  username: { status: 'success' | 'failure'; message: string };
+  email: { status: 'success' | 'failure'; message: string };
+  password: { status: 'success' | 'failure'; message: string };
+};
 
 /**
  * User Account Settings page.
@@ -14,12 +36,15 @@ import { _delete, patch } from '@/utils/fetch_wrapper';
  *  - Delete Account.
  */
 const Account = () => {
-  const { error, user, getAccessTokenWithPopup, logout } = useAuth0();
+  const { user, getAccessTokenWithPopup } = useAuth0();
   const { accessToken } = useAccessToken();
   const [username, setUsername] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [usernameError, setUsernameError] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
 
   /**
    * Update the users settings on form submit.
@@ -27,6 +52,9 @@ const Account = () => {
    */
   const updateSettings = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setUsernameError('');
+    setEmailError('');
+    setPasswordError('');
     // Set empty values undefined as stringify ignores undefined values.
     const settings = JSON.stringify({
       username: username === '' ? undefined : username,
@@ -35,7 +63,7 @@ const Account = () => {
       confirmPassword: confirmPassword === '' ? undefined : confirmPassword
     });
     try {
-      const res = await patch(
+      const res = await patch<PatchSettingsResponse>(
         `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/settings`,
         settings,
         {
@@ -45,41 +73,47 @@ const Account = () => {
           }
         }
       );
-      // Settings updated successfully, refresh the access token and clear the fields.
+      if (!res) return;
+      if (res.username.status === 'success') {
+        setUsername('');
+      } else {
+        setUsernameError(res.username.message);
+      }
+      if (res.email.status === 'success') {
+        setEmail('');
+      } else {
+        setEmailError(res.email.message);
+      }
+      if (res.password.status === 'success') {
+        setPassword('');
+      } else {
+        setPasswordError(res.password.message);
+      }
+      // Refresh the access token.
       await getAccessTokenWithPopup({
         authorizationParams: {
           audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE
         }
       });
-      setUsername('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  /**
-   * Delete user account.
-   */
-  const deleteAccount = async () => {
-    try {
-      await _delete(`http://localhost:8000/api/users/${user!.sub}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
+      const err = error as PatchSettingsError;
+      if (err.error?.status === 400) {
+        for (const error of err.error.error) {
+          switch (error.path) {
+            case 'username':
+              setUsernameError(error.msg);
+              break;
+            case 'email':
+              setEmailError(error.msg);
+              break;
+            case 'password':
+              setPasswordError(error.msg);
+              break;
+          }
         }
-      });
-      // Account deleted successfully, log user out and redirect to home page.
-      logout();
-    } catch (error) {
-      console.log(error);
+      }
     }
   };
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
 
   return (
     <div className={styles['container']}>
@@ -103,6 +137,9 @@ const Account = () => {
                 onChange={(e) => setUsername(e.target.value)}
               />
             </div>
+            {usernameError && (
+              <p className={styles['error']}>{usernameError}</p>
+            )}
           </div>
         </div>
         <div className={[styles['setting'], styles['account-info']].join(' ')}>
@@ -123,6 +160,7 @@ const Account = () => {
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
+            {emailError && <p className={styles['error']}>{emailError}</p>}
           </div>
         </div>
         <div className={[styles['setting'], styles['account-info']].join(' ')}>
@@ -150,29 +188,16 @@ const Account = () => {
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
+            {passwordError && (
+              <p className={styles['error']}>{passwordError}</p>
+            )}
           </div>
         </div>
         <button type="submit" className={styles['submit-btn']}>
           Update Settings
         </button>
       </form>
-      <div className={styles['settings-group']}>
-        <h2 className={styles['group-heading']}>Account Actions</h2>
-        <div className={[styles['setting'], styles['delete']].join(' ')}>
-          <h3 className={styles['setting-name']}>Delete Account</h3>
-          <p className={styles['setting-desc']}>
-            Once you delete your account, your profile and username are
-            permanently removed from soundTrack, and your listening history is
-            deleted.
-          </p>
-          <p className={styles['setting-desc']}>
-            This action is not reversible.
-          </p>
-          <button onClick={deleteAccount} className={styles['delete-btn']}>
-            Delete Account
-          </button>
-        </div>
-      </div>
+      {user !== undefined && <DeleteAccount user={user} />}
     </div>
   );
 };
