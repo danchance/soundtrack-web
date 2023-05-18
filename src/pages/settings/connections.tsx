@@ -3,8 +3,6 @@ import styles from '@/styles/pages/settings.module.sass';
 import { ReactElement, useEffect, useState } from 'react';
 import SettingsLayout, { SettingsPage } from '@/layouts/settings_layout';
 import useFetch from '@/hooks/useFetch';
-import SpotifyLogo from '@/assets/icons/spotify_logo.png';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 type SettingsResponse = {
