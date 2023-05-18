@@ -81,13 +81,15 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
               <Image src={BackgroundImage} alt="" fill></Image>
             </div>
             <div className={styles['header-wrapper']}>
-              <Image
-                className={styles['primary-img']}
-                src={data.artwork}
-                alt={data.name}
-                width={230}
-                height={230}
-              ></Image>
+              <div>
+                <Image
+                  className={styles['primary-img']}
+                  src={data.artwork}
+                  alt={data.name}
+                  width={230}
+                  height={230}
+                ></Image>
+              </div>
               <div className={styles['header-info']}>
                 <div className={styles['title']}>
                   <h1>{data.name.toUpperCase()}</h1>
@@ -108,7 +110,7 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   )}
                 </div>
                 {pageType === LibraryPage.ALBUM && (
-                  <div className={styles['album-data']}>
+                  <div className={styles['data']}>
                     <h2>{data.releaseYear}</h2>
                     <span>&bull;</span>
                     <h2>{data.trackNum} songs</h2>
@@ -117,7 +119,7 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   </div>
                 )}
                 {pageType === LibraryPage.TRACK && (
-                  <div className={styles['album-data']}>
+                  <div className={styles['data']}>
                     <h2>Duration: {formatTime(data.duration!)}</h2>
                   </div>
                 )}
