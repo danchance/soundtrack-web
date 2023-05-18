@@ -9,6 +9,7 @@
   .header
     display: flex
     justify-content: space-between
+    align-items: center
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
     
@@ -30,3 +31,9 @@
 
     &:hover
       text-decoration: underline
+
+@media (max-width: 500px)
+  .container
+    .header
+      h2
+        font-size: 1.3rem
