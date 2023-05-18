@@ -2,6 +2,7 @@
 
 .container
   display: flex
+  gap: 2rem
 
   .image-container
     position: relative
@@ -19,7 +20,6 @@
   .upload-container
     display: flex
     flex-direction: column
-    margin-left: 2rem
     gap: 1rem
 
     .file-input
@@ -62,3 +62,13 @@
         margin-top: 0.5rem
         font-weight: 500
         color: #ff6b6b
+
+@media (max-width: 500px)
+  .container
+    flex-direction: column
+    align-items: center
+
+    .upload-container
+      .instructions
+        align-items: center
+
