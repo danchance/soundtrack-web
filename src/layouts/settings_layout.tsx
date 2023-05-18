@@ -1,8 +1,9 @@
+import useComponentVisible from '@/hooks/useComponentVisible';
 import styles from '@/styles/layouts/settings_layout.module.sass';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
@@ -26,6 +27,7 @@ export enum SettingsPage {
 const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
   const router = useRouter();
   const { isLoading, isAuthenticated } = useAuth0();
+  const { ref, isVisible, setIsVisible } = useComponentVisible();
 
   /**
    * All Settings pages are only accessible to authenticated users, redirect
@@ -42,9 +44,16 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
     <>
       <div className={styles['nav-background']}></div>
       <div className={styles['container']}>
-        <nav className={styles['nav']}>
-          <h1 className={styles['heading']}>Settings</h1>
-          <ul>
+        <nav ref={ref} className={styles['nav']}>
+          <div className={styles['heading']}>
+            <h1>Settings</h1>
+            <button onClick={() => setIsVisible(!isVisible)}>Menu</button>
+          </div>
+          <ul
+            className={[styles['list'], isVisible ? '' : styles['hidden']].join(
+              ' '
+            )}
+          >
             <li
               className={[
                 styles['nav-item'],
