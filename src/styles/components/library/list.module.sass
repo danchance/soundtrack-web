@@ -89,4 +89,28 @@
       &:hover
         cursor: pointer
         text-decoration: underline
-    
+
+@media (max-width: 500px)
+  .container
+    table
+      th, td
+        &.rank-col
+          width: 2.5rem
+
+        &.title-col
+          padding-left: 0.5rem
+
+        &.duration-col
+          display: none
+
+        &.streams-col
+          padding-right: 1rem
+          max-width: 6rem
+
+      thead
+        font-size: 0.9rem
+
+      tbody
+        tr
+          font-size: 0.8rem
+
