@@ -3,7 +3,9 @@ import styles from '@/styles/layouts/settings_layout.module.sass';
 import { useAuth0 } from '@auth0/auth0-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import HamburgerMenuIcon from '@/assets/icons/hamburger_menu.svg';
+import Image from 'next/image';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
@@ -47,7 +49,17 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
         <nav ref={ref} className={styles['nav']}>
           <div className={styles['heading']}>
             <h1>Settings</h1>
-            <button onClick={() => setIsVisible(!isVisible)}>Menu</button>
+            <button
+              onClick={() => setIsVisible(!isVisible)}
+              className={styles['nav-btn']}
+            >
+              <Image
+                src={HamburgerMenuIcon}
+                alt="dropdown menu"
+                width={40}
+                height={30}
+              ></Image>
+            </button>
           </div>
           <ul
             className={[styles['list'], isVisible ? '' : styles['hidden']].join(
