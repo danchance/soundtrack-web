@@ -46,22 +46,6 @@
     margin-bottom: 0.5rem
     padding-bottom: 0.5rem
 
-    .options
-      display: flex
-      padding: 0.4rem 0
-
-      button
-        background: none
-        border: none
-        border-right: 1px solid #d5d5d5
-        margin-left: 0.5rem
-        padding-right: 0.5rem
-        cursor: pointer
-
-        &:last-child
-          border: none
-          padding-right: 0
-
   .list
     border-collapse: collapse
     width: 100%
@@ -74,7 +58,7 @@
         background-color: #f0f0f0
 
       td
-        padding: 0.4rem 1rem
+        padding: 0.8rem 0
         overflow: hidden
         text-overflow: ellipsis
         white-space: nowrap
@@ -88,16 +72,33 @@
 
       .track-col
         min-width: 30rem
+        padding-left: 1rem
         font-weight: 600
 
       .artist-col
         min-width: 15rem
 
+      .info-col
+        min-width: 30rem
+        padding-left: 0.5rem
+
+        a:last-child
+          font-size: 0.75rem
+          font-weight: 300
+          margin-top: 0.2rem
+        
+        a:first-child
+          display: block
+          font-size: 0.9rem
+          font-weight: 600
+          margin-top: 0rem
+
       .time-col
-        width: 8rem
+        padding-right: 1rem
+        width: 7rem
         font-size: 0.77rem
         text-align: right  
-
+        
         p
           color: variables.$secondary-text
 
@@ -115,5 +116,16 @@
 
     &:hover
           text-decoration: underline
+
+@media (max-width: 500px)
+  .container
+    .header
+      h2
+        font-size: 1.3rem
+
+    .list
+      tr
+        .time-col
+          padding-right: 0.5rem
 
  

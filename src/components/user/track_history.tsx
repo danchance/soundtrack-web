@@ -8,6 +8,7 @@ import LoadingSpinner from '../loading_spinner';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import useWindowSize from '@/hooks/useWindowSize';
 
 type TrackHistoryProps = {
   username: string;
@@ -27,6 +28,7 @@ const TrackHistory = ({ username }: TrackHistoryProps) => {
   const { data, error } = useFetch<RecentlyPlayedResponse>(url, true);
   const router = useRouter();
   const { isLoading, user } = useAuth0();
+  const { width } = useWindowSize();
 
   if (error) {
     router.push('/500');
@@ -84,18 +86,34 @@ const TrackHistory = ({ username }: TrackHistoryProps) => {
                       ></Image>
                     </Link>
                   </td>
-                  <td className={styles['track-col']}>
-                    <Link
-                      href={`/library/${item.Track.Album.Artist.slug}/${item.Track.Album.slug}/${item.Track.slug}`}
-                    >
-                      {item.Track.name}
-                    </Link>
-                  </td>
-                  <td className={styles['artist-col']}>
-                    <Link href={`/library/${item.Track.Album.Artist.slug}`}>
-                      {item.Track.Album.Artist.name}
-                    </Link>
-                  </td>
+                  {width < 500 && (
+                    <td className={styles['info-col']}>
+                      <Link
+                        href={`/library/${item.Track.Album.Artist.slug}/${item.Track.Album.slug}/${item.Track.slug}`}
+                      >
+                        {item.Track.name}
+                      </Link>
+                      <Link href={`/library/${item.Track.Album.Artist.slug}`}>
+                        {item.Track.Album.Artist.name}
+                      </Link>
+                    </td>
+                  )}
+                  {width >= 500 && (
+                    <>
+                      <td className={styles['track-col']}>
+                        <Link
+                          href={`/library/${item.Track.Album.Artist.slug}/${item.Track.Album.slug}/${item.Track.slug}`}
+                        >
+                          {item.Track.name}
+                        </Link>
+                      </td>
+                      <td className={styles['artist-col']}>
+                        <Link href={`/library/${item.Track.Album.Artist.slug}`}>
+                          {item.Track.Album.Artist.name}
+                        </Link>
+                      </td>
+                    </>
+                  )}
                   <td className={styles['time-col']}>
                     <p>{formatDate(item.playedAt)}</p>
                   </td>
