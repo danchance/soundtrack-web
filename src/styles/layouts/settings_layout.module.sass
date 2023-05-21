@@ -77,9 +77,12 @@
           outline: none            
 
       .list
+        max-height: 0
+        overflow: hidden
+        transition: max-height 0.3s ease-in
 
-        &.hidden
-          display: none
+        &.show
+          max-height: 160px
 
         .nav-item
           border-radius: 0

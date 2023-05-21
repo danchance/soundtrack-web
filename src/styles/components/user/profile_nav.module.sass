@@ -72,13 +72,13 @@
         outline: none    
 
     .list
-      &.hidden
-        display: none
+      max-height: 0
+      overflow: hidden
+      transition: max-height 0.3s ease-in
 
       li
-
         &.active
-          background-color: #8d96db
+            background-color: #8d96db
 
         a
           display: block
@@ -86,6 +86,9 @@
           width: 100%
           font-weight: 600
           text-decoration: none
+
+      &.show
+        max-height: 220px       
       
     
 

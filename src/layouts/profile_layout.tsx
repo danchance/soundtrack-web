@@ -93,69 +93,77 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
   return (
     <>
       <div className={styles['nav-background']}></div>
-      {width <= 800 && (
-        <div className={styles['nav']}>
-          <ProfileNav user={profileUser} page={page} />
-        </div>
-      )}
-      <div className={styles['container']}>
-        {data && (
-          <>
-            <div
-              className={[styles['profile-header'], styles['card']].join(' ')}
-            >
-              <div className={styles['header-img']}>
-                <Image src={data.bannerImage} alt="" fill></Image>
-              </div>
-              <div className={styles['profile-info']}>
-                <Image
-                  src={data.image}
-                  alt={`${profileUser} avatar`}
-                  width={200}
-                  height={200}
-                  className={styles['avatar-img']}
-                ></Image>
-                <div className={styles['user']}>
-                  <div className={styles['user-data']}>
-                    <h1>@{profileUser}</h1>
-                    <p>Member since {memberSince}</p>
-                    {displayProfile && (
-                      <p>
-                        <span className={styles['stream-count']}>
-                          {data.streamCount.toLocaleString()}
-                        </span>{' '}
-                        streams
-                      </p>
-                    )}
-                  </div>
-                  {width > 800 && <CurrentTrack userid={data.id} />}
-                </div>
-              </div>
-              {width > 800 && (
-                <div className={styles['nav']}>
-                  <ProfileNav user={profileUser} page={page} />
-                </div>
-              )}
+      {profileUser && (
+        <>
+          {width <= 800 && (
+            <div className={styles['nav']}>
+              <ProfileNav user={profileUser} page={page} />
             </div>
-            {displayProfile && children}
-            {!isLoading && displayProfile === false && (
-              <div className={[styles['card'], styles['private']].join(' ')}>
-                <Image
-                  src={LockIcon}
-                  alt="private profile"
-                  width={100}
-                  height={100}
-                  className={styles['lock-img']}
-                ></Image>
-                <div className={styles['tag']}>PRIVATE</div>
-                <h2 className={styles['private-msg']}>
-                  {"This user's profile is private."}
-                </h2>
-              </div>
+          )}
+          <div className={styles['container']}>
+            {data && (
+              <>
+                <div
+                  className={[styles['profile-header'], styles['card']].join(
+                    ' '
+                  )}
+                >
+                  <div className={styles['header-img']}>
+                    <Image src={data.bannerImage} alt="" fill></Image>
+                  </div>
+                  <div className={styles['profile-info']}>
+                    <Image
+                      src={data.image}
+                      alt={`${profileUser} avatar`}
+                      width={200}
+                      height={200}
+                      className={styles['avatar-img']}
+                    ></Image>
+                    <div className={styles['user']}>
+                      <div className={styles['user-data']}>
+                        <h1>@{profileUser}</h1>
+                        <p>Member since {memberSince}</p>
+                        {displayProfile && (
+                          <p>
+                            <span className={styles['stream-count']}>
+                              {data.streamCount.toLocaleString()}
+                            </span>{' '}
+                            streams
+                          </p>
+                        )}
+                      </div>
+                      {width > 800 && <CurrentTrack userid={data.id} />}
+                    </div>
+                  </div>
+                  {width > 800 && (
+                    <div className={styles['nav']}>
+                      <ProfileNav user={profileUser} page={page} />
+                    </div>
+                  )}
+                </div>
+                {displayProfile && children}
+                {!isLoading && displayProfile === false && (
+                  <div
+                    className={[styles['card'], styles['private']].join(' ')}
+                  >
+                    <Image
+                      src={LockIcon}
+                      alt="private profile"
+                      width={100}
+                      height={100}
+                      className={styles['lock-img']}
+                    ></Image>
+                    <div className={styles['tag']}>PRIVATE</div>
+                    <h2 className={styles['private-msg']}>
+                      {"This user's profile is private."}
+                    </h2>
+                  </div>
+                )}
+              </>
             )}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </>
   );
 };

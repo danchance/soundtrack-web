@@ -27,7 +27,7 @@ const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
   // Track the current active navigation item.
   const [active, setActive] = useState<UserPage>(page);
   // Build the current path as all nav links are relative to this.
-  const path = `/user/${user}`;
+  const path = `/user/${user}/`;
   const router = useRouter();
   const { ref, isVisible, setIsVisible } = useComponentVisible();
 
@@ -57,30 +57,28 @@ const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
       </div>
       <ul
         onClick={() => setIsVisible(false)}
-        className={[styles['list'], isVisible ? '' : styles['hidden']].join(
-          ' '
-        )}
+        className={[styles['list'], isVisible ? styles['show'] : ''].join(' ')}
       >
         <li className={active === UserPage.PROFILE ? styles['active'] : ''}>
-          <Link href={`${path}/profile`}>PROFILE</Link>
+          <Link href={`${path}profile`}>PROFILE</Link>
         </li>
         <li className={active === UserPage.RECAP ? styles['active'] : ''}>
-          <Link href={`${path}/recap`}>RECAP</Link>
+          <Link href={`${path}recap`}>RECAP</Link>
         </li>
         <li className={active === UserPage.DISCOVER ? styles['active'] : ''}>
-          <Link href={`${path}/discover`}>DISCOVER</Link>
+          <Link href={`${path}discover`}>DISCOVER</Link>
         </li>
         <li
           className={active === UserPage.TRACKS ? styles['active'] : ''}
           onClick={() => setActive(UserPage.TRACKS)}
         >
-          <Link href={`${path}/tracks`}>TRACKS</Link>
+          <Link href={`${path}tracks`}>TRACKS</Link>
         </li>
         <li className={active === UserPage.ARTISTS ? styles['active'] : ''}>
-          <Link href={`${path}/artists`}>ARTISTS</Link>
+          <Link href={`${path}artists`}>ARTISTS</Link>
         </li>
         <li className={active === UserPage.ALBUMS ? styles['active'] : ''}>
-          <Link href={`${path}/albums`}>ALBUMS</Link>
+          <Link href={`${path}albums`}>ALBUMS</Link>
         </li>
         <div className={styles['indicator']}></div>
       </ul>
