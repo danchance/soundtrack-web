@@ -12,11 +12,10 @@
       background-color: #f0f0f0
 
     td
-      padding: 0.8rem 1rem
+      padding: 0.8rem 0
       overflow: hidden
       text-overflow: ellipsis
       white-space: nowrap
-
 
     .rank-col
       width: 4rem
@@ -31,6 +30,7 @@
 
     .info-col
       min-width: 30rem
+      padding-left: 1rem
 
       a:last-child
         font-size: 0.75rem
@@ -43,9 +43,25 @@
         margin-top: 0rem
 
     .count-col
-      width: 8rem
+      padding-right: 1rem
+      width: 7rem
       font-size: 0.77rem
-      text-align: right  
+      text-align: right    
 
-      a
+      a, span
         color: variables.$secondary-text
+
+@media (max-width: 500px)
+  .list
+    tr
+      .rank-col
+        width: 2.5rem
+
+      .info-col
+        padding-left: 0.5rem
+
+      .count-col
+        width: 4rem
+
+        span
+          display: none

@@ -63,7 +63,10 @@ const TopItemList = ({ itemList, itemType }: TopItemListProps) => {
               </Link>
             </td>
             <td className={styles['count-col']}>
-              <Link href="#">{`${item.count} streams`}</Link>
+              <Link href="#">
+                {`${item.count} `}
+                <span>streams</span>
+              </Link>
             </td>
           </tr>
         ))}

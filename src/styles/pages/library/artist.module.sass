@@ -75,3 +75,25 @@
 @media (max-width: 800px)
   .container
     grid-template-columns: 1fr
+
+@media (max-width: 500px)
+  .container
+    .top
+      &.albums
+        table
+          th, td
+            &.rank-col
+              width: 2.5rem
+
+            &.title-col
+              padding-left: 0.5rem
+
+            &.streams-col
+              max-width: 6rem
+
+          thead
+            font-size: 0.9rem
+
+          tbody
+            tr
+              font-size: 0.8rem

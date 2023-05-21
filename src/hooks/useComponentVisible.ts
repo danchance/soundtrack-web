@@ -10,7 +10,7 @@ import { useEffect, useRef, useState } from 'react';
  */
 const useComponentVisible = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<any>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (ref.current && !ref.current.contains(event.target as HTMLElement)) {

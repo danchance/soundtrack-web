@@ -1,10 +1,10 @@
 @use '../variables'
 
 .nav-background
-    height: 4rem
-    width: 100%
-    margin-bottom: 1rem
-    background-color: #1e3799
+  height: 4rem
+  width: 100%
+  margin-bottom: 1rem
+  background-color: #1e3799
 
 .container
   margin: auto
@@ -36,7 +36,7 @@
       margin: auto
       margin-bottom: 1.5rem
       padding: 1rem
-      max-width: 900px
+      max-width: 1000px
 
       .avatar-img
         position: absolute
@@ -94,4 +94,31 @@
     .private-msg
       font-size: 1rem
       font-weight: 600
+
+@media (max-width: 800px)
+  .nav-background
+    margin-bottom: 0rem
+
+  .container
+    .profile-header
+      .header-img
+        height: 10rem
+
+      .profile-info
+        .avatar-img
+          top: -100px
+          left: 0
+          right: 0
+          margin: auto
+
+        .user
+          margin: auto
+          margin-top: 100px
+          width: fit-content
+
+          .user-data
+            text-align: center
+
+            h1
+              font-size: 1.5rem
         
