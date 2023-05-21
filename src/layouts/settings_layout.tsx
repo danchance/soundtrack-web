@@ -62,6 +62,7 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
             </button>
           </div>
           <ul
+            onClick={() => setIsVisible(false)}
             className={[styles['list'], isVisible ? '' : styles['hidden']].join(
               ' '
             )}

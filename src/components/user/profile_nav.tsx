@@ -2,6 +2,9 @@ import Link from 'next/link';
 import styles from '@/styles/components/user/profile_nav.module.sass';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
+import HamburgerMenuIcon from '@/assets/icons/hamburger_menu.svg';
+import useComponentVisible from '@/hooks/useComponentVisible';
 
 /**
  * Define all items in the user profile navigation list.
@@ -26,6 +29,7 @@ const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
   // Build the current path as all nav links are relative to this.
   const path = `/user/${user}`;
   const router = useRouter();
+  const { ref, isVisible, setIsVisible } = useComponentVisible();
 
   useEffect(() => {
     setActive(
@@ -36,8 +40,27 @@ const ProfileNav = ({ user, page }: { user: string; page: UserPage }) => {
   }, [router.pathname]);
 
   return (
-    <div className={styles['navigation']}>
-      <ul>
+    <div ref={ref} className={styles['navigation']}>
+      <div className={styles['nav-header']}>
+        <h1>{page.toUpperCase()}</h1>
+        <button
+          onClick={() => setIsVisible(!isVisible)}
+          className={styles['nav-btn']}
+        >
+          <Image
+            src={HamburgerMenuIcon}
+            alt="dropdown menu"
+            width={40}
+            height={30}
+          ></Image>
+        </button>
+      </div>
+      <ul
+        onClick={() => setIsVisible(false)}
+        className={[styles['list'], isVisible ? '' : styles['hidden']].join(
+          ' '
+        )}
+      >
         <li className={active === UserPage.PROFILE ? styles['active'] : ''}>
           <Link href={`${path}/profile`}>PROFILE</Link>
         </li>

@@ -1,49 +1,91 @@
 @use '../../variables'
 
-.navigation 
-  position: relative
-  width: 100%
+@media (min-width: 801px)
+  .navigation 
+    position: relative
+    width: 100%
 
-  ul
-    display: flex
+    .nav-header
+      display: none
 
-    li
-      position: relative
-      min-width: variables.$profile-nav-item-width
-      
-      a
+    .list
+      display: flex
+
+      li
         position: relative
-        display: flex
-        justify-content: center
-        padding-bottom: 0.75rem
-        text-decoration: none
+        min-width: variables.$profile-nav-item-width
+        
+        a
+          position: relative
+          display: flex
+          justify-content: center
+          padding-bottom: 0.75rem
+          text-decoration: none
 
-      &.active
-        font-weight: 700
+        &.active
+          font-weight: 700
 
-        &~ .indicator::before
-          background-color: #2d3436
+          &~ .indicator::before
+            background-color: #2d3436
 
-      @for $i from 1 through 6 
-        &:nth-child(#{$i}).active ~ .indicator 
-          transform: translateX(calc(($i - 1) * variables.$profile-nav-item-width))
+        @for $i from 1 through 6 
+          &:nth-child(#{$i}).active ~ .indicator 
+            transform: translateX(calc(($i - 1) * variables.$profile-nav-item-width))
 
-    .indicator 
-      position: absolute
-      left: 0
-      width: variables.$profile-nav-item-width
-      height: 4px
-      transition: all 0.5s
-
-      &::before 
+      .indicator 
         position: absolute
-        content: ""
-        top: 1.9rem
-        left: 50%
-        width: 100%
-        height: 100%
-        transform: translate(-50%, -50%)
-        transition: 0.5s
+        left: 0
+        width: variables.$profile-nav-item-width
+        height: 4px
+        transition: all 0.5s
 
+        &::before 
+          position: absolute
+          content: ""
+          top: 1.9rem
+          left: 50%
+          width: 100%
+          height: 100%
+          transform: translate(-50%, -50%)
+          transition: 0.5s
+
+@media (max-width: 800px)
+  .navigation 
+    margin-bottom: 1rem
+    background-color: #ACB1D6
+
+    .nav-header
+      display: flex
+      justify-content: space-between
+      padding: 1rem 1rem 0 1rem
+
+      h1
+        margin-bottom: 0.8rem
+        font-size: 1.6rem
+
+      .nav-btn
+        display: block
+        height: fit-content
+        cursor: pointer
+        background: none
+        border: none
+        outline: none    
+
+    .list
+      &.hidden
+        display: none
+
+      li
+
+        &.active
+          background-color: #8d96db
+
+        a
+          display: block
+          padding: 0.5rem 1rem 0.5rem 1rem
+          width: 100%
+          font-weight: 600
+          text-decoration: none
       
+    
 
