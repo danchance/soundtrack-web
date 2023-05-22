@@ -78,7 +78,12 @@ const ViewAllList = ({ username, itemType }: ViewAllListProps) => {
           <option value={Timeframe.ALL}>All Time</option>
         </select>
       </div>
-      <TopItemList itemList={itemList} itemType={itemType} />
+      <TopItemList
+        itemList={itemList}
+        itemType={itemType}
+        pageNumber={pageNumber}
+        limit={20}
+      />
       <div className={styles['footer']}>
         <button onClick={() => setPageNumber(pageNumber - 1)}>-</button>
         <input value={pageNumber}></input>

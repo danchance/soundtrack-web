@@ -104,7 +104,12 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
         <TopItemGrid itemList={itemList} itemType={itemType} />
       )}
       {style === StyleType.LIST && (
-        <TopItemList itemList={itemList} itemType={itemType} />
+        <TopItemList
+          itemList={itemList}
+          itemType={itemType}
+          pageNumber={1}
+          limit={10}
+        />
       )}
       {style === StyleType.CHART && (
         <TopItemBarChart itemList={itemList} itemType={itemType} />
