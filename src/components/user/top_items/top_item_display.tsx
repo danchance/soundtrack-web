@@ -38,6 +38,7 @@ export type TopItemResponse = {
   artists?: Array<Item>;
   timeframe: Timeframe;
   style: StyleType;
+  total: number;
 };
 
 /**
