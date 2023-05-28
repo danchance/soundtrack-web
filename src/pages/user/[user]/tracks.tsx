@@ -1,7 +1,6 @@
 import { UserPage } from '@/components/user/profile_nav';
-import TopItemDisplay, {
-  TopItemTypes
-} from '@/components/user/top_items/top_item_display';
+import { TopItemTypes } from '@/components/user/top_items/top_item_display';
+import ViewAllList from '@/components/user/view_all_list';
 import ProfileLayout from '@/layouts/profile_layout';
 import styles from '@/styles/pages/user/tracks.module.sass';
 import { useRouter } from 'next/router';
@@ -16,9 +15,10 @@ const Tracks = () => {
   return (
     <div className={styles['tracks']}>
       {user && (
-        <TopItemDisplay
+        <ViewAllList
           username={user as string}
           itemType={TopItemTypes.TRACK}
+          pageSize={20}
         />
       )}
     </div>

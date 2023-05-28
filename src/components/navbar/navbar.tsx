@@ -24,7 +24,7 @@ const NavBar = ({ hasBackground }: { hasBackground: boolean }) => {
         <Link href="/" className={styles['site-heading']}>
           <h1>soundTrack</h1>
         </Link>
-        <Search />
+        {/* <Search /> */}
         {!isLoading && (
           <>
             {user && <UserMenu user={user} />}

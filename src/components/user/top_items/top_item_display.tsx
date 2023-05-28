@@ -32,12 +32,13 @@ export enum TopItemTypes {
   ARTIST = 'Artist'
 }
 
-type TopItemResponse = {
+export type TopItemResponse = {
   tracks?: Array<Item>;
   albums?: Array<Item>;
   artists?: Array<Item>;
   timeframe: Timeframe;
   style: StyleType;
+  total: number;
 };
 
 /**
@@ -49,13 +50,7 @@ type TopItemResponse = {
  */
 const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
   const heading = `Top ${itemType}s`.toUpperCase();
-  const baseUrl = `http://localhost:8000/api/users/${username}/${
-    itemType === TopItemTypes.TRACK
-      ? 'tracks'
-      : itemType === TopItemTypes.ALBUM
-      ? 'albums'
-      : 'artists'
-  }`;
+  const baseUrl = `http://localhost:8000/api/users/${username}/${itemType.toLowerCase()}s`;
   const [url, setUrl] = useState<string>(baseUrl);
   const { data, error } = useFetch<TopItemResponse>(url, true);
   const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);
@@ -110,7 +105,12 @@ const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
         <TopItemGrid itemList={itemList} itemType={itemType} />
       )}
       {style === StyleType.LIST && (
-        <TopItemList itemList={itemList} itemType={itemType} />
+        <TopItemList
+          itemList={itemList}
+          itemType={itemType}
+          pageNumber={1}
+          limit={10}
+        />
       )}
       {style === StyleType.CHART && (
         <TopItemBarChart itemList={itemList} itemType={itemType} />

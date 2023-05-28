@@ -1,7 +1,6 @@
 import { UserPage } from '@/components/user/profile_nav';
-import TopItemDisplay, {
-  TopItemTypes
-} from '@/components/user/top_items/top_item_display';
+import { TopItemTypes } from '@/components/user/top_items/top_item_display';
+import ViewAllList from '@/components/user/view_all_list';
 import ProfileLayout from '@/layouts/profile_layout';
 import styles from '@/styles/pages/user/artists.module.sass';
 import { useRouter } from 'next/router';
@@ -16,9 +15,10 @@ const Artists = () => {
   return (
     <div className={styles['artists']}>
       {user && (
-        <TopItemDisplay
+        <ViewAllList
           username={user as string}
           itemType={TopItemTypes.ARTIST}
+          pageSize={20}
         />
       )}
     </div>

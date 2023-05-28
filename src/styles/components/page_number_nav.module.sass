@@ -1,0 +1,44 @@
+.container
+  border: 1px solid #e4e4e4
+  border-radius: 8px
+  box-shadow: 0px 0px 4px #e4e4e4
+
+  button
+    padding: 0.5rem 1rem 
+    background: none
+    outline: none
+    border: none
+    cursor: pointer
+    height: 100%
+
+    &:hover
+      background-color: #f0f0f0
+
+  .page-btn
+    &:disabled 
+      border: 1px solid #2d3436
+
+  .prev-btn
+    border-right: 1px solid #e4e4e4
+    border-radius: 6px 0 0 6px
+
+    .arrow
+      margin-right: 0.5rem
+
+  .next-btn
+    border-left: 1px solid #e4e4e4
+    border-radius: 0 6px 6px 0
+
+    .arrow
+      margin-left: 0.5rem
+
+  .prev-btn,
+  .next-btn
+    &:disabled
+      cursor: default
+      background-color: #e4e4e4
+
+@media (max-width: 500px)
+  .container
+    button
+      padding: 0.5rem 0.8rem

@@ -9,16 +9,34 @@ import { Item, TopItemTypes } from './top_item_display';
 type TopItemListProps = {
   itemList: Array<Item>;
   itemType: TopItemTypes;
+  pageNumber: number;
+  limit: number;
 };
 
-const TopItemList = ({ itemList, itemType }: TopItemListProps) => {
+/**
+ * Displays a list of tracks, albums or artists.
+ * @param itemList The list of tracks, albums or artists to display
+ * @param itemType The type of item we are displaying.
+ * @param pageNumber The page number of the results being displayed, used to calculate
+ * the correct number next to each list item
+ * @param limit The number of results displayed, use to calculate the correct rank
+ * next to each list item.
+ */
+const TopItemList = ({
+  itemList,
+  itemType,
+  pageNumber,
+  limit
+}: TopItemListProps) => {
+  const offset = limit * (pageNumber - 1);
+
   return (
     <table className={styles['list']}>
       <tbody>
         {itemList.map((item, index) => (
           <tr key={item.id}>
             <td className={styles['rank-col']}>
-              {index <= 2 && (
+              {offset + index <= 2 && (
                 <Image
                   src={
                     index === 0
@@ -32,7 +50,7 @@ const TopItemList = ({ itemList, itemType }: TopItemListProps) => {
                   height={30}
                 ></Image>
               )}
-              {index > 2 && index + 1}
+              {offset + index > 2 && offset + index + 1}
             </td>
             <td className={styles['artwork-col']}>
               <Link href="#">
