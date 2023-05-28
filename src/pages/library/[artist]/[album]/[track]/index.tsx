@@ -159,11 +159,11 @@ const Track = () => {
                   })}
                 </tbody>
               </table>
-              <div className={styles['link-container']}>
+              {/* <div className={styles['link-container']}>
                 <Link href="#" className="">
                   All Tracks
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className={styles['secondary-col']}>
