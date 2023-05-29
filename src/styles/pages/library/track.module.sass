@@ -13,8 +13,8 @@
   .card
     padding: 1rem
     border-radius: 1rem
-    background-color: #fbfbfb
-    box-shadow: 3px 3px 10px #e4e4e4
+    background-color: variables.$light-secondary
+    box-shadow: 3px 3px 10px variables.$light-tertiary
 
     &.track-info
       a
@@ -26,11 +26,11 @@
         gap: 1rem
         margin-bottom: 1.5rem
         padding-bottom: 0.5rem
-        border-bottom: 1px solid #f0f0f0
+        border-bottom: 1px solid variables.$light-primary
 
         .artist-img
           border-radius: 50%
-          border: 1px solid #f0f0f0
+          border: 1px solid variables.$light-primary
 
         .artist-name
           font-size: 1.3rem
@@ -46,7 +46,7 @@
           gap: 1rem
 
           .album-img
-            border: 1px solid #f0f0f0
+            border: 1px solid variables.$light-primary
 
           .info
             h3
@@ -74,11 +74,7 @@
           -ms-transition: background-color 250ms ease-in-out
 
           &:nth-child(2n-1)
-            background-color: #f0f0f0
-
-          &:hover
-            cursor: pointer
-            background-color: #e2e2e2
+            background-color: variables.$light-primary
 
           td
             padding: 0.4rem

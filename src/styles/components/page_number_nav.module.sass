@@ -1,7 +1,9 @@
+@use '../variables'
+
 .container
-  border: 1px solid #e4e4e4
+  border: 1px solid variables.$light-tertiary
   border-radius: 8px
-  box-shadow: 0px 0px 4px #e4e4e4
+  box-shadow: 0px 0px 4px variables.$light-tertiary
 
   button
     padding: 0.5rem 1rem 
@@ -12,21 +14,21 @@
     height: 100%
 
     &:hover
-      background-color: #f0f0f0
+      background-color: variables.$light-primary
 
   .page-btn
     &:disabled 
-      border: 1px solid #2d3436
+      border: 1px solid variables.$dark-primary
 
   .prev-btn
-    border-right: 1px solid #e4e4e4
+    border-right: 1px solid variables.$light-tertiary
     border-radius: 6px 0 0 6px
 
     .arrow
       margin-right: 0.5rem
 
   .next-btn
-    border-left: 1px solid #e4e4e4
+    border-left: 1px solid variables.$light-tertiary
     border-radius: 0 6px 6px 0
 
     .arrow
@@ -36,7 +38,7 @@
   .next-btn
     &:disabled
       cursor: default
-      background-color: #e4e4e4
+      background-color: variables.$light-tertiary
 
 @media (max-width: 500px)
   .container

@@ -1,8 +1,10 @@
+@use '../../variables'
+  
 .container
   padding: 1rem
   border-radius: 1rem
-  background-color: #fbfbfb
-  box-shadow: 3px 3px 10px #e4e4e4
+  background-color: variables.$light-secondary
+  box-shadow: 3px 3px 10px variables.$light-secondary
 
   .heading
     padding-bottom: 1rem
@@ -16,7 +18,7 @@
       margin-top: 3rem
       line-height: 2rem
       text-align: left
-      border-bottom: 1px solid #f0f0f0
+      border-bottom: 1px solid variables.$light-primary
 
       th
         &:last-child
@@ -27,7 +29,7 @@
         font-size: 0.9rem
 
         &:nth-child(2n)
-          background-color: #f0f0f0
+          background-color: variables.$light-primary
       
       td
         padding: 0.4rem 0

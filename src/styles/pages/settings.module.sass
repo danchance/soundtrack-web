@@ -1,3 +1,5 @@
+@use '../variables'
+
 .container
   .settings-group
     margin-bottom: 2rem
@@ -8,19 +10,19 @@
     .group-heading
       margin-bottom: 2rem
       padding-bottom: 0.5rem
-      border-bottom: 1px solid #2d3436
+      border-bottom: 1px solid variables.$dark-primary
 
     .submit-btn
       padding: 0.5rem 1rem
       font-size: 0.9rem
       font-weight: 500
-      background-color: #00b894
+      background-color: variables.$positive-primary
       border-radius: 1rem
       border: none
       cursor: pointer
 
       &:hover
-        background-color: #00b894d6
+        opacity: 0.9
 
     .setting
       margin-bottom: 2rem
@@ -56,14 +58,14 @@
             padding: 0.3rem
             width: 15rem
             outline: none
-            border: 1px solid #2d3436
+            border: 1px solid variables.$dark-primary
 
           .error
             margin-top: 0.5rem
             margin-left: 8rem
             font-size: 0.9rem
             font-weight: 500
-            color: #ff6b6b
+            color: variables.$negative-primary
 
       &.delete
         .setting-name
@@ -80,19 +82,19 @@
           padding: 0.5rem 1rem
           font-size: 0.9rem
           font-weight: 500
-          background-color: #ff6b6b
+          background-color: variables.$negative-primary
           border-radius: 1rem
           border: none
           cursor: pointer
 
           &:hover
-            background-color: #ff6b6bd6
+            opacity: 0.9
 
         .error
           margin-top: 0.5rem
           font-size: 0.9rem
           font-weight: 500
-          color: #ff6b6b
+          color: variables.$negative-primary
 
       &.layout
         .setting-name
@@ -114,13 +116,13 @@
 
           select
             outline: none
-            box-shadow: 0px 0px 8px #e4e4e4
+            box-shadow: 0px 0px 8px variables.$light-tertiary
 
         .error-msg
           margin-left: 2rem
           font-size: 0.9rem
           font-weight: 500
-          color: #ff6b6b
+          color: variables.$negative-primary
 
       &.privacy
         .wrapper
@@ -160,10 +162,10 @@
               height: 0
 
               &:checked + .toggle
-                background-color: #0984e3
+                background-color: variables.$tertiary
 
               &:focus + .toggle
-                box-shadow: 0 0 1px #0984e3
+                box-shadow: 0 0 1px variables.$tertiary
 
               &:checked + .toggle:before
                 -webkit-transform: translateX(26px)
@@ -177,7 +179,7 @@
               left: 0
               right: 0
               bottom: 0
-              background-color: #ccc
+              background-color: variables.$primary
               border-radius: 34px
               -webkit-transition: .4s
               transition: .4s
@@ -204,7 +206,7 @@
             margin-left: 1rem
             font-size: 0.9rem
             font-weight: 500
-            color: #ff6b6b
+            color: variables.$negative-primary
 
       &.connection
         display: flex

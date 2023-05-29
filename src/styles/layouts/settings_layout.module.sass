@@ -3,7 +3,7 @@
 .nav-background
   height: 4rem
   width: 100%
-  background-color: #1e3799
+  background-color: variables.$heading
 
 .container
   display: grid
@@ -36,10 +36,10 @@
         border-radius: 0.8rem
 
         &.active
-          background-color: #ACB1D6
+          background-color: variables.$primary
 
         &:hover
-          background-color: #acb1d6ae
+          background-color: variables.$secondary
           cursor: pointer
 
         a
@@ -59,7 +59,7 @@
     .nav
       position: relative
       width: 100% 
-      background-color: #ACB1D6
+      background-color: variables.$primary
 
       .heading
         padding: 1rem 1rem 0 1rem
@@ -88,7 +88,7 @@
           border-radius: 0
 
           &.active
-            background-color: #8d96db
+            background-color: variables.$secondary
 
     .settings-wrapper
       padding: 0 1rem 1rem 1rem

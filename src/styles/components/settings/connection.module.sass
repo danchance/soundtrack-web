@@ -1,5 +1,6 @@
+@use '../../variables'
+  
 .container
-
   .connection
     display: flex
     justify-content: space-between
@@ -27,23 +28,23 @@
     border-radius: 1.5rem
 
   button
-    color: #1dd1a1
-    border: 1px solid #1dd1a1
+    color: variables.$positive-primary
+    border: 1px solid variables.$positive-primary
 
     &:hover
-      color: #2d3436
-      background-color: #ff6b6bb0
-      border: 1px solid #ff6b6bb0
+      color: variables.$dark-primary
+      background-color: variables.$negative-primary
+      border: 1px solid variables.$negative-primary
       cursor: pointer
 
   a
     display: block
     text-decoration: none
-    border: 1px solid #2d3436
+    border: 1px solid variables.$dark-primary
 
     &:hover
-      background-color: #1dd1a1
-      border: 1px solid #1dd1a1
+      background-color: variables.$positive-primary
+      border: 1px solid variables.$positive-primary
 
   .error
     display: flex
@@ -55,7 +56,7 @@
       margin-left: 1rem
       font-size: 0.9rem
       font-weight: 500
-      color: #ff6b6b
+      color: variables.$negative-primary
 
 @media (max-width: 500px)
   .container

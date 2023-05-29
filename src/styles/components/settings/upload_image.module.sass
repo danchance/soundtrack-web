@@ -8,7 +8,7 @@
     position: relative
     width: 10rem
     height: 10rem
-    border: 2px solid #2d3436
+    border: 2px solid variables.$dark-primary
 
     &.banner
       width: 20rem
@@ -43,13 +43,13 @@
         .btn
           height: 2.4rem
           font-weight: 500
-          background-color: #ACB1D6
-          box-shadow: 0px 0px 3px #ACB1D6
+          background-color: variables.$primary
+          box-shadow: 0px 0px 3px variables.$primary
           border-radius: 1rem
           cursor: pointer
 
           &:hover
-              background-color: #acb1d6ae
+              opacity: 0.9
 
           &.input-label
             line-height: 2.4rem
@@ -61,7 +61,7 @@
       .error-message
         margin-top: 0.5rem
         font-weight: 500
-        color: #ff6b6b
+        color: variables.$negative-primary
 
 @media (max-width: 500px)
   .container

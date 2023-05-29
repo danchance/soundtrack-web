@@ -26,7 +26,7 @@
           font-weight: 700
 
           &~ .indicator::before
-            background-color: #2d3436
+            background-color: variables.$dark-primary
 
         @for $i from 1 through 6 
           &:nth-child(#{$i}).active ~ .indicator 
@@ -52,7 +52,7 @@
 @media (max-width: 800px)
   .navigation 
     margin-bottom: 1rem
-    background-color: #ACB1D6
+    background-color: variables.$primary
 
     .nav-header
       display: flex
@@ -77,8 +77,8 @@
       transition: max-height 0.3s ease-in
 
       li
-        &.active
-            background-color: #8d96db
+        &.active, &:hover
+          background-color: variables.$secondary
 
         a
           display: block
