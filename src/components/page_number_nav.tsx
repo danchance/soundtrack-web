@@ -81,7 +81,7 @@ const PageNumberNav = ({
         </button>
       ))}
       <button
-        disabled={currentPage === maxPages}
+        disabled={currentPage >= maxPages}
         onClick={() => setCurrentPage(currentPage + 1)}
         className={styles['next-btn']}
       >
