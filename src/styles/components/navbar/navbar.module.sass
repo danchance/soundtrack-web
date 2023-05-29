@@ -30,29 +30,36 @@
   h1
     font-size: 2.5rem
     line-height: 3rem
+
+  .login-options
+    display: flex
+    align-items: center
   
   .btn
-    padding: 0.9rem 1.8rem
-    color: variables.$light-primary
-    font-weight: 800
+    padding: 0.7rem 1.4rem
     letter-spacing: 0.025rem
     border: none
     border-radius: 1.5rem
     cursor: pointer
 
     &.btn-primary
+      font-weight: 700
       background: none
 
       &:hover
         text-decoration: underline
+        background: variables.$primary
 
     &.btn-secondary
-      margin-left: 1rem
-      background-color: rgba(255, 255, 255, 0.15)
-      backdrop-filter: blur(5px)
+      margin-left: 0.5rem
+      font-weight: 800
+      background: none
+      border: 2px solid variables.$dark-primary
       
       &:hover
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1)
+        background: variables.$primary
+        border: 2px solid variables.$primary
+
 
         
 

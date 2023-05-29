@@ -29,7 +29,7 @@ const NavBar = ({ hasBackground }: { hasBackground: boolean }) => {
           <>
             {user && <UserMenu user={user} />}
             {!user && (
-              <div>
+              <div className={styles['login-options']}>
                 {windowSize.width > 800 && (
                   <button
                     className={`${styles['btn']} ${styles['btn-primary']}`}
