@@ -108,13 +108,13 @@ const Album = () => {
                   );
                 })}
               </div>
-              {data.otherAlbums.length >= 6 && (
+              {/* {data.otherAlbums.length >= 6 && (
                 <div className={styles['link-container']}>
                   <Link href="#" className="">
                     All Albums
                   </Link>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
           <div className={styles['secondary-col']}>
