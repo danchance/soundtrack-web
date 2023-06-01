@@ -18,10 +18,16 @@ const nextConfig = {
         hostname: 'i.scdn.co',
         pathname: '/**'
       },
-      // Express server images.
+      // Express server images: dev and prod.
       {
         protocol: 'http',
         hostname: 'localhost',
+        port: '8000',
+        pathname: '/images/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'mysoundtrack.dev',
         port: '8000',
         pathname: '/images/**'
       }
