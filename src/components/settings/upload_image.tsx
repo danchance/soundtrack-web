@@ -71,6 +71,7 @@ const UploadImage = ({
             alt="profile picture"
             fill
             className={styles['preview-image']}
+            sizes="400px"
           ></Image>
         )}
       </div>

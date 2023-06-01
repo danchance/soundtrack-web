@@ -29,7 +29,12 @@ const TopItemGrid = ({ itemList, itemType }: TopItemGridProps) => {
             }
             className={styles['artwork']}
           >
-            <Image src={item.artwork} alt={`${itemType} artwork`} fill></Image>
+            <Image
+              src={item.artwork}
+              alt={`${itemType} artwork`}
+              fill
+              sizes="250px"
+            ></Image>
           </Link>
           <div className={styles['info']}>
             {itemType === TopItemTypes.ALBUM && (

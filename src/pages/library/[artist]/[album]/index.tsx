@@ -101,6 +101,7 @@ const Album = () => {
                           alt=""
                           fill
                           draggable={false}
+                          sizes="200px"
                         ></Image>
                       </div>
                       <h3>{album.albumName}</h3>

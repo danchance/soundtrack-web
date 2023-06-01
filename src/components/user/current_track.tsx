@@ -40,7 +40,7 @@ const CurrentTrack = ({ userid }: { userid: string }) => {
   return (
     <div className={styles['container']}>
       <div className={styles['track']}>
-        <Image src={data.artwork} alt="" fill></Image>
+        <Image src={data.artwork} alt="" fill sizes="100px"></Image>
       </div>
       <div className={styles['info']}>
         <h2 className={styles['heading']}>CURRENT STREAM</h2>
