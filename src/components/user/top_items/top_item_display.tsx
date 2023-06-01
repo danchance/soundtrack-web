@@ -50,7 +50,9 @@ export type TopItemResponse = {
  */
 const TopItemDisplay = ({ username, itemType }: TopItemDisplayProps) => {
   const heading = `Top ${itemType}s`.toUpperCase();
-  const baseUrl = `http://localhost:8000/api/users/${username}/${itemType.toLowerCase()}s`;
+  const baseUrl = `${
+    process.env.NEXT_PUBLIC_SOUNDTRACK_API
+  }/users/${username}/${itemType.toLowerCase()}s`;
   const [url, setUrl] = useState<string>(baseUrl);
   const { data, error } = useFetch<TopItemResponse>(url, true);
   const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);

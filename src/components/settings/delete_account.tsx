@@ -23,11 +23,14 @@ const DeleteAccount = ({ user }: DeleteAccountProps) => {
   const deleteAccount = async () => {
     setDeleteAccountError('');
     try {
-      await _delete(`http://localhost:8000/api/users/${user!.sub}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
+      await _delete(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/${user!.sub}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
         }
-      });
+      );
       // Account deleted successfully, log user out and redirect to home page.
       logout();
     } catch (error) {

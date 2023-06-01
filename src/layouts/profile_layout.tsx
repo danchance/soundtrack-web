@@ -48,7 +48,9 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
     if (router.query.user !== undefined) {
       setProfileUser(router.query.user as string);
       setUrl(
-        `http://localhost:8000/api/users/${router.query.user as string}/info`
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/${
+          router.query.user as string
+        }/info`
       );
     }
   }, [router.query.user]);

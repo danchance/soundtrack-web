@@ -52,7 +52,11 @@ const Album = () => {
 
   useEffect(() => {
     if (album !== undefined) {
-      setUrl(`http://localhost:8000/api/albums/${album as string}/data`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/albums/${
+          album as string
+        }/data`
+      );
     }
   }, [album]);
 

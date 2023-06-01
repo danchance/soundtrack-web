@@ -51,7 +51,11 @@ const Track = () => {
 
   useEffect(() => {
     if (track !== undefined) {
-      setUrl(`http://localhost:8000/api/tracks/${track as string}/data`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/tracks/${
+          track as string
+        }/data`
+      );
     }
   }, [track]);
 

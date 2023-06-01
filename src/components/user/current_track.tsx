@@ -19,7 +19,7 @@ type CurrentTrack = {
  * @param user The user to display the current track for.
  */
 const CurrentTrack = ({ userid }: { userid: string }) => {
-  const url = `http://localhost:8000/api/users/${userid}/current-track`;
+  const url = `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/${userid}/current-track`;
   const { data, error, request } = useFetch<CurrentTrack>(url);
   const { isAuthenticated } = useAuth0();
   const { accessToken } = useAccessToken();

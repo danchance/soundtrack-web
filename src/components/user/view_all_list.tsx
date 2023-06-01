@@ -25,7 +25,9 @@ type ViewAllListProps = {
  */
 const ViewAllList = ({ username, itemType, pageSize }: ViewAllListProps) => {
   const heading = `All ${itemType}s`.toUpperCase();
-  const baseUrl = `http://localhost:8000/api/users/${username}/${itemType.toLowerCase()}s?limit=${pageSize}`;
+  const baseUrl = `${
+    process.env.NEXT_PUBLIC_SOUNDTRACK_API
+  }/users/${username}/${itemType.toLowerCase()}s?limit=${pageSize}`;
   const [url, setUrl] = useState<string>(baseUrl);
   const [timeframe, setTimeframe] = useState<Timeframe>(Timeframe.ALL);
   const { isLoading, data, error } = useFetch<TopItemResponse>(url, true);

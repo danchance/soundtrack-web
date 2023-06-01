@@ -24,7 +24,7 @@ type RecentlyPlayedResponse = {
  * @param itemList The list of tracks to display.
  */
 const TrackHistory = ({ username }: TrackHistoryProps) => {
-  const url = `http://localhost:8000/api/users/${username}/track-history`;
+  const url = `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/${username}/track-history`;
   const { data, error } = useFetch<RecentlyPlayedResponse>(url, true);
   const router = useRouter();
   const { isLoading, user } = useAuth0();

@@ -49,7 +49,11 @@ const Artist = () => {
 
   useEffect(() => {
     if (artist !== undefined) {
-      setUrl(`http://localhost:8000/api/artists/${artist as string}/data`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/artists/${
+          artist as string
+        }/data`
+      );
     }
   }, [artist]);
 

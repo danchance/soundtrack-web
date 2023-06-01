@@ -61,7 +61,7 @@ const SpotifyConnection = ({
           throw new Error('Invalid state parameter.');
         }
         await post(
-          'http://localhost:8000/api/users/spotify',
+          '${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/spotify',
           JSON.stringify({
             code: codeParam,
             redirectUri: spotifyConfig.redirectUri
@@ -102,7 +102,7 @@ const SpotifyConnection = ({
   const disconnect = async () => {
     try {
       setConnected(null);
-      await _delete('http://localhost:8000/api/users/spotify', {
+      await _delete(`${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/spotify`, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }

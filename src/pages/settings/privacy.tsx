@@ -25,7 +25,7 @@ type UpdateSettingsResponse = {
 const Privacy = () => {
   const { accessToken } = useAccessToken();
   const { error, data } = useFetch<SettingsResponse>(
-    'http://localhost:8000/api/users/settings',
+    `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/settings`,
     true
   );
   const router = useRouter();

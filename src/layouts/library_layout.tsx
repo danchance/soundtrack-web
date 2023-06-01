@@ -43,15 +43,21 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
    */
   useEffect(() => {
     if (pageType === LibraryPage.ARTIST && router.query.artist) {
-      setUrl(`http://localhost:8000/api/artists/${router.query.artist}`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/artists/${router.query.artist}`
+      );
       return;
     }
     if (pageType === LibraryPage.ALBUM && router.query.album) {
-      setUrl(`http://localhost:8000/api/albums/${router.query.album}`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/albums/${router.query.album}`
+      );
       return;
     }
     if (pageType === LibraryPage.TRACK && router.query.track) {
-      setUrl(`http://localhost:8000/api/tracks/${router.query.track}`);
+      setUrl(
+        `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/tracks/${router.query.track}`
+      );
       return;
     }
   }, [pageType, router.query]);
