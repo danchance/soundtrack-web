@@ -76,7 +76,6 @@ const SpotifyConnection = ({
         setConnected(true);
         setError(false);
       } catch (error) {
-        console.log(error);
         setError(true);
       }
       // Clear query params from url and set new state value.

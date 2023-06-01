@@ -78,7 +78,7 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
         <>
           <div className={styles['library-header']}>
             <div className={styles['hero-img']}>
-              <Image src={BackgroundImage} alt="" fill></Image>
+              <Image src={BackgroundImage} alt="" fill priority={true}></Image>
             </div>
             <div className={styles['header-wrapper']}>
               <div>
@@ -88,6 +88,7 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
                   alt={data.name}
                   width={230}
                   height={230}
+                  priority={true}
                 ></Image>
               </div>
               <div className={styles['header-info']}>

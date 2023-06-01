@@ -19,7 +19,6 @@ const Profile: NextPageWithLayout = () => {
   useEffect(() => {
     if (router.query.user) {
       setUsername(router.query.user as string);
-      console.log('changed username');
     } else {
       setUsername(null);
     }

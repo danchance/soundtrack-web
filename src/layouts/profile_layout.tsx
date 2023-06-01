@@ -109,7 +109,12 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                   )}
                 >
                   <div className={styles['header-img']}>
-                    <Image src={data.bannerImage} alt="" fill></Image>
+                    <Image
+                      src={data.bannerImage}
+                      alt=""
+                      fill
+                      priority={true}
+                    ></Image>
                   </div>
                   <div className={styles['profile-info']}>
                     <Image
@@ -118,6 +123,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                       width={200}
                       height={200}
                       className={styles['avatar-img']}
+                      priority={true}
                     ></Image>
                     <div className={styles['user']}>
                       <div className={styles['user-data']}>
