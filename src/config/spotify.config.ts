@@ -1,6 +1,3 @@
-const authEndpoint = 'https://accounts.spotify.com/authorize';
-const redirectUri = 'http://127.0.0.1:3000/settings/connections';
-const clientId = '251e80c7b65e4e1797a529c3e8572dbd';
 const scopes = [
   'user-read-currently-playing',
   'user-read-recently-played',
@@ -8,14 +5,15 @@ const scopes = [
 ];
 const queryParams = new URLSearchParams({
   response_type: 'code',
-  client_id: clientId,
+  client_id: process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID!,
   scope: scopes.join(' '),
-  redirect_uri: redirectUri
+  redirect_uri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL!
 });
 
 const config = {
-  redirectUri,
-  loginUrl: `${authEndpoint}?` + queryParams.toString()
+  redirectUri: process.env.NEXT_PUBLIC_SPOTIFY_REDIRECT_URL!,
+  loginUrl:
+    `${process.env.NEXT_PUBLIC_SPOTIFY_AUTH_URL}?` + queryParams.toString()
 };
 
 export default config;
