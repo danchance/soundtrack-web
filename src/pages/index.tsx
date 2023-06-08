@@ -60,10 +60,13 @@ const Home = () => {
               BackgroundImage,
               BackgroundImage,
               BackgroundImage,
+              BackgroundImage,
+              BackgroundImage,
+              BackgroundImage,
+              BackgroundImage,
+              BackgroundImage,
               BackgroundImage
             ]}
-            imageSize={150}
-            speed={5}
           />
         </div>
       </main>
