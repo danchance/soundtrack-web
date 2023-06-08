@@ -12,11 +12,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
    * If the current page is the home page, then the header should not have
    * a background
    */
-  const headerBackground = !['/'].includes(useRouter().pathname);
+  const isHomePage = ['/'].includes(useRouter().pathname);
 
   return (
     <div className={styles['container']}>
-      <NavBar hasBackground={headerBackground} />
+      <NavBar hasBackground={true} />
       <div className={styles['content']}>{children}</div>
       <Footer />
     </div>
