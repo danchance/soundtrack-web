@@ -13,14 +13,80 @@
     img
       object-fit: cover
 
-  .wrapper
+  .section1
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 1.5rem
+    margin: 1rem auto 
+    padding: 2rem
+    text-align: center
+
+    button
+      padding: 1rem 2rem
+      font-size: 1.2rem
+      font-weight: 500
+      color: variables.$light-tertiary
+      background-color: variables.$neutral
+      border: 3px solid variables.$neutral
+      cursor: pointer
+
+      &:hover
+        color: variables.$neutral
+        background-color: variables.$light-primary
+
+  .section2
+    margin-bottom: 3rem
+    padding: 1rem
+    background-color: variables.$light-secondary
+    box-shadow: 3px 3px 10px variables.$light-tertiary
+
+    .wrapper
+      display: grid
+      grid-template-columns: 1fr 1fr
+      gap: 2rem
+      margin: auto
+      max-width: variables.$site-container-width
+
+      .image-container
+        position: relative
+        height: 20rem
+
+        img
+          object-fit: contain
+
+      .text-container
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+
+  .section3
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 2rem
     margin: auto
+    margin-bottom: 2rem
     padding: 1rem
     max-width: variables.$site-container-width
 
 
+    .image-container
+      position: relative
+      height: 20rem
+
+      img 
+        object-fit: contain
+        border: 3px solid variables.$light-secondary
+
+    .text-container
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
 
 
-
-
-
+  .slider-container
+    margin: auto
+    padding: 1rem
+    max-width: variables.$site-container-width
