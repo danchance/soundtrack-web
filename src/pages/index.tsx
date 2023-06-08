@@ -6,9 +6,31 @@ import DemoImage from '@/assets/images/demo1.jpg';
 import DemoImage2 from '@/assets/images/demo2.jpg';
 import ImageSlider from '@/components/image_slider';
 import { useAuth0 } from '@auth0/auth0-react';
+import useWindowSize from '@/hooks/useWindowSize';
+import BannerImage1 from '@/assets/images/home_page_banner/bat_out_of_hell.jpg';
+import BannerImage2 from '@/assets/images/home_page_banner/high_voltage.jpg';
+import BannerImage3 from '@/assets/images/home_page_banner/dark_side_of_the_moon.jpg';
+import BannerImage4 from '@/assets/images/home_page_banner/rumours.jpg';
+import BannerImage5 from '@/assets/images/home_page_banner/from_death_to_destiny.jpg';
+import BannerImage6 from '@/assets/images/home_page_banner/moral_panic.jpg';
+import BannerImage7 from '@/assets/images/home_page_banner/thats_the_spirit.jpg';
+import BannerImage8 from '@/assets/images/home_page_banner/live_at_wembley_stadium.jpg';
+import BannerImage9 from '@/assets/images/home_page_banner/the_sickness.jpg';
+import BannerImage10 from '@/assets/images/home_page_banner/all_this_bad_blood.jpg';
+import BannerImage11 from '@/assets/images/home_page_banner/hot_fuss.jpg';
+import BannerImage12 from '@/assets/images/home_page_banner/the_essential_michael_jackson.jpg';
+import BannerImage13 from '@/assets/images/home_page_banner/californication.jpg';
+import BannerImage14 from '@/assets/images/home_page_banner/unleashed.jpg';
+import BannerImage15 from '@/assets/images/home_page_banner/tattoo_you.jpg';
+import BannerImage16 from '@/assets/images/home_page_banner/the_subliminal_verses.jpg';
+import BannerImage17 from '@/assets/images/home_page_banner/master_of_puppets.jpg';
+import BannerImage18 from '@/assets/images/home_page_banner/brothers_in_arms.jpg';
+import BannerImage19 from '@/assets/images/home_page_banner/living_the_dream.jpg';
+import BannerImage20 from '@/assets/images/home_page_banner/whos_next.jpg';
 
 const Home = () => {
   const { loginWithRedirect } = useAuth0();
+  const { width } = useWindowSize();
 
   return (
     <>
@@ -49,26 +71,34 @@ const Home = () => {
             <Image src={DemoImage2} alt="" fill></Image>
           </div>
         </div>
-        <div className={styles['slider-container']}>
-          <ImageSlider
-            images={[
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage,
-              BackgroundImage
-            ]}
-          />
-        </div>
+        {width >= 800 && (
+          <div className={styles['slider-container']}>
+            <ImageSlider
+              images={[
+                BannerImage1,
+                BannerImage2,
+                BannerImage3,
+                BannerImage4,
+                BannerImage5,
+                BannerImage6,
+                BannerImage7,
+                BannerImage8,
+                BannerImage9,
+                BannerImage10,
+                BannerImage11,
+                BannerImage12,
+                BannerImage13,
+                BannerImage14,
+                BannerImage15,
+                BannerImage16,
+                BannerImage17,
+                BannerImage18,
+                BannerImage19,
+                BannerImage20
+              ]}
+            />
+          </div>
+        )}
       </main>
     </>
   );

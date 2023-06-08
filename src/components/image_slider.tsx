@@ -14,8 +14,8 @@ type ImageSliderProps = {
 const ImageSlider = ({ images }: ImageSliderProps) => {
   const sliderContainer = useRef<HTMLDivElement | null>(null);
   const [imagePositions, setImagePositions] = useState<number[]>([]);
-  const IMAGE_SIZE = 150;
-  const IMAGE_SPACING = 50;
+  const IMAGE_SIZE = 200;
+  const IMAGE_SPACING = 20;
 
   /**
    * Animation function. Updates the position of each image in the array.
@@ -33,6 +33,7 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
         return newPosition;
       })
     );
+    console.log('animate');
     requestAnimationFrame(animate);
   };
 
@@ -48,8 +49,9 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
     const animationFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrame);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [images]);
+  }, []);
 
   return (
     <div ref={sliderContainer} className={styles['container']}>
@@ -58,8 +60,8 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
           key={index}
           src={image}
           alt=""
-          width={150}
-          height={150}
+          width={IMAGE_SIZE}
+          height={IMAGE_SIZE}
           className={styles['image']}
           style={{ left: imagePositions[index] }}
         ></Image>
