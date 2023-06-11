@@ -27,8 +27,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'mysoundtrack.dev',
-        port: '8000',
+        hostname: 'api.mysoundtrack.dev',
         pathname: '/images/**'
       }
     ]
