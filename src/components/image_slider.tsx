@@ -33,7 +33,6 @@ const ImageSlider = ({ images }: ImageSliderProps) => {
         return newPosition;
       })
     );
-    console.log('animate');
     requestAnimationFrame(animate);
   };
 

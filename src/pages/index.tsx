@@ -45,7 +45,7 @@ const Home = () => {
           <Image src={BackgroundImage} alt="" fill priority={true}></Image>
         </div>
         <div className={styles['section1']}>
-          <p>Connect with Spotify to start tracking your streams.</p>
+          <p>Sign up and link your Spotify account to get started.</p>
           <button
             onClick={() =>
               loginWithRedirect({
@@ -65,12 +65,13 @@ const Home = () => {
             <div className={styles['text-container']}>content here</div>
           </div>
         </div>
-        <div className={styles['section3']}>
+        {/* Leave out for now */}
+        {/* <div className={styles['section3']}>
           <div className={styles['text-container']}>content here</div>
           <div className={styles['image-container']}>
             <Image src={DemoImage2} alt="" fill></Image>
           </div>
-        </div>
+        </div> */}
         {width >= 800 && (
           <div className={styles['slider-container']}>
             <ImageSlider

@@ -27,13 +27,16 @@
       font-size: 1.2rem
       font-weight: 500
       color: variables.$light-tertiary
-      background-color: variables.$neutral
+      box-shadow: inset 400px 0 0 0 variables.$neutral
       border: 3px solid variables.$neutral
       cursor: pointer
+      -webkit-transition: ease-out 0.3s
+      -moz-transition: ease-out 0.3s
+      transition: ease-out 0.3s
 
       &:hover
         color: variables.$neutral
-        background-color: variables.$light-primary
+        box-shadow: inset 0 0 0 0 variables.$light-tertiary
 
   .section2
     margin-bottom: 3rem
