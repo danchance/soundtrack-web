@@ -7,6 +7,7 @@ import DemoImage2 from '@/assets/images/demo2.jpg';
 import ImageSlider from '@/components/image_slider';
 import { useAuth0 } from '@auth0/auth0-react';
 import useWindowSize from '@/hooks/useWindowSize';
+import SpotifyLogo from '@/assets/icons/spotify_icon_logo_green.png';
 import BannerImage1 from '@/assets/images/home_page_banner/bat_out_of_hell.jpg';
 import BannerImage2 from '@/assets/images/home_page_banner/high_voltage.jpg';
 import BannerImage3 from '@/assets/images/home_page_banner/dark_side_of_the_moon.jpg';
@@ -61,8 +62,23 @@ const Home = () => {
             <div className={styles['image-container']}>
               <Image src={DemoImage} alt="" fill></Image>
             </div>
-
-            <div className={styles['text-container']}>content here</div>
+            <div className={styles['text-container']}>
+              <Image
+                src={SpotifyLogo}
+                alt="Spotify Logo"
+                width={118}
+                height={35}
+                className={styles['spotify-img']}
+              ></Image>
+              <h2>
+                Connect your Spotify account to track your listening habits.
+              </h2>
+              <p>
+                From your top artists and albums to your most-played tracks,
+                you&apos;ll have access to a treasure trove of data, all neatly
+                organized and easily accessible.
+              </p>
+            </div>
           </div>
         </div>
         {/* Leave out for now */}
