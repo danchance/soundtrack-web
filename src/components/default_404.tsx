@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '@/styles/components/default_error.module.sass';
 import NotFoundImage from '@/assets/images/404.svg';
+import Head from 'next/head';
 
 /**
  * Default 404 Not Found page.
@@ -9,6 +10,9 @@ import NotFoundImage from '@/assets/images/404.svg';
 const Default404 = () => {
   return (
     <>
+      <Head>
+        <title>soundTrack | Page Not Found</title>
+      </Head>
       <div className={styles['nav-background']}></div>
       <div className={styles['error']}>
         <div className={styles['error-info']}>

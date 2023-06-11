@@ -7,6 +7,7 @@ import BackgroundImage from '@/assets/images/main-background.jpg';
 import Link from 'next/link';
 import { formatTime } from '@/utils/format_date_time';
 import Default404 from '@/components/default_404';
+import Head from 'next/head';
 
 type LibraryLayoutProps = {
   children: React.ReactNode;
@@ -78,10 +79,16 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
     router.push('/500');
   }
 
+  console.log(data);
   return (
     <>
       {data && (
         <>
+          <Head>
+            <title>
+              {pageType} | {data!.name}
+            </title>
+          </Head>
           <div className={styles['library-header']}>
             <div className={styles['hero-img']}>
               <Image src={BackgroundImage} alt="" fill priority={true}></Image>
