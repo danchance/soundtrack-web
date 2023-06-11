@@ -5,13 +5,11 @@
   z-index: 1
   width: 100%
   padding: 0.5rem 0
-
-  &.bg
-    position: fixed
-    top: 0
-    backdrop-filter: blur(8px)
-    background-color: rgba(255,255,255,0.4)
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
+  position: fixed
+  top: 0
+  backdrop-filter: blur(8px)
+  background-color: rgba(255,255,255,0.4)
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
 
 .navbar 
   // NOTE: Styling for search bar
@@ -48,18 +46,29 @@
 
       &:hover
         text-decoration: underline
-        background: variables.$primary
 
     &.btn-secondary
       margin-left: 0.5rem
+      letter-spacing: 0.05rem
       font-weight: 800
       background: none
-      border: 2px solid variables.$dark-primary
+      border: 2px solid variables.$neutral
+      background-color: variables.$neutral
       
       &:hover
-        background: variables.$primary
-        border: 2px solid variables.$primary
+        background: none
+        border: 2px solid variables.$neutral
 
+      &.bg
+        font-weight: 600
+        color: variables.$light-tertiary
+        border: 2px solid variables.$heading
+        background-color: variables.$heading
+
+        &:hover
+          color: variables.$heading
+          background: none
+          border: 2px solid variables.$heading
 
         
 
