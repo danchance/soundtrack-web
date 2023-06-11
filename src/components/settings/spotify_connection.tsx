@@ -61,7 +61,7 @@ const SpotifyConnection = ({
           throw new Error('Invalid state parameter.');
         }
         await post(
-          '${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/spotify',
+          `${process.env.NEXT_PUBLIC_SOUNDTRACK_API}/users/spotify`,
           JSON.stringify({
             code: codeParam,
             redirectUri: spotifyConfig.redirectUri

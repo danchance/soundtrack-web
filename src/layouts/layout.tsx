@@ -8,15 +8,17 @@ import styles from '@/styles/layouts/layout.module.sass';
  * Default layout used for all pages.
  */
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const { pathname } = useRouter();
   /**
    * If the current page is the home page, then the header should not have
    * a background
    */
-  const headerBackground = !['/'].includes(useRouter().pathname);
+  const hasBackground =
+    pathname.includes('/user') || pathname.includes('/settings');
 
   return (
     <div className={styles['container']}>
-      <NavBar hasBackground={headerBackground} />
+      <NavBar hasBackground={hasBackground} />
       <div className={styles['content']}>{children}</div>
       <Footer />
     </div>

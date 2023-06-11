@@ -17,9 +17,7 @@ const NavBar = ({ hasBackground }: { hasBackground: boolean }) => {
   const windowSize = useWindowSize();
 
   return (
-    <div
-      className={`${styles['wrapper']} ${hasBackground ? styles['bg'] : ''}`}
-    >
+    <div className={styles['wrapper']}>
       <div className={styles['navbar']}>
         <Link href="/" className={styles['site-heading']}>
           <h1>soundTrack</h1>
@@ -39,7 +37,11 @@ const NavBar = ({ hasBackground }: { hasBackground: boolean }) => {
                   </button>
                 )}
                 <button
-                  className={`${styles['btn']} ${styles['btn-secondary']}`}
+                  className={[
+                    styles['btn'],
+                    styles['btn-secondary'],
+                    hasBackground ? styles['bg'] : ''
+                  ].join(' ')}
                   onClick={() =>
                     loginWithRedirect({
                       authorizationParams: { screen_hint: 'signup' }
