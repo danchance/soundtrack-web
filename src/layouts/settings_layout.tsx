@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import HamburgerMenuIcon from '@/assets/icons/hamburger_menu.svg';
 import Image from 'next/image';
+import Head from 'next/head';
 
 type SettingsLayoutProps = {
   children: React.ReactNode;
@@ -44,6 +45,9 @@ const SettingsLayout = ({ children, page }: SettingsLayoutProps) => {
 
   return (
     <>
+      <Head>
+        <title>soundTrack | Settings</title>
+      </Head>
       <div className={styles['nav-background']}></div>
       <div className={styles['container']}>
         <nav ref={ref} className={styles['nav']}>

@@ -10,6 +10,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import LockIcon from '@/assets/icons/lock.svg';
 import Default500 from '@/components/default_500';
 import useWindowSize from '@/hooks/useWindowSize';
+import Head from 'next/head';
 
 type ProfileLayoutProps = {
   children: React.ReactNode;
@@ -94,6 +95,14 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
 
   return (
     <>
+      {profileUser && (
+        <Head>
+          <title>
+            {profileUser}&apos;s Profile |{' '}
+            {page[0].toUpperCase() + page.slice(1)}
+          </title>
+        </Head>
+      )}
       <div className={styles['nav-background']}></div>
       {profileUser && (
         <>
