@@ -79,7 +79,6 @@ const LibraryLayout = ({ children, pageType }: LibraryLayoutProps) => {
     router.push('/500');
   }
 
-  console.log(data);
   return (
     <>
       {data && (
