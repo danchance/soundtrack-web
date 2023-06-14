@@ -73,21 +73,29 @@ const Account = () => {
           }
         }
       );
-      if (!res) return;
-      if (res.username.status === 'success') {
-        setUsername('');
-      } else {
-        setUsernameError(res.username.message);
+
+      // Clear field if it was updated successfully, else display the error
+      // message.
+      if (res.username) {
+        if (res.username.status === 'success') {
+          setUsername('');
+        } else {
+          setUsernameError(res.username.message);
+        }
       }
-      if (res.email.status === 'success') {
-        setEmail('');
-      } else {
-        setEmailError(res.email.message);
+      if (res.email) {
+        if (res.email.status === 'success') {
+          setEmail('');
+        } else {
+          setEmailError(res.email.message);
+        }
       }
-      if (res.password.status === 'success') {
-        setPassword('');
-      } else {
-        setPasswordError(res.password.message);
+      if (res.password) {
+        if (res.password.status === 'success') {
+          setPassword('');
+        } else {
+          setPasswordError(res.password.message);
+        }
       }
       // Refresh the access token.
       await getAccessTokenWithPopup({
@@ -97,6 +105,7 @@ const Account = () => {
       });
     } catch (error) {
       const err = error as PatchSettingsError;
+      console.log('error', err);
       if (err.error?.status === 400) {
         for (const error of err.error.error) {
           switch (error.path) {
