@@ -139,7 +139,7 @@ const ProfileLayout = ({ children, page }: ProfileLayoutProps) => {
                     <div className={styles['user']}>
                       <div className={styles['user-data']}>
                         <h1>@{profileUser}</h1>
-                        <p>Member since {memberSince}</p>
+                        <p>Joined on {memberSince}</p>
                         {displayProfile && (
                           <p>
                             <span className={styles['stream-count']}>
