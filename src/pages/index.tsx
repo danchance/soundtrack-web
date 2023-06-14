@@ -28,10 +28,24 @@ import BannerImage17 from '@/assets/images/home_page_banner/master_of_puppets.jp
 import BannerImage18 from '@/assets/images/home_page_banner/brothers_in_arms.jpg';
 import BannerImage19 from '@/assets/images/home_page_banner/living_the_dream.jpg';
 import BannerImage20 from '@/assets/images/home_page_banner/whos_next.jpg';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Home = () => {
-  const { loginWithRedirect } = useAuth0();
+  const router = useRouter();
+  const { isLoading, isAuthenticated, user, loginWithRedirect } = useAuth0();
   const { width } = useWindowSize();
+
+  /**
+   * If the user is already logged in, no need to access home page so redirect to
+   * their profile page.
+   */
+  useEffect(() => {
+    if (isLoading) return;
+    if (isAuthenticated) {
+      router.push(`/user/${user!.username}/profile`);
+    }
+  }, [isLoading, isAuthenticated, router, user]);
 
   return (
     <>
