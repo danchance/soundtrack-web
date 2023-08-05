@@ -104,6 +104,8 @@ const TopItemBarChart = ({ itemList, itemType }: ImageBarChartProps) => {
     ]
   };
 
+  if (itemList.length === 0) return;
+
   return (
     <div className={styles['graph']}>
       <Bar options={options as any} data={chartData} />
